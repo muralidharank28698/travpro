@@ -129,7 +129,7 @@ export default function LoginPage() {
           </form>
 
           <div className="pt-4 text-center border-t border-[var(--card-border)]">
-            <p className="text-sm text-[var(--muted)]">
+            <p className="text-sm text-[var(--muted)] mb-6">
               Don't have an account?{" "}
               <Link 
                 href={redirectTo ? `/register?redirectTo=${redirectTo}` : "/register"} 
@@ -138,6 +138,46 @@ export default function LoginPage() {
                 Sign up
               </Link>
             </p>
+
+            {/* Quick Login Cards */}
+            <div className="space-y-4 pt-4 border-t border-[var(--card-border)] border-dashed">
+              <p className="text-[10px] font-bold text-[var(--muted-light)] uppercase tracking-widest text-center">Quick Access (Dev Mode)</p>
+              <div className="grid grid-cols-2 gap-3">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setEmail("admin@jayasreetravels.com");
+                    setPassword("admin123");
+                  }}
+                  className="flex flex-col items-center p-4 rounded-2xl border border-[var(--card-border)] hover:border-[var(--color-primary)] hover:bg-emerald-50/30 transition-all group active:scale-95"
+                >
+                  <div className="w-9 h-9 rounded-xl bg-emerald-100/50 flex items-center justify-center text-emerald-600 mb-2 group-hover:bg-[var(--color-primary)] group-hover:text-white transition-all shadow-sm">
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                    </svg>
+                  </div>
+                  <span className="text-xs font-bold text-[var(--foreground)]">Admin Role</span>
+                  <span className="text-[10px] text-[var(--muted)] mt-1 truncate w-full">admin123</span>
+                </button>
+                
+                <button
+                  type="button"
+                  onClick={() => {
+                    setEmail("user@jayasreetravels.com");
+                    setPassword("user123");
+                  }}
+                  className="flex flex-col items-center p-4 rounded-2xl border border-[var(--card-border)] hover:border-[var(--color-primary)] hover:bg-emerald-50/30 transition-all group active:scale-95"
+                >
+                  <div className="w-9 h-9 rounded-xl bg-emerald-100/50 flex items-center justify-center text-emerald-600 mb-2 group-hover:bg-[var(--color-primary)] group-hover:text-white transition-all shadow-sm">
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    </svg>
+                  </div>
+                  <span className="text-xs font-bold text-[var(--foreground)]">User Role</span>
+                  <span className="text-[10px] text-[var(--muted)] mt-1 truncate w-full">user123</span>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

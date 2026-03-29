@@ -25,7 +25,15 @@ export default function CarsPage() {
             {available} of {MOCK_CARS.length} vehicles currently available for booking.
           </p>
         </div>
-        <div style={{ display: "flex", gap: "12px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+          <button 
+            onClick={() => alert("Registration of new vehicles - Coming Soon")}
+            className="premium-button shadow-md" 
+            style={{ fontSize: "14px", padding: "10px 20px" }}
+          >
+            + Add New Vehicle
+          </button>
+          <div style={{ display: "flex", gap: "12px" }}>
           <div style={{
             display: "flex",
             alignItems: "center",
@@ -55,11 +63,12 @@ export default function CarsPage() {
           }}>
             {MOCK_CARS.length} Total
           </div>
+          </div>
         </div>
       </div>
 
       {/* Cars Grid */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))", gap: "24px" }}>
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 sm:gap-6">
         {MOCK_CARS.map((car, index) => {
           const config = statusConfig[car.status] || statusConfig["Maintenance"];
           return (

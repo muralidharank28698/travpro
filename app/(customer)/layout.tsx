@@ -34,19 +34,17 @@ export default function CustomerDashboardLayout({
   ];
 
   return (
-    <div style={{ minHeight: "100vh", display: "flex", background: "var(--background)" }}>
+    <div className="min-h-screen flex bg-[var(--background)]">
       {/* Sidebar — desktop only */}
       <aside style={{
         width: "280px",
         height: "100vh",
-        display: "flex",
-        flexDirection: "column",
         backgroundColor: "white",
         borderRight: "1px solid var(--card-border)",
         position: "sticky",
         top: 0,
         flexShrink: 0,
-      }} className="hidden lg:!flex">
+      }} className="hidden lg:flex flex-col">
         {/* Brand */}
         <div style={{ padding: "24px", borderBottom: "1px solid var(--card-border)" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
@@ -138,19 +136,9 @@ export default function CustomerDashboardLayout({
       </aside>
 
       {/* Main Content Area */}
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", height: "100vh", overflow: "hidden" }}>
+      <div className="flex-1 flex flex-col h-screen overflow-hidden">
         {/* Mobile Header */}
-        <header className="lg:hidden" style={{
-          padding: "12px 16px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          borderBottom: "1px solid var(--card-border)",
-          backgroundColor: "white",
-          position: "sticky",
-          top: 0,
-          zIndex: 50,
-        }}>
+        <header className="lg:hidden sticky top-0 z-50 flex items-center justify-between p-4 border-b border-[var(--card-border)] bg-white/80 backdrop-blur-md">
           <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
             <div style={{
               width: "32px",
@@ -163,45 +151,29 @@ export default function CustomerDashboardLayout({
             }}>
               <span style={{ color: "white", fontWeight: 700, fontSize: "14px" }}>J</span>
             </div>
-            <span style={{ fontWeight: 700, color: "var(--foreground)" }}>Customer Portal</span>
+            <span className="font-bold text-[var(--foreground)] truncate max-w-[120px] sm:max-w-none">Customer Portal</span>
           </div>
           <button 
             onClick={handleSignOut} 
-            className="px-3 py-1.5 rounded-md text-xs font-bold text-red-600 hover:bg-red-50 transition-colors"
+            className="text-[10px] font-bold text-red-600 bg-red-50 px-3 py-1.5 rounded-lg border border-red-100 active:scale-95 transition-all"
           >
             Logout
           </button>
         </header>
 
         {/* Mobile Navigation */}
-        <nav className="lg:hidden" style={{
-          display: "flex",
-          borderBottom: "1px solid var(--card-border)",
-          backgroundColor: "white",
-          padding: "0 16px",
-          overflowX: "auto",
-          scrollbarWidth: "none",
-        }}>
+        <nav className="lg:hidden flex border-b border-[var(--card-border)] bg-white/50 backdrop-blur-sm px-4 overflow-x-auto no-scrollbar scroll-smooth">
           {navItems.map((item) => {
             const isActive = pathname === item.href;
             return (
               <Link
                 key={item.href}
                 href={item.href}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "8px",
-                  padding: "12px 16px",
-                  fontSize: "14px",
-                  fontWeight: 500,
-                  textDecoration: "none",
-                  whiteSpace: "nowrap",
-                  borderBottom: isActive ? "2px solid var(--color-primary)" : "2px solid transparent",
-                  marginBottom: "-1px",
-                  color: isActive ? "var(--color-primary)" : "var(--muted)",
-                  transition: "color 0.2s ease",
-                }}
+                className={`flex items-center gap-2 px-4 py-3 text-sm font-semibold whitespace-nowrap border-b-2 transition-all duration-200 ${
+                  isActive 
+                    ? "text-[var(--color-primary)] border-[var(--color-primary)]" 
+                    : "text-[var(--muted)] border-transparent"
+                }`}
               >
                 <span style={{ fontSize: "16px" }}>{item.icon}</span>
                 {item.name}
@@ -211,8 +183,8 @@ export default function CustomerDashboardLayout({
         </nav>
 
         {/* Main */}
-        <main style={{ flex: 1, overflowY: "auto" }} className="custom-scrollbar bg-[var(--background)]">
-          <div style={{ maxWidth: "1000px", margin: "0 auto" }} className="p-4 md:p-6 lg:p-8 animate-fade-in-up">
+        <main className="flex-1 overflow-y-auto custom-scrollbar bg-slate-50/30">
+          <div className="max-w-[1000px] mx-auto p-4 sm:p-6 lg:p-8 animate-fade-in-up">
             {children}
           </div>
         </main>

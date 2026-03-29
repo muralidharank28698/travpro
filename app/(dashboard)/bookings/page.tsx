@@ -31,13 +31,17 @@ export default function BookingsPage() {
             Manage and track all your fleet reservations.
           </p>
         </div>
-        <Link href="/cars" className="premium-button" style={{ fontSize: "14px", padding: "10px 20px" }}>
-          + New Booking
-        </Link>
+        <button 
+          onClick={() => alert("Exporting booking data...")}
+          className="secondary-button" 
+          style={{ fontSize: "14px", padding: "10px 20px" }}
+        >
+          Export Data
+        </button>
       </div>
 
       {/* Stats Row */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: "16px" }}>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {[
           { label: "Total Bookings", value: stats.total, color: "var(--foreground)" },
           { label: "Confirmed", value: stats.confirmed, color: "#059669" },
@@ -45,10 +49,10 @@ export default function BookingsPage() {
           { label: "Completed", value: stats.completed, color: "var(--muted)" },
         ].map((stat) => (
           <GlassCard key={stat.label}>
-            <p style={{ fontSize: "11px", fontWeight: 600, color: "var(--muted)", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "4px" }}>
+            <p className="text-[10px] font-bold text-[var(--muted)] uppercase tracking-widest mb-1">
               {stat.label}
             </p>
-            <p style={{ fontSize: "28px", fontWeight: 700, color: stat.color, margin: 0 }}>
+            <p className="text-2xl sm:text-3xl font-black" style={{ color: stat.color }}>
               {stat.value}
             </p>
           </GlassCard>
@@ -56,21 +60,9 @@ export default function BookingsPage() {
       </div>
 
       {/* Bookings List */}
-      <div className="card" style={{ padding: 0, overflow: "hidden" }}>
-        {/* Table Header */}
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1.2fr 1fr 0.8fr 0.8fr 0.7fr",
-          gap: "16px",
-          padding: "12px 24px",
-          backgroundColor: "var(--surface)",
-          borderBottom: "1px solid var(--card-border)",
-          fontSize: "11px",
-          fontWeight: 600,
-          textTransform: "uppercase" as const,
-          letterSpacing: "0.05em",
-          color: "var(--muted)",
-        }} className="hidden lg:!grid">
+      <div className="card !p-0 overflow-hidden border-none shadow-sm ring-1 ring-slate-100">
+        {/* Table Header - Hidden on Mobile */}
+        <div className="hidden lg:grid grid-cols-[1fr_1.2fr_1fr_0.8fr_0.8fr_0.7fr] gap-4 px-6 py-3 bg-slate-50 border-b border-[var(--card-border)] text-[10px] font-black uppercase tracking-widest text-[var(--muted)]">
           <span>Booking</span>
           <span>Route</span>
           <span>Customer</span>
@@ -80,97 +72,78 @@ export default function BookingsPage() {
         </div>
 
         {/* Rows */}
-        {MOCK_BOOKINGS.map((booking, index) => {
-          const config = statusConfig[booking.status] || statusConfig["Completed"];
-          return (
-            <div
-              key={booking.id}
-              style={{
-                display: "grid",
-                gridTemplateColumns: "1fr",
-                gap: "12px",
-                padding: "20px 24px",
-                borderBottom: index < MOCK_BOOKINGS.length - 1 ? "1px solid var(--card-border)" : "none",
-                transition: "background 0.15s ease",
-                cursor: "default",
-                animationDelay: `${index * 60}ms`,
-              }}
-              className="lg:!grid-cols-[1fr_1.2fr_1fr_0.8fr_0.8fr_0.7fr] animate-fade-in-up"
-              onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "#F8FAFC"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "transparent"; }}
-            >
-              {/* Booking Info */}
-              <div>
-                <p style={{ fontSize: "14px", fontWeight: 700, color: "var(--foreground)", margin: 0 }}>
-                  {booking.carName}
-                </p>
-                <div style={{ display: "flex", alignItems: "center", gap: "8px", marginTop: "4px" }}>
-                  <span style={{ fontSize: "12px", fontFamily: "monospace", color: "var(--muted-light)" }}>{booking.id}</span>
-                  <span style={{
-                    fontSize: "10px",
-                    padding: "2px 8px",
-                    borderRadius: "4px",
-                    backgroundColor: "var(--surface)",
-                    color: "var(--muted)",
-                    fontWeight: 600,
-                  }}>
-                    {booking.tripType}
-                  </span>
+        <div className="divide-y divide-slate-100">
+          {MOCK_BOOKINGS.map((booking, index) => {
+            const config = statusConfig[booking.status] || statusConfig["Completed"];
+            return (
+              <div
+                key={booking.id}
+                className="lg:grid lg:grid-cols-[1fr_1.2fr_1fr_0.8fr_0.8fr_0.7fr] flex flex-col gap-4 lg:gap-4 p-5 lg:px-6 lg:py-5 hover:bg-slate-50/80 transition-all animate-fade-in-up group"
+                style={{ animationDelay: `${index * 50}ms` }}
+              >
+                {/* Booking Info */}
+                <div className="flex flex-col">
+                  <p className="text-sm font-bold text-[var(--foreground)] group-hover:text-[var(--color-primary)] transition-colors">
+                    {booking.carName}
+                  </p>
+                  <div className="flex items-center gap-2 mt-1">
+                    <span className="text-[10px] font-mono text-[var(--muted-light)] bg-slate-100 px-1.5 py-0.5 rounded uppercase">{booking.id}</span>
+                    <span className="text-[10px] font-bold text-[var(--muted)] px-2 py-0.5 bg-white border border-slate-100 rounded shadow-sm">
+                      {booking.tripType}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Route */}
+                <div className="flex items-center gap-3 bg-slate-50/50 lg:bg-transparent p-3 lg:p-0 rounded-xl border border-slate-100 lg:border-none">
+                  <div className="flex flex-col items-center gap-0.5 opacity-60">
+                    <div className="w-1.5 h-1.5 rounded-full border border-[var(--color-primary)]" />
+                    <div className="w-px h-3 bg-slate-300" />
+                    <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-primary)]" />
+                  </div>
+                  <div className="flex flex-col min-w-0">
+                    <p className="text-xs font-semibold text-[var(--foreground)] truncate">{booking.pickupLocation}</p>
+                    <p className="text-xs text-[var(--muted)] truncate">{booking.dropoffLocation}</p>
+                  </div>
+                </div>
+
+                {/* Mobile Grid Wrapper for Metadata */}
+                <div className="grid grid-cols-2 lg:contents gap-4">
+                  {/* Customer */}
+                  <div className="flex flex-col lg:justify-center">
+                    <p className="text-[10px] font-bold lg:hidden text-[var(--muted-light)] uppercase tracking-wider mb-1">Customer</p>
+                    <p className="text-xs font-bold text-[var(--foreground)]">{booking.customerName}</p>
+                    <p className="text-[11px] text-[var(--muted)]">{booking.phone}</p>
+                  </div>
+
+                  {/* Date */}
+                  <div className="flex flex-col lg:justify-center">
+                    <p className="text-[10px] font-bold lg:hidden text-[var(--muted-light)] uppercase tracking-wider mb-1">Schedule</p>
+                    <p className="text-xs font-semibold text-[var(--foreground)]">{booking.startDate}</p>
+                    {booking.startDate !== booking.endDate && (
+                      <p className="text-[11px] text-[var(--muted-light)]">to {booking.endDate}</p>
+                    )}
+                  </div>
+
+                  {/* Amount */}
+                  <div className="flex flex-col lg:justify-center pt-3 lg:pt-0 border-t border-slate-50 lg:border-none">
+                    <p className="text-[10px] font-bold lg:hidden text-[var(--muted-light)] uppercase tracking-wider mb-1">Fare</p>
+                    <p className="text-sm lg:text-base font-black text-[var(--foreground)]">₹{booking.amount.toLocaleString()}</p>
+                  </div>
+
+                  {/* Status */}
+                  <div className="flex flex-col lg:justify-center items-end lg:items-start pt-3 lg:pt-0 border-t border-slate-50 lg:border-none">
+                    <p className="text-[10px] font-bold lg:hidden text-[var(--muted-light)] uppercase tracking-wider mb-1">Status</p>
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold shadow-sm ring-1 ring-inset ring-black/5" style={{ backgroundColor: config.badgeBg, color: config.badgeColor }}>
+                      <span className="w-1 h-1 rounded-full" style={{ backgroundColor: config.dotColor }} />
+                      {booking.status}
+                    </span>
+                  </div>
                 </div>
               </div>
-
-              {/* Route */}
-              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "2px" }}>
-                  <div style={{ width: "8px", height: "8px", borderRadius: "50%", border: "2px solid var(--color-primary)" }} />
-                  <div style={{ width: "1px", height: "16px", backgroundColor: "var(--card-border)" }} />
-                  <div style={{ width: "8px", height: "8px", borderRadius: "50%", backgroundColor: "var(--color-primary)" }} />
-                </div>
-                <div>
-                  <p style={{ fontSize: "14px", color: "var(--foreground)", margin: 0 }}>{booking.pickupLocation}</p>
-                  <p style={{ fontSize: "14px", color: "var(--muted)", margin: 0 }}>{booking.dropoffLocation}</p>
-                </div>
-              </div>
-
-              {/* Customer */}
-              <div>
-                <p style={{ fontSize: "14px", fontWeight: 500, color: "var(--foreground)", margin: 0 }}>{booking.customerName}</p>
-                <p style={{ fontSize: "12px", color: "var(--muted-light)", margin: 0, marginTop: "2px" }}>{booking.phone}</p>
-              </div>
-
-              {/* Date */}
-              <div>
-                <p style={{ fontSize: "14px", color: "var(--foreground)", margin: 0 }}>{booking.startDate}</p>
-                {booking.startDate !== booking.endDate && (
-                  <p style={{ fontSize: "12px", color: "var(--muted-light)", margin: 0, marginTop: "2px" }}>to {booking.endDate}</p>
-                )}
-              </div>
-
-              {/* Amount */}
-              <p style={{ fontSize: "14px", fontWeight: 700, color: "var(--foreground)", margin: 0, alignSelf: "center" }}>
-                ₹{booking.amount.toLocaleString()}
-              </p>
-
-              {/* Status */}
-              <div style={{ alignSelf: "center" }}>
-                <span style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "6px",
-                  padding: "4px 12px",
-                  borderRadius: "9999px",
-                  fontSize: "12px",
-                  fontWeight: 600,
-                  backgroundColor: config.badgeBg,
-                  color: config.badgeColor,
-                }}>
-                  <span style={{ width: "6px", height: "6px", borderRadius: "50%", backgroundColor: config.dotColor }} />
-                  {booking.status}
-                </span>
-              </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </div>
   );
