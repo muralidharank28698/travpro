@@ -8,7 +8,7 @@ export default function LandingPage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative px-6 lg:px-20 pt-8 pb-16 lg:pt-12 lg:pb-24 w-full max-w-[1400px] mx-auto overflow-hidden grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <section className="relative px-4 lg:px-20 pt-6 pb-10 lg:pt-12 lg:pb-24 w-full max-w-[1400px] mx-auto overflow-hidden grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
         {/* Background decorative blob */}
         <div className="absolute top-0 right-0 w-full h-full pointer-events-none -z-10">
           <div className="absolute top-[-10%] right-[-10%] w-[600px] h-[600px] bg-emerald-50 rounded-full blur-3xl opacity-60" />
@@ -86,9 +86,9 @@ export default function LandingPage() {
       </section>
 
       {/* Services Grid */}
-      <section className="py-16 lg:py-24 bg-slate-50 relative z-10 px-6 sm:px-12">
+      <section className="py-8 lg:py-24 bg-slate-50 relative z-10 px-4 sm:px-12">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16 animate-fade-in-up">
+          <div className="text-center mb-10 md:mb-16 animate-fade-in-up">
             <span className="inline-block text-[var(--color-accent)] font-bold text-[14px] tracking-[0.15em] uppercase mb-2">Category</span>
             <h2 className="text-4xl lg:text-5xl font-extrabold text-[var(--foreground)] tracking-tight">We Offer Best Services</h2>
           </div>
@@ -186,9 +186,9 @@ export default function LandingPage() {
       </section>
 
       {/* Top Destinations Section */}
-      <section className="py-16 lg:py-24 bg-white relative z-10 px-6 sm:px-12">
+      <section className="py-8 lg:py-24 bg-white relative z-10 px-4 sm:px-12">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16 animate-fade-in-up">
+          <div className="text-center mb-10 md:mb-16 animate-fade-in-up">
             <span className="inline-block text-[var(--color-accent)] font-bold text-[14px] tracking-[0.15em] uppercase mb-2">Top Selling</span>
             <h2 className="text-4xl lg:text-5xl font-extrabold text-[var(--foreground)] tracking-tight">Top Destinations</h2>
           </div>
@@ -264,7 +264,7 @@ export default function LandingPage() {
       </section>
 
       {/* Why Choose Us Section */}
-      <section className="py-16 lg:py-24 bg-emerald-900 relative z-10 px-6 sm:px-12 overflow-hidden">
+      <section className="py-8 lg:py-24 bg-emerald-900 relative z-10 px-4 sm:px-12 overflow-hidden">
         {/* Background Decor */}
         <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-white via-transparent to-transparent" />
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
@@ -329,7 +329,7 @@ export default function LandingPage() {
       </section>
 
       {/* CTA Footer Banner */}
-      <section className="py-16 lg:py-24 bg-slate-50 relative z-10 px-6 sm:px-12">
+      <section className="py-8 lg:py-24 bg-slate-50 relative z-10 px-4 sm:px-12">
         <div className="max-w-5xl mx-auto bg-emerald-50 rounded-[2rem] sm:rounded-[3rem] p-8 sm:p-12 lg:p-20 text-center relative overflow-hidden border border-emerald-100 shadow-[0_20px_40px_rgba(5,150,105,0.05)]">
           <div className="absolute -top-24 -right-24 w-64 h-64 bg-amber-200 rounded-full blur-3xl opacity-30" />
           <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-emerald-300 rounded-full blur-3xl opacity-30" />

@@ -127,7 +127,12 @@ export default function CustomerDashboardLayout({
             </div>
             <span style={{ fontWeight: 700, color: "var(--foreground)" }}>Customer Portal</span>
           </div>
-          <button onClick={() => router.push("/")} className="text-xs font-bold text-red-600">Logout</button>
+          <button 
+            onClick={() => router.push("/")} 
+            className="px-3 py-1.5 rounded-md text-xs font-bold text-red-600 hover:bg-red-50 transition-colors"
+          >
+            Logout
+          </button>
         </header>
 
         {/* Mobile Navigation */}

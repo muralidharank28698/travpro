@@ -34,7 +34,7 @@ export default function AirportTransfersPage() {
         </p>
       </div>
 
-      <div className="grid lg:grid-cols-2 gap-12">
+      <div className="grid lg:grid-cols-2 gap-12 items-start">
         {/* Quick Booking Form */}
         <div className="card p-8">
           <h2 className="text-2xl font-bold mb-6">Book Transfer</h2>
