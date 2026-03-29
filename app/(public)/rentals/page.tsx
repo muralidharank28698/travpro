@@ -63,7 +63,7 @@ export default function RentalsPage() {
                 </div>
               </div>
 
-              <Link href={`/login`} className="premium-button w-full">
+              <Link href={`/rentals/${car.id}`} className="premium-button w-full">
                 Book {car.name}
               </Link>
             </div>

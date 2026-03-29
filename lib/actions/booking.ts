@@ -7,6 +7,8 @@ import { createClient } from "@/lib/supabase/server";
 export async function createBooking(prevState: any, formData: FormData) {
   const carId = formData.get("carId") as string;
   const userName = formData.get("userName") as string;
+  const userEmail = formData.get("userEmail") as string; // Optional for Guest
+  const userPhone = formData.get("userPhone") as string; // Optional for Guest
   const startTimeStr = formData.get("startTime") as string;
   const endTimeStr = formData.get("endTime") as string;
   const pickupLocation = formData.get("pickupLocation") as string || "Puducherry";
@@ -30,10 +32,11 @@ export async function createBooking(prevState: any, formData: FormData) {
   try {
     const supabase = await createClient();
     
-    // In Mock Mode, createClient returns a mocked object that resolves instantly
-    // In Production Mode, this securely writes to the bookings table.
-    
-    // First, verify the vehicle exists and is available
+    // Check for auth user
+    const { data: { user }, error: authError } = await supabase.auth.getUser();
+    const isGuest = !user || authError;
+
+    // Verify the vehicle exists and is available
     const { data: vehicle, error: vehicleError } = await supabase
       .from("vehicles")
       .select("price_per_day, is_available")
@@ -41,28 +44,21 @@ export async function createBooking(prevState: any, formData: FormData) {
       .single();
       
     if (vehicleError || !vehicle) {
-       // Ignore error in mock mode, but handle for real DB
        if (process.env.NEXT_PUBLIC_MOCK_MODE !== 'true') {
          return { error: "Selected vehicle not found or unavailable." };
        }
     }
 
-    // Calculate mock total amount (or real amount if vehicle was found)
     const pricePerDay = vehicle?.price_per_day || 2500;
     const days = Math.ceil((endTime.getTime() - startTime.getTime()) / (1000 * 60 * 60 * 24));
-    const totalAmount = days * pricePerDay * 1.05; // Base + 5% GST
-
-    // In a real scenario, we'd get the auth user ID. 
-    // Here we're fetching the current authenticated user from Supabase.
-    const { data: { user } } = await supabase.auth.getUser();
-    
-    // This assumes the user is logged in. 
-    // If not, we fall back to a dummy UUID for mock purposes.
-    const userId = user?.id || "00000000-0000-0000-0000-000000000000";
+    const totalAmount = days * pricePerDay * 1.05;
 
     const { error: insertError } = await supabase.from("bookings").insert({
       vehicle_id: carId,
-      user_id: userId,
+      user_id: user?.id || null, // NULL if Guest
+      guest_name: isGuest ? userName : null,
+      guest_email: isGuest ? userEmail : null,
+      guest_phone: isGuest ? userPhone : null,
       start_date: startTime.toISOString(),
       end_date: endTime.toISOString(),
       pickup_location: pickupLocation,
@@ -73,12 +69,15 @@ export async function createBooking(prevState: any, formData: FormData) {
     });
 
     if (insertError && process.env.NEXT_PUBLIC_MOCK_MODE !== 'true') {
-      console.error("Supabase Insert Error:", insertError);
-      return { error: "Failed to create booking in database." };
+      return { error: "Failed to create booking." };
+    }
+
+    if (isGuest) {
+        redirect("/rentals/success");
     }
 
   } catch (err: any) {
-    console.error("Booking failed:", err);
+    if (err.digest?.includes('NEXT_REDIRECT')) throw err;
     return { error: err.message || "An unexpected error occurred." };
   }
 

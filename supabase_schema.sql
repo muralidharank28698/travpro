@@ -36,7 +36,10 @@ CREATE TABLE IF NOT EXISTS public.vehicles (
 -- 4. Bookings Table
 CREATE TABLE IF NOT EXISTS public.bookings (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  user_id UUID NOT NULL REFERENCES public.users(id) ON DELETE CASCADE,
+  user_id UUID REFERENCES public.users(id) ON DELETE CASCADE, -- Optional for Guest Bookings
+  guest_name TEXT, -- Used if user_id is null
+  guest_email TEXT, -- Used if user_id is null
+  guest_phone TEXT, -- Used if user_id is null
   vehicle_id UUID REFERENCES public.vehicles(id) ON DELETE SET NULL, -- Nullable for 'Driver Hire' where vehicle isn't needed
   service_type service_type DEFAULT 'Car Rental',
   start_date TIMESTAMPTZ NOT NULL,
