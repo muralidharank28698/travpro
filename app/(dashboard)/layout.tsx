@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { CURRENT_USER } from "@/lib/mock-data";
+import { ReactNode, useState, useEffect } from "react";
+import { createClient } from "@/lib/supabase/client";
 
 const BookingsIcon = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
@@ -19,10 +20,25 @@ const FleetIcon = () => (
 export default function DashboardLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   const pathname = usePathname();
   const router = useRouter();
+  const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    const supabase = createClient();
+    supabase.auth.getUser().then(({ data: { user } }: { data: { user: any } }) => {
+      setUser(user);
+    });
+  }, []);
+
+  const handleSignOut = async () => {
+    const supabase = createClient();
+    await supabase.auth.signOut();
+    router.refresh();
+    router.push("/");
+  };
 
   const navItems = [
     { name: "Bookings", href: "/bookings", icon: <BookingsIcon /> },
@@ -113,22 +129,31 @@ export default function DashboardLayout({
         <div style={{ padding: "16px", borderTop: "1px solid var(--card-border)" }}>
           <div className="card-elevated" style={{ borderRadius: "12px", padding: "16px" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "12px" }}>
-              <img
-                src={CURRENT_USER.avatar}
-                alt={CURRENT_USER.name}
-                style={{ width: "36px", height: "36px", borderRadius: "8px", border: "1px solid var(--card-border)" }}
-              />
+              <div style={{ 
+                width: "36px", 
+                height: "36px", 
+                borderRadius: "8px", 
+                backgroundColor: "var(--color-primary)", 
+                display: "flex", 
+                alignItems: "center", 
+                justifyContent: "center",
+                color: "white",
+                fontWeight: "bold",
+                fontSize: "14px"
+              }}>
+                {user?.user_metadata?.full_name?.[0] || user?.email?.[0] || "U"}
+              </div>
               <div style={{ flex: 1, minWidth: 0 }}>
                 <p style={{ fontSize: "14px", fontWeight: 600, color: "var(--foreground)", margin: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                  {CURRENT_USER.name}
+                  {user?.user_metadata?.full_name || user?.email || "User"}
                 </p>
                 <p style={{ fontSize: "11px", color: "var(--muted-light)", margin: 0 }}>
-                  {CURRENT_USER.role}
+                  {user?.email === 'admin@jayasreetravels.com' ? 'Fleet Manager' : 'Staff'}
                 </p>
               </div>
             </div>
             <button
-              onClick={() => router.push("/")}
+              onClick={handleSignOut}
               style={{
                 width: "100%",
                 padding: "8px",
@@ -187,11 +212,38 @@ export default function DashboardLayout({
             </div>
             <span style={{ fontWeight: 700, color: "var(--foreground)" }}>Jayasree Travels</span>
           </div>
-          <img
-            src={CURRENT_USER.avatar}
-            alt="User"
-            style={{ width: "32px", height: "32px", borderRadius: "8px", border: "1px solid var(--card-border)" }}
-          />
+          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+            <div style={{ 
+              width: "32px", 
+              height: "32px", 
+              borderRadius: "8px", 
+              backgroundColor: "var(--color-primary)", 
+              display: "flex", 
+              alignItems: "center", 
+              justifyContent: "center",
+              color: "white",
+              fontWeight: "bold",
+              fontSize: "12px"
+            }}>
+              {user?.user_metadata?.full_name?.[0] || user?.email?.[0] || "U"}
+            </div>
+            <button 
+              onClick={handleSignOut}
+              style={{
+                background: "transparent",
+                border: "none",
+                color: "red",
+                fontSize: "12px",
+                fontWeight: 700,
+                cursor: "pointer",
+                padding: "4px 8px",
+                borderRadius: "6px",
+                backgroundColor: "rgba(239, 68, 68, 0.05)"
+              }}
+            >
+              Sign Out
+            </button>
+          </div>
         </header>
 
         {/* Mobile Navigation */}

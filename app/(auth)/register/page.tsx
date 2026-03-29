@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState, FormEvent } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 
@@ -14,8 +14,10 @@ export default function RegisterPage() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get("redirectTo");
 
-  const handleRegister = async (e: React.FormEvent) => {
+  const handleRegister = async (e: FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError("");
@@ -30,8 +32,7 @@ export default function RegisterPage() {
     try {
       const supabase = createClient();
       
-      // In Mock mode, this will return mock success
-      const { data, error } = await supabase.auth.signUp({
+      const { error } = await supabase.auth.signUp({
         email,
         password,
         options: {
@@ -46,8 +47,10 @@ export default function RegisterPage() {
         throw error;
       }
 
-      setSuccess("Registration successful! Check your email to verify your account (if email confirmation is required), or proceed to login.");
-      setTimeout(() => router.push("/login"), 3000);
+      setSuccess("Registration successful! Proceeding to login...");
+      
+      const loginUrl = redirectTo ? `/login?redirectTo=${redirectTo}` : "/login";
+      setTimeout(() => router.push(loginUrl), 1500);
 
     } catch (err: any) {
       setError(err.message || "An error occurred during registration");
@@ -60,8 +63,8 @@ export default function RegisterPage() {
     <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-[var(--background)]">
       {/* Subtle background decoration */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 left-0 w-[40%] h-[40%] bg-blue-50 rounded-full blur-3xl opacity-50" />
-        <div className="absolute bottom-0 right-0 w-[30%] h-[30%] bg-emerald-50 rounded-full blur-3xl opacity-50" />
+        <div className="absolute top-0 left-0 w-[40%] h-[40%] bg-emerald-50/20 rounded-full blur-3xl opacity-50" />
+        <div className="absolute bottom-0 right-0 w-[30%] h-[30%] bg-emerald-50/10 rounded-full blur-3xl opacity-50" />
       </div>
 
       <div className="relative w-full max-w-md animate-fade-in-up">
@@ -76,19 +79,19 @@ export default function RegisterPage() {
         </div>
 
         {/* Form Card */}
-        <div className="card p-8 space-y-6">
+        <div className="card p-8 space-y-6 shadow-2xl">
           <div className="text-center space-y-1">
-            <h1 className="text-2xl font-bold tracking-tight text-[var(--foreground)]">
+            <h1 className="text-2xl font-black tracking-tight text-[var(--foreground)]">
               Create an Account
             </h1>
-            <p className="text-sm text-[var(--muted)]">
-              Join us to book your seamless travel experiences
+            <p className="text-sm font-medium text-[var(--muted)]">
+              Join us for a premium travel experience
             </p>
           </div>
 
           <form onSubmit={handleRegister} className="space-y-4">
             <div className="space-y-1.5">
-              <label className="text-sm font-medium text-[var(--foreground)]">Full Name</label>
+              <label className="text-[13px] font-bold text-slate-700 uppercase tracking-wider">Full Name</label>
               <input
                 type="text"
                 value={name}
@@ -99,7 +102,7 @@ export default function RegisterPage() {
               />
             </div>
             <div className="space-y-1.5">
-              <label className="text-sm font-medium text-[var(--foreground)]">Email Address</label>
+              <label className="text-[13px] font-bold text-slate-700 uppercase tracking-wider">Email Address</label>
               <input
                 type="email"
                 value={email}
@@ -110,18 +113,18 @@ export default function RegisterPage() {
               />
             </div>
             <div className="space-y-1.5">
-              <label className="text-sm font-medium text-[var(--foreground)]">Phone Number</label>
+              <label className="text-[13px] font-bold text-slate-700 uppercase tracking-wider">Phone Number</label>
               <input
                 type="tel"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                placeholder="+91 9876543210"
+                placeholder="+91 98765 43210"
                 className="form-input"
                 required
               />
             </div>
             <div className="space-y-1.5">
-              <label className="text-sm font-medium text-[var(--foreground)]">Password</label>
+              <label className="text-[13px] font-bold text-slate-700 uppercase tracking-wider">Password</label>
               <input
                 type="password"
                 value={password}
@@ -134,30 +137,33 @@ export default function RegisterPage() {
             </div>
 
             {error && (
-              <div className="p-3 rounded-xl bg-red-50 border border-red-200 text-red-600 text-sm font-medium text-center">
-                {error}
+              <div className="p-3.5 rounded-xl bg-red-50 border border-red-200 text-red-600 text-sm font-bold text-center animate-shake">
+                ⚠️ {error}
               </div>
             )}
             
             {success && (
-              <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-600 text-sm font-medium text-center">
-                {success}
+              <div className="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-600 text-sm font-bold text-center">
+                ✅ {success}
               </div>
             )}
 
             <button
               type="submit"
               disabled={loading}
-              className="w-full premium-button py-3 mt-4"
+              className="w-full premium-button py-4 mt-2 font-black shadow-lg shadow-emerald-600/20 active:scale-[0.98]"
             >
               {loading ? "Creating Account..." : "Sign Up"}
             </button>
           </form>
 
           <div className="pt-4 text-center border-t border-[var(--card-border)]">
-            <p className="text-sm text-[var(--muted)]">
+            <p className="text-sm font-medium text-[var(--muted)]">
               Already have an account?{" "}
-              <Link href="/login" className="text-[var(--color-primary)] font-semibold hover:underline">
+              <Link 
+                href={redirectTo ? `/login?redirectTo=${redirectTo}` : "/login"} 
+                className="text-[var(--color-primary)] font-bold hover:underline"
+              >
                 Log in
               </Link>
             </p>
@@ -167,3 +173,4 @@ export default function RegisterPage() {
     </div>
   );
 }
+

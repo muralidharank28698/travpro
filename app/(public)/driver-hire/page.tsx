@@ -1,6 +1,8 @@
 "use client";
 
-import Link from "next/link";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { createClient } from "@/lib/supabase/client";
 
 const DRIVER_PACKAGES = [
   { id: 1, name: "Half Day City", dur: "4 Hours", coverage: "Local City Only", price: 400, icon: "⏱️" },
@@ -11,6 +13,32 @@ const DRIVER_PACKAGES = [
 ];
 
 export default function DriverHirePage() {
+  const router = useRouter();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function checkUser() {
+      const supabase = createClient();
+      const { data } = await supabase.auth.getUser();
+      if (!data.user) {
+        router.push("/login?redirectTo=/driver-hire");
+      } else {
+        setLoading(false);
+      }
+    }
+    checkUser();
+  }, [router]);
+
+  if (loading) {
+    return (
+      <div className="min-h-[80vh] flex flex-col items-center justify-center p-6 text-center animate-fade-in-up">
+        <div className="w-16 h-16 border-4 border-[var(--color-primary)] border-t-transparent rounded-full animate-spin mb-6"></div>
+        <h2 className="text-xl font-black text-slate-800 tracking-tight">Securing your session...</h2>
+        <p className="text-sm font-medium text-slate-400 mt-2 uppercase tracking-widest">Preparing your driver hire options</p>
+      </div>
+    );
+  }
+
   return (
     <div className="py-12 px-6 sm:px-12 max-w-7xl mx-auto w-full animate-fade-in-up">
       <div className="mb-12 text-center">
@@ -26,7 +54,7 @@ export default function DriverHirePage() {
         {DRIVER_PACKAGES.map((pkg, i) => (
           <div key={pkg.id} className="card p-8 group hover:-translate-y-2 transition-all duration-300 relative overflow-hidden flex flex-col justify-between" style={{ animationDelay: `${i * 100}ms` }}>
             <div className="absolute top-0 right-0 w-32 h-32 bg-orange-50 rounded-full blur-[50px] -mr-16 -mt-16 opacity-50 transition-opacity group-hover:opacity-100"></div>
-            
+
             <div className="relative z-10 flex flex-col items-start gap-4 mb-8">
               <span className="text-4xl">{pkg.icon}</span>
               <h3 className="text-2xl font-bold text-[var(--foreground)]">{pkg.name}</h3>
@@ -50,9 +78,12 @@ export default function DriverHirePage() {
                   {pkg.note && <span className="text-xs text-[var(--muted)]">{pkg.note}</span>}
                 </div>
               </div>
-              <Link href="/login" className="bg-orange-50 text-orange-600 font-semibold px-4 py-2 rounded-lg hover:bg-orange-100 transition-colors">
-                Book
-              </Link>
+              <button
+                onClick={() => alert("Chauffeur booking starting...")}
+                className="bg-emerald-50 text-[var(--color-primary)] font-bold px-5 py-2.5 rounded-xl hover:bg-emerald-100 transition-all active:scale-95 shadow-sm"
+              >
+                Hire Now
+              </button>
             </div>
           </div>
         ))}
@@ -85,7 +116,7 @@ export default function DriverHirePage() {
               </li>
             </ul>
           </div>
-          
+
           <div className="w-full lg:w-1/3 bg-white/10 p-6 rounded-2xl backdrop-blur-sm border border-white/10 text-center">
             <div className="w-20 h-20 bg-emerald-500 rounded-full flex items-center justify-center text-3xl mx-auto mb-4 shadow-lg shadow-emerald-500/30">
               🛡️

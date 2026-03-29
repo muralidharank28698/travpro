@@ -1,14 +1,46 @@
 "use client";
 
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
 import { MOCK_CARS } from "@/lib/mock-data";
+import { createClient } from "@/lib/supabase/client";
 import BookingForm from "@/components/booking/BookingForm";
 import Link from "next/link";
 
 export default function CarDetailPage() {
   const params = useParams();
+  const router = useRouter();
   const carId = params.carId as string;
   const car = MOCK_CARS.find((c) => c.id === carId);
+
+  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    async function checkUser() {
+      const supabase = createClient();
+      const { data } = await supabase.auth.getUser();
+      
+      if (!data.user) {
+        // Not logged in: Redirect to login with memory
+        router.push(`/login?redirectTo=/rentals/${carId}`);
+      } else {
+        setUser(data.user);
+        setLoading(false);
+      }
+    }
+    checkUser();
+  }, [carId, router]);
+
+  if (loading) {
+    return (
+      <div className="min-h-[80vh] flex flex-col items-center justify-center p-6 text-center animate-fade-in-up">
+        <div className="w-16 h-16 border-4 border-[var(--color-primary)] border-t-transparent rounded-full animate-spin mb-6"></div>
+        <h2 className="text-xl font-black text-slate-800 tracking-tight">Securing your session...</h2>
+        <p className="text-sm font-medium text-slate-400 mt-2 uppercase tracking-widest">Preparing your booking experience</p>
+      </div>
+    );
+  }
 
   if (!car) {
     return (
@@ -113,3 +145,4 @@ export default function CarDetailPage() {
     </div>
   );
 }
+

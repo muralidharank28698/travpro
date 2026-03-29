@@ -2,14 +2,31 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { ReactNode, useState, useEffect } from "react";
+import { createClient } from "@/lib/supabase/client";
 
 export default function CustomerDashboardLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   const pathname = usePathname();
   const router = useRouter();
+  const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    const supabase = createClient();
+    supabase.auth.getUser().then(({ data: { user } }: { data: { user: any } }) => {
+      setUser(user);
+    });
+  }, []);
+
+  const handleSignOut = async () => {
+    const supabase = createClient();
+    await supabase.auth.signOut();
+    router.refresh();
+    router.push("/");
+  };
 
   const navItems = [
     { name: "My Bookings", href: "/dashboard", icon: "🎫" },
@@ -87,11 +104,32 @@ export default function CustomerDashboardLayout({
 
         {/* Action Bottom */}
         <div style={{ padding: "16px", borderTop: "1px solid var(--card-border)" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "16px", padding: "0 8px" }}>
+            <div style={{ 
+              width: "32px", 
+              height: "32px", 
+              borderRadius: "50%", 
+              backgroundColor: "var(--color-primary)", 
+              display: "flex", 
+              alignItems: "center", 
+              justifyContent: "center",
+              color: "white",
+              fontWeight: "bold",
+              fontSize: "12px"
+            }}>
+              {user?.user_metadata?.full_name?.[0] || user?.email?.[0] || "U"}
+            </div>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <p style={{ fontSize: "13px", fontWeight: 600, color: "var(--foreground)", margin: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                {user?.user_metadata?.full_name || "Guest User"}
+              </p>
+              <p style={{ fontSize: "11px", color: "var(--muted)", margin: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                {user?.email || "customer@example.com"}
+              </p>
+            </div>
+          </div>
           <button
-            onClick={() => {
-                // In production, call supabase.auth.signOut()
-                router.push("/")
-            }}
+            onClick={handleSignOut}
             className="w-full py-2.5 rounded-lg text-sm font-semibold text-[var(--muted)] hover:text-red-600 hover:bg-red-50 transition-colors"
           >
             Sign Out
@@ -128,7 +166,7 @@ export default function CustomerDashboardLayout({
             <span style={{ fontWeight: 700, color: "var(--foreground)" }}>Customer Portal</span>
           </div>
           <button 
-            onClick={() => router.push("/")} 
+            onClick={handleSignOut} 
             className="px-3 py-1.5 rounded-md text-xs font-bold text-red-600 hover:bg-red-50 transition-colors"
           >
             Logout

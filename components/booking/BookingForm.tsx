@@ -3,7 +3,6 @@
 import { useActionState, useState, useEffect } from "react";
 import { createBooking } from "@/lib/actions/booking";
 import { createClient } from "@/lib/supabase/client";
-import Link from "next/link";
 
 interface BookingFormProps {
   carId: string;
@@ -21,17 +20,15 @@ export default function BookingForm({ carId, carName, pricePerDay = 2500 }: Book
   const [totalPrice, setTotalPrice] = useState(0);
   const [daysCount, setDaysCount] = useState(0);
   const [user, setUser] = useState<any>(null);
-  const [loadingAuth, setLoadingAuth] = useState(true);
 
-  // Check auth state
+  // Still fetch user to pre-fill names
   useEffect(() => {
-    async function checkUser() {
+    async function getUser() {
       const supabase = createClient();
       const { data } = await supabase.auth.getUser();
       setUser(data.user);
-      setLoadingAuth(false);
     }
-    checkUser();
+    getUser();
   }, []);
 
   useEffect(() => {
@@ -51,31 +48,15 @@ export default function BookingForm({ carId, carName, pricePerDay = 2500 }: Book
     }
   }, [startTime, endTime, pricePerDay]);
 
-  if (loadingAuth) {
-    return (
-      <div className="card p-12 flex flex-col items-center justify-center gap-4">
-        <div className="w-8 h-8 border-4 border-[var(--color-primary)] border-t-transparent rounded-full animate-spin"></div>
-        <p className="text-sm font-bold text-slate-400 uppercase tracking-widest">Securing Connection...</p>
-      </div>
-    );
-  }
-
   return (
     <div className="animate-fade-in-up">
       <div className="card p-8 border-t-4 border-t-[var(--color-primary)] shadow-2xl">
         <div className="space-y-2 mb-8">
-          <div className="flex justify-between items-start">
-            <h2 className="text-2xl font-black tracking-tight text-slate-800">
-              Book this vehicle
-            </h2>
-            {!user && (
-              <span className="bg-amber-100 text-amber-700 text-[10px] font-black uppercase px-2 py-1 rounded-md tracking-tighter">
-                Guest Mode
-              </span>
-            )}
-          </div>
+          <h2 className="text-2xl font-black tracking-tight text-slate-800">
+            Book this vehicle
+          </h2>
           <p className="text-sm font-medium text-slate-500">
-            {user ? "Confirm your dates to finalize the booking." : "No account? No problem. Book as a guest now."}
+            Secure your rental with Jayasree Travels in just a few clicks.
           </p>
         </div>
 
@@ -84,55 +65,20 @@ export default function BookingForm({ carId, carName, pricePerDay = 2500 }: Book
           
           <div className="space-y-2">
             <label className="text-[13px] font-bold text-slate-700 uppercase tracking-wider">
-              {user ? "Booking Agent" : "Full Name"}
+              Booking Agent / Name
             </label>
             <div className="relative">
               <input
                 name="userName"
                 type="text"
                 defaultValue={user?.user_metadata?.full_name || ""}
-                placeholder="Rajesh Kumar"
+                placeholder="Your Name"
                 className="form-input !pl-12"
                 required
               />
               <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-lg">👤</span>
             </div>
           </div>
-
-          {!user && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 animate-fade-in-up">
-              <div className="space-y-2">
-                <label className="text-[13px] font-bold text-slate-700 uppercase tracking-wider">
-                  Email Address
-                </label>
-                <div className="relative">
-                  <input
-                    name="userEmail"
-                    type="email"
-                    placeholder="rajesh@example.com"
-                    className="form-input !pl-12"
-                    required
-                  />
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-lg">✉️</span>
-                </div>
-              </div>
-              <div className="space-y-2">
-                <label className="text-[13px] font-bold text-slate-700 uppercase tracking-wider">
-                  Phone Number
-                </label>
-                <div className="relative">
-                  <input
-                    name="userPhone"
-                    type="tel"
-                    placeholder="+91 98765 43210"
-                    className="form-input !pl-12"
-                    required
-                  />
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-lg">📞</span>
-                </div>
-              </div>
-            </div>
-          )}
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             <div className="space-y-2">
@@ -199,20 +145,19 @@ export default function BookingForm({ carId, carName, pricePerDay = 2500 }: Book
               </>
             ) : (
               <>
-                {user ? "Confirm Reservation" : "Book as Guest"} <span>→</span>
+                Confirm Reservation <span>→</span>
               </>
             )}
           </button>
           
           <p className="text-[11px] text-center text-slate-400 font-medium uppercase tracking-widest leading-relaxed">
-            {user 
-              ? "Your booking will appear in your dashboard instantly." 
-              : "No login required. We will send details to your email."}
+            Your booking will appear in your dashboard instantly.
           </p>
         </form>
       </div>
     </div>
   );
 }
+
 
 

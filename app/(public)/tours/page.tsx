@@ -1,5 +1,8 @@
 "use client";
 
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { createClient } from "@/lib/supabase/client";
 import Link from "next/link";
 
 const TOUR_PACKAGES = [
@@ -14,6 +17,32 @@ const TOUR_PACKAGES = [
 ];
 
 export default function ToursPage() {
+  const router = useRouter();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function checkUser() {
+      const supabase = createClient();
+      const { data } = await supabase.auth.getUser();
+      if (!data.user) {
+        router.push("/login?redirectTo=/tours");
+      } else {
+        setLoading(false);
+      }
+    }
+    checkUser();
+  }, [router]);
+
+  if (loading) {
+    return (
+      <div className="min-h-[80vh] flex flex-col items-center justify-center p-6 text-center animate-fade-in-up">
+        <div className="w-16 h-16 border-4 border-[var(--color-primary)] border-t-transparent rounded-full animate-spin mb-6"></div>
+        <h2 className="text-xl font-black text-slate-800 tracking-tight">Securing your session...</h2>
+        <p className="text-sm font-medium text-slate-400 mt-2 uppercase tracking-widest">Preparing your tour packages</p>
+      </div>
+    );
+  }
+
   return (
     <div className="py-12 px-6 sm:px-12 max-w-7xl mx-auto w-full animate-fade-in-up">
       <div className="mb-12 text-center">
@@ -62,9 +91,12 @@ export default function ToursPage() {
                   <span className="text-xs text-[var(--muted-light)] font-medium">Starting from</span>
                   <span className="text-lg font-bold text-[var(--foreground)]">₹{tour.price.toLocaleString()}</span>
                 </div>
-                <Link href={`/login`} className="premium-button py-2 px-5 text-sm">
+                <button 
+                  onClick={() => alert("Tour itinerary loading...")}
+                  className="premium-button py-2 px-5 text-sm"
+                >
                   View Itinerary
-                </Link>
+                </button>
               </div>
             </div>
           </div>

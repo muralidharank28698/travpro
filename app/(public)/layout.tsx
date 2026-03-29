@@ -1,16 +1,56 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { ReactNode, useState, useEffect, useRef } from "react";
+import { createClient } from "@/lib/supabase/client";
 
 export default function PublicLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   const pathname = usePathname();
+  const router = useRouter();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const [user, setUser] = useState<any>(null);
+  const userMenuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const supabase = createClient();
+    
+    // Get initial session
+    supabase.auth.getSession().then(({ data: { session } }: { data: { session: any } }) => {
+      setUser(session?.user ?? null);
+    });
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event: any, session: any) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  // Close dropdown on click outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
+        setIsUserMenuOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const handleSignOut = async () => {
+    const supabase = createClient();
+    await supabase.auth.signOut();
+    router.refresh(); // Refresh to update server-side state if any
+    router.push("/");
+    setIsUserMenuOpen(false);
+  };
 
   const navItems = [
     { name: "Car Rentals", href: "/rentals" },
@@ -50,9 +90,73 @@ export default function PublicLayout({
           })}
         </nav>
         
-        <div className="hidden md:flex gap-4">
-          <Link href="/login" className="secondary-button text-sm py-2 px-4">Log In</Link>
-          <Link href="/register" className="premium-button text-sm py-2 px-4 shadow-md">Sign Up</Link>
+        <div className="hidden md:flex items-center">
+          {user ? (
+            <div className="relative" ref={userMenuRef}>
+              <button 
+                onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                className="flex items-center gap-2 p-1 rounded-full hover:bg-slate-50 transition-all border border-transparent hover:border-[var(--card-border)]"
+              >
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-secondary)] flex items-center justify-center text-white font-bold text-sm shadow-sm ring-2 ring-emerald-50 ring-offset-2">
+                  {user.user_metadata?.full_name?.[0] || user.email?.[0] || 'U'}
+                </div>
+                <svg className={`w-4 h-4 text-[var(--muted)] transition-transform duration-200 ${isUserMenuOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+
+              {isUserMenuOpen && (
+                <div className="absolute right-0 mt-3 w-64 bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-[var(--card-border)] overflow-hidden animate-fade-in-up z-50">
+                  <div className="p-4 border-b border-[var(--card-border)] bg-slate-50/50">
+                    <p className="text-xs font-bold text-[var(--muted-light)] uppercase tracking-widest mb-1">Authenticated</p>
+                    <p className="text-sm font-bold text-[var(--foreground)] truncate">
+                      {user.user_metadata?.full_name || user.email}
+                    </p>
+                    <p className="text-[10px] text-[var(--muted)] truncate mt-0.5">{user.email}</p>
+                  </div>
+                  <div className="p-2">
+                    {user.user_metadata?.role === 'admin' ? (
+                      <Link 
+                        href="/bookings" 
+                        onClick={() => setIsUserMenuOpen(false)}
+                        className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-[var(--muted)] hover:text-[var(--color-primary)] hover:bg-emerald-50 transition-all"
+                      >
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                        </svg>
+                        Admin Panel
+                      </Link>
+                    ) : (
+                      <Link 
+                        href="/dashboard" 
+                        onClick={() => setIsUserMenuOpen(false)}
+                        className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-[var(--muted)] hover:text-[var(--color-primary)] hover:bg-emerald-50 transition-all"
+                      >
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                        My Dashboard
+                      </Link>
+                    )}
+                    <button 
+                      onClick={handleSignOut}
+                      className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-red-600 hover:bg-red-50 transition-all"
+                    >
+                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                      </svg>
+                      Sign Out
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className="flex gap-4">
+              <Link href="/login" className="secondary-button text-sm py-2 px-4">Log In</Link>
+              <Link href="/register" className="premium-button text-sm py-2 px-4 shadow-md">Sign Up</Link>
+            </div>
+          )}
         </div>
 
         {/* Mobile Nav Toggle */}
@@ -88,8 +192,30 @@ export default function PublicLayout({
               );
             })}
             <div className="flex flex-col gap-3 mt-4 pt-6 border-t border-[var(--card-border)]">
-              <Link href="/login" onClick={() => setIsMobileMenuOpen(false)} className="secondary-button text-center py-3 text-base">Log In</Link>
-              <Link href="/register" onClick={() => setIsMobileMenuOpen(false)} className="premium-button text-center py-3 text-base">Sign Up</Link>
+              {user ? (
+                <>
+                  <div className="flex flex-col gap-1 mb-2 px-2">
+                    <span className="text-[10px] font-bold text-[var(--muted-light)] uppercase tracking-[0.2em]">Logged in as</span>
+                    <span className="text-sm font-bold text-[var(--foreground)]">{user.user_metadata?.full_name || user.email}</span>
+                  </div>
+                  {user.user_metadata?.role === 'admin' ? (
+                    <Link href="/bookings" onClick={() => setIsMobileMenuOpen(false)} className="premium-button text-center py-3 text-base shadow-md font-bold">Admin Panel</Link>
+                  ) : (
+                    <Link href="/dashboard" onClick={() => setIsMobileMenuOpen(false)} className="secondary-button text-center py-3 text-base font-bold">My Dashboard</Link>
+                  )}
+                  <button 
+                    onClick={() => { handleSignOut(); setIsMobileMenuOpen(false); }} 
+                    className="bg-red-50 text-red-600 font-bold py-3 rounded-xl hover:bg-red-100 transition-all text-base border border-red-100 mt-2"
+                  >
+                    Sign Out
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link href="/login" onClick={() => setIsMobileMenuOpen(false)} className="secondary-button text-center py-3 text-base">Log In</Link>
+                  <Link href="/register" onClick={() => setIsMobileMenuOpen(false)} className="premium-button text-center py-3 text-base">Sign Up</Link>
+                </>
+              )}
             </div>
           </nav>
         </div>

@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState, FormEvent } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 
@@ -11,8 +11,10 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get("redirectTo");
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError("");
@@ -35,10 +37,12 @@ export default function LoginPage() {
         throw authError;
       }
 
-      // Check role to route properly
-      // In a real app we'd fetch the role from the public.users table or custom claims
-      // For now, if it's the admin email, route to fleet dashboard
-      if (email === "admin@jayasreetravels.com") {
+      const userRole = data.user?.user_metadata?.role;
+
+      // Smart redirection logic
+      if (redirectTo) {
+        router.push(redirectTo);
+      } else if (userRole === "admin") {
         router.push("/bookings");
       } else {
         router.push("/dashboard");
@@ -55,8 +59,8 @@ export default function LoginPage() {
     <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-[var(--background)]">
       {/* Subtle background decoration */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-blue-50 rounded-full blur-3xl opacity-50" />
-        <div className="absolute bottom-0 left-0 w-[30%] h-[30%] bg-sky-50 rounded-full blur-3xl opacity-50" />
+        <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-emerald-50/20 rounded-full blur-3xl opacity-50" />
+        <div className="absolute bottom-0 left-0 w-[30%] h-[30%] bg-emerald-50/10 rounded-full blur-3xl opacity-50" />
       </div>
 
       <div className="relative w-full max-w-md animate-fade-in-up">
@@ -110,7 +114,7 @@ export default function LoginPage() {
             </div>
 
             {error && (
-              <div className="p-3 rounded-xl bg-red-50 border border-red-200 text-red-600 text-sm font-medium text-center">
+              <div className="p-3 rounded-xl bg-red-50 border border-red-200 text-red-600 text-sm font-medium text-center animate-shake">
                 {error}
               </div>
             )}
@@ -127,7 +131,10 @@ export default function LoginPage() {
           <div className="pt-4 text-center border-t border-[var(--card-border)]">
             <p className="text-sm text-[var(--muted)]">
               Don't have an account?{" "}
-              <Link href="/register" className="text-[var(--color-primary)] font-semibold hover:underline">
+              <Link 
+                href={redirectTo ? `/register?redirectTo=${redirectTo}` : "/register"} 
+                className="text-[var(--color-primary)] font-semibold hover:underline"
+              >
                 Sign up
               </Link>
             </p>
@@ -137,3 +144,4 @@ export default function LoginPage() {
     </div>
   );
 }
+

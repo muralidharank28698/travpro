@@ -1,7 +1,8 @@
 "use client";
 
-import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { createClient } from "@/lib/supabase/client";
 
 const AIRPORTS = [
   { code: "PNY", name: "Puducherry Airport", dist: "Local" },
@@ -21,7 +22,32 @@ const PRICING = [
 ];
 
 export default function AirportTransfersPage() {
+  const router = useRouter();
   const [direction, setDirection] = useState<"drop" | "pickup">("drop");
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function checkUser() {
+      const supabase = createClient();
+      const { data } = await supabase.auth.getUser();
+      if (!data.user) {
+        router.push("/login?redirectTo=/airport-transfers");
+      } else {
+        setLoading(false);
+      }
+    }
+    checkUser();
+  }, [router]);
+
+  if (loading) {
+    return (
+      <div className="min-h-[80vh] flex flex-col items-center justify-center p-6 text-center animate-fade-in-up">
+        <div className="w-16 h-16 border-4 border-[var(--color-primary)] border-t-transparent rounded-full animate-spin mb-6"></div>
+        <h2 className="text-xl font-black text-slate-800 tracking-tight">Securing your session...</h2>
+        <p className="text-sm font-medium text-slate-400 mt-2 uppercase tracking-widest">Preparing your transfer request</p>
+      </div>
+    );
+  }
 
   return (
     <div className="py-12 px-6 sm:px-12 max-w-7xl mx-auto w-full animate-fade-in-up">
@@ -54,7 +80,7 @@ export default function AirportTransfersPage() {
             </button>
           </div>
 
-          <form className="space-y-5" onSubmit={(e) => { e.preventDefault(); window.location.href = '/login'; }}>
+          <form className="space-y-5" onSubmit={(e) => { e.preventDefault(); alert("Booking system coming soon!"); }}>
             <div className="space-y-2">
               <label className="text-sm font-semibold text-[var(--foreground)]">Select Airport</label>
               <select className="form-input text-[var(--foreground)] bg-white">
