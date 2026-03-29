@@ -64,12 +64,15 @@ export default function PublicLayout({
       {/* Header */}
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b text-[var(--foreground)] border-[var(--card-border)] py-4 px-6 sm:px-12 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-3 decoration-none group">
-          <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-secondary)] flex items-center justify-center shadow-[0_8px_16px_rgba(5,150,105,0.3)] group-hover:scale-105 transition-transform duration-300">
-            <span className="text-white font-bold text-2xl">Z</span>
+          <div className="w-10 h-10 rounded-[12px] bg-slate-900 flex items-center justify-center shadow-md group-hover:bg-[var(--color-primary)] transition-all duration-300">
+            <span className="text-white font-black text-xl italic tracking-tighter font-logo">Z</span>
           </div>
-          <div className="flex flex-col">
-            <span className="text-[22px] font-black tracking-tighter text-[var(--foreground)] leading-none group-hover:text-[var(--color-primary)] transition-colors uppercase">ZYTRAVO</span>
-            <span className="text-[10px] font-bold tracking-[0.25em] text-[var(--color-primary)] uppercase mt-0.5">TRVLS</span>
+          <div className="flex flex-col -space-y-1.5 font-logo">
+            <div className="flex items-baseline leading-none">
+              <span className="text-[24px] font-black tracking-tighter text-[var(--color-primary)]">ZY</span>
+              <span className="text-[24px] font-black tracking-tighter text-[var(--foreground)] transition-colors">TRAVO</span>
+            </div>
+            <span className="text-[9px] font-extrabold tracking-[0.4em] text-[var(--muted-light)] uppercase ml-0.5 transition-colors">TRVLS</span>
           </div>
         </Link>
         
@@ -228,12 +231,15 @@ export default function PublicLayout({
       <footer className="bg-slate-900 border-t border-[var(--card-border)] py-12 px-6 sm:px-12 text-slate-400">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-8 md:gap-6">
           <div className="flex items-center gap-3 group">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-secondary)] flex items-center justify-center shadow-md">
-              <span className="text-white font-bold text-sm">Z</span>
+            <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center border border-white/10 group-hover:bg-[var(--color-primary)] group-hover:border-[var(--color-primary)] transition-all duration-300">
+              <span className="text-white font-black text-sm italic tracking-tighter font-logo">Z</span>
             </div>
-            <div className="flex flex-col">
-              <span className="text-[18px] font-black tracking-tighter text-white leading-none group-hover:text-[var(--color-primary)] transition-colors uppercase">ZYTRAVO TRVLS</span>
-              <span className="text-[9px] font-bold tracking-[0.25em] text-[var(--muted-light)] uppercase mt-0.5">Travels</span>
+            <div className="flex flex-col -space-y-1 font-logo">
+              <div className="flex items-baseline leading-none">
+                <span className="text-[18px] font-black tracking-tighter text-[var(--color-primary)]">ZY</span>
+                <span className="text-[18px] font-black tracking-tighter text-white">TRAVO</span>
+              </div>
+              <span className="text-[8px] font-bold tracking-[0.4em] text-slate-500 uppercase ml-0.5">TRVLS</span>
             </div>
           </div>
           <div className="flex flex-wrap gap-4 sm:gap-6 text-sm">

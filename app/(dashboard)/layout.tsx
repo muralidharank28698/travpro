@@ -59,28 +59,18 @@ export default function DashboardLayout({
       }} className="hidden lg:flex flex-col">
         {/* Brand */}
         <div style={{ padding: "24px", borderBottom: "1px solid var(--card-border)" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-            <div style={{
-              width: "36px",
-              height: "36px",
-              borderRadius: "8px",
-              background: "linear-gradient(135deg, var(--color-primary), var(--color-secondary))",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              boxShadow: "0 4px 12px rgb(37 99 235 / 0.3)",
-            }}>
-              <span style={{ color: "white", fontWeight: 700, fontSize: "18px" }}>Z</span>
+          <Link href="/" className="flex items-center gap-3 decoration-none group">
+            <div className="w-9 h-9 rounded-lg bg-slate-900 flex items-center justify-center shadow-md group-hover:bg-[var(--color-primary)] transition-all duration-300">
+              <span className="text-white font-black text-lg italic tracking-tighter font-logo">Z</span>
             </div>
-            <div>
-              <h1 style={{ fontWeight: 700, fontSize: "16px", lineHeight: 1, color: "var(--foreground)", margin: 0 }}>
-                Zytravo Trvls
-              </h1>
-              <p style={{ fontSize: "11px", color: "var(--muted-light)", fontWeight: 500, marginTop: "4px" }}>
-                Fleet Management
-              </p>
+            <div className="flex flex-col -space-y-1 font-logo">
+              <div className="flex items-baseline leading-none">
+                <span className="text-[18px] font-black tracking-tighter text-[var(--color-primary)]">ZY</span>
+                <span className="text-[18px] font-black tracking-tighter text-[var(--foreground)]">TRAVO</span>
+              </div>
+              <span className="text-[8px] font-bold tracking-[0.4em] text-[var(--muted-light)] uppercase ml-0.5">TRVLS</span>
             </div>
-          </div>
+          </Link>
         </div>
 
         {/* Navigation */}
@@ -158,22 +148,21 @@ export default function DashboardLayout({
                 borderRadius: "8px",
                 fontSize: "12px",
                 fontWeight: 600,
+                backgroundColor: "var(--surface)",
                 color: "var(--muted)",
-                background: "transparent",
-                border: "1px solid transparent",
+                border: "1px solid var(--card-border)",
                 cursor: "pointer",
                 transition: "all 0.2s ease",
-                textAlign: "center",
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.color = "#DC2626";
-                e.currentTarget.style.backgroundColor = "#FEF2F2";
-                e.currentTarget.style.borderColor = "#FECACA";
+                e.currentTarget.style.backgroundColor = "rgba(239, 68, 68, 0.05)";
+                e.currentTarget.style.color = "red";
+                e.currentTarget.style.borderColor = "rgba(239, 68, 68, 0.2)";
               }}
               onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = "var(--surface)";
                 e.currentTarget.style.color = "var(--muted)";
-                e.currentTarget.style.backgroundColor = "transparent";
-                e.currentTarget.style.borderColor = "transparent";
+                e.currentTarget.style.borderColor = "var(--card-border)";
               }}
             >
               Sign Out
@@ -186,20 +175,18 @@ export default function DashboardLayout({
       <div className="flex-1 flex flex-col h-screen overflow-hidden">
         {/* Mobile Header */}
         <header className="lg:hidden sticky top-0 z-50 flex items-center justify-between p-4 border-b border-[var(--card-border)] bg-white/80 backdrop-blur-md">
-          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-            <div style={{
-              width: "32px",
-              height: "32px",
-              borderRadius: "8px",
-              background: "linear-gradient(135deg, var(--color-primary), var(--color-secondary))",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}>
-              <span style={{ color: "white", fontWeight: 700, fontSize: "14px" }}>Z</span>
+          <Link href="/" className="flex items-center gap-2 decoration-none group font-logo">
+            <div className="w-8 h-8 rounded-lg bg-slate-900 flex items-center justify-center shadow-sm">
+              <span className="text-white font-black text-sm italic tracking-tighter">Z</span>
             </div>
-            <span className="font-bold text-[var(--foreground)] truncate max-w-[120px] sm:max-w-none">Zytravo Trvls</span>
-          </div>
+            <div className="flex flex-col -space-y-1">
+              <div className="flex items-baseline leading-none">
+                <span className="text-[14px] font-black tracking-tighter text-[var(--color-primary)]">ZY</span>
+                <span className="text-[14px] font-black tracking-tighter text-[var(--foreground)]">TRAVO</span>
+              </div>
+              <span className="text-[6px] font-bold tracking-[0.4em] text-[var(--muted-light)] uppercase ml-0.5">TRVLS</span>
+            </div>
+          </Link>
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
             <div className="w-8 h-8 rounded-lg bg-[var(--color-primary)] flex items-center justify-center text-white font-bold text-[10px] shadow-sm">
               {user?.user_metadata?.full_name?.[0] || user?.email?.[0] || "U"}
