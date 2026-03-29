@@ -200,6 +200,8 @@ export default function DashboardLayout({
           borderBottom: "1px solid var(--card-border)",
           backgroundColor: "white",
           padding: "0 16px",
+          overflowX: "auto",
+          scrollbarWidth: "none",
         }}>
           {navItems.map((item) => {
             const isActive = pathname === item.href;
@@ -215,6 +217,7 @@ export default function DashboardLayout({
                   fontSize: "14px",
                   fontWeight: 500,
                   textDecoration: "none",
+                  whiteSpace: "nowrap",
                   borderBottom: isActive ? "2px solid var(--color-primary)" : "2px solid transparent",
                   marginBottom: "-1px",
                   color: isActive ? "var(--color-primary)" : "var(--muted)",
@@ -229,7 +232,7 @@ export default function DashboardLayout({
         </nav>
 
         <main style={{ flex: 1, overflowY: "auto" }} className="custom-scrollbar">
-          <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "24px 32px" }} className="animate-fade-in-up">
+          <div style={{ maxWidth: "1200px", margin: "0 auto" }} className="p-4 md:p-6 lg:p-8 animate-fade-in-up">
             {children}
           </div>
         </main>

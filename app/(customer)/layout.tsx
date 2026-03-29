@@ -130,9 +130,46 @@ export default function CustomerDashboardLayout({
           <button onClick={() => router.push("/")} className="text-xs font-bold text-red-600">Logout</button>
         </header>
 
+        {/* Mobile Navigation */}
+        <nav className="lg:hidden" style={{
+          display: "flex",
+          borderBottom: "1px solid var(--card-border)",
+          backgroundColor: "white",
+          padding: "0 16px",
+          overflowX: "auto",
+          scrollbarWidth: "none",
+        }}>
+          {navItems.map((item) => {
+            const isActive = pathname === item.href;
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                  padding: "12px 16px",
+                  fontSize: "14px",
+                  fontWeight: 500,
+                  textDecoration: "none",
+                  whiteSpace: "nowrap",
+                  borderBottom: isActive ? "2px solid var(--color-primary)" : "2px solid transparent",
+                  marginBottom: "-1px",
+                  color: isActive ? "var(--color-primary)" : "var(--muted)",
+                  transition: "color 0.2s ease",
+                }}
+              >
+                <span style={{ fontSize: "16px" }}>{item.icon}</span>
+                {item.name}
+              </Link>
+            );
+          })}
+        </nav>
+
         {/* Main */}
         <main style={{ flex: 1, overflowY: "auto" }} className="custom-scrollbar bg-[var(--background)]">
-          <div style={{ maxWidth: "1000px", margin: "0 auto", padding: "24px 32px" }} className="animate-fade-in-up">
+          <div style={{ maxWidth: "1000px", margin: "0 auto" }} className="p-4 md:p-6 lg:p-8 animate-fade-in-up">
             {children}
           </div>
         </main>

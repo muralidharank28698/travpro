@@ -19,7 +19,7 @@ export default function LandingPage() {
           <span className="inline-block text-[var(--color-accent)] font-bold text-[15px] tracking-[0.15em] uppercase">
             Best Destinations Around South India
           </span>
-          <h1 className="text-5xl sm:text-6xl lg:text-[72px] font-extrabold tracking-tight text-[var(--foreground)] leading-[1.12]">
+          <h1 className="text-4xl sm:text-5xl lg:text-[72px] font-extrabold tracking-tight text-[var(--foreground)] leading-[1.15] lg:leading-[1.12]">
             Travel, enjoy <br className="hidden lg:block"/>
             and live a new <br className="hidden lg:block"/>
             and full life
@@ -86,7 +86,7 @@ export default function LandingPage() {
       </section>
 
       {/* Services Grid */}
-      <section className="py-24 bg-slate-50 relative z-10 px-6 sm:px-12">
+      <section className="py-16 lg:py-24 bg-slate-50 relative z-10 px-6 sm:px-12">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16 animate-fade-in-up">
             <span className="inline-block text-[var(--color-accent)] font-bold text-[14px] tracking-[0.15em] uppercase mb-2">Category</span>
@@ -186,7 +186,7 @@ export default function LandingPage() {
       </section>
 
       {/* Top Destinations Section */}
-      <section className="py-24 bg-white relative z-10 px-6 sm:px-12">
+      <section className="py-16 lg:py-24 bg-white relative z-10 px-6 sm:px-12">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16 animate-fade-in-up">
             <span className="inline-block text-[var(--color-accent)] font-bold text-[14px] tracking-[0.15em] uppercase mb-2">Top Selling</span>
@@ -264,7 +264,7 @@ export default function LandingPage() {
       </section>
 
       {/* Why Choose Us Section */}
-      <section className="py-24 bg-emerald-900 relative z-10 px-6 sm:px-12 overflow-hidden">
+      <section className="py-16 lg:py-24 bg-emerald-900 relative z-10 px-6 sm:px-12 overflow-hidden">
         {/* Background Decor */}
         <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-white via-transparent to-transparent" />
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
@@ -286,10 +286,10 @@ export default function LandingPage() {
             </div>
           </div>
 
-          <div className="space-y-10 text-white relative z-10">
+          <div className="space-y-10 text-white relative z-10 mt-12 lg:mt-0">
             <div>
               <span className="inline-block text-emerald-400 font-bold text-[14px] tracking-[0.15em] uppercase mb-2">Why Us?</span>
-              <h2 className="text-4xl lg:text-5xl font-extrabold tracking-tight mb-6">Experience the highest standard of travel</h2>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight mb-6">Experience the highest standard of travel</h2>
               <p className="text-emerald-100/80 text-[17px] leading-relaxed max-w-[500px]">
                 We don't just provide a vehicle; we deliver a premium, stress-free travel experience across South India.
               </p>
@@ -329,16 +329,16 @@ export default function LandingPage() {
       </section>
 
       {/* CTA Footer Banner */}
-      <section className="py-24 bg-slate-50 relative z-10 px-6 sm:px-12">
-        <div className="max-w-5xl mx-auto bg-emerald-50 rounded-[3rem] p-12 lg:p-20 text-center relative overflow-hidden border border-emerald-100 shadow-[0_20px_40px_rgba(5,150,105,0.05)]">
+      <section className="py-16 lg:py-24 bg-slate-50 relative z-10 px-6 sm:px-12">
+        <div className="max-w-5xl mx-auto bg-emerald-50 rounded-[2rem] sm:rounded-[3rem] p-8 sm:p-12 lg:p-20 text-center relative overflow-hidden border border-emerald-100 shadow-[0_20px_40px_rgba(5,150,105,0.05)]">
           <div className="absolute -top-24 -right-24 w-64 h-64 bg-amber-200 rounded-full blur-3xl opacity-30" />
           <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-emerald-300 rounded-full blur-3xl opacity-30" />
           
-          <div className="relative z-10 max-w-2xl mx-auto space-y-8">
-            <h2 className="text-4xl lg:text-5xl font-black text-slate-800 tracking-tight">Ready to start your journey?</h2>
-            <p className="text-slate-600 text-lg font-medium">Book your reliable ride today and experience the absolute best in comfort and safety across South India.</p>
+          <div className="relative z-10 max-w-2xl mx-auto space-y-6 lg:space-y-8">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-800 tracking-tight">Ready to start your journey?</h2>
+            <p className="text-slate-600 text-base lg:text-lg font-medium">Book your reliable ride today and experience the absolute best in comfort and safety across South India.</p>
             <div className="flex justify-center pt-4">
-              <Link href="/rentals" className="text-[18px] py-4 px-10 rounded-2xl shadow-[0px_20px_35px_rgba(5,150,105,0.25)] hover:-translate-y-1 transition-transform text-white font-bold bg-[var(--color-primary)]">
+              <Link href="/rentals" className="text-[16px] lg:text-[18px] py-3 lg:py-4 px-8 lg:px-10 rounded-xl lg:rounded-2xl shadow-[0px_20px_35px_rgba(5,150,105,0.25)] hover:-translate-y-1 transition-transform text-white font-bold bg-[var(--color-primary)] w-full sm:w-auto">
                 Book Your Ride Now
               </Link>
             </div>
