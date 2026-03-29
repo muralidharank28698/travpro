@@ -14,7 +14,7 @@ export default function GuestSuccessPage() {
       </h1>
       
       <p className="text-lg text-slate-600 mb-10 leading-relaxed">
-        Thank you for choosing Jayasree Travels. We've received your guest booking request and our team will contact you shortly for confirmation.
+        Thank you for choosing Zytravo Trvls. We've received your guest booking request and our team will contact you shortly for confirmation.
       </p>
 
       <div className="card p-8 border-2 border-dashed border-slate-200 bg-slate-50/50 mb-12">

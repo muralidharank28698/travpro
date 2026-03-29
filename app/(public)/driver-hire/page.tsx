@@ -93,7 +93,7 @@ export default function DriverHirePage() {
       <div className="bg-slate-900 rounded-2xl p-8 sm:p-12 text-slate-100 mt-20 relative overflow-hidden">
         <div className="relative z-10 flex flex-col lg:flex-row gap-12 items-center">
           <div className="flex-1 space-y-6">
-            <h2 className="text-3xl font-bold tracking-tight text-white mb-6">The Jayasree Standard</h2>
+            <h2 className="text-3xl font-bold tracking-tight text-white mb-6">The Zytravo Standard</h2>
             <p className="text-slate-300 leading-relaxed text-lg">
               We don't just provide drivers; we provide peace of mind. Every chauffeur undergoes strict verification before they get behind the wheel of your car.
             </p>

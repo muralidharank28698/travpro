@@ -26,7 +26,7 @@ export default function LandingPage() {
           </h1>
           <p className="text-[17px] text-[var(--muted)] max-w-[450px] leading-relaxed font-medium">
             From quick airport drops and premium car rentals to extensive South India tours. 
-            Experience comfort, safety, and ultimate reliability with Jayasree Travels.
+            Experience comfort, safety, and ultimate reliability with Zytravo Trvls.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-6 lg:gap-8 items-center pt-4">
@@ -60,7 +60,7 @@ export default function LandingPage() {
                 width="100%" 
                 height="100%" 
                 src="https://www.youtube.com/embed/Sen_tMhmPv8?autoplay=1" 
-                title="Jayasree Travels Demo Video" 
+                title="Zytravo Trvls Demo Video" 
                 frameBorder="0" 
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                 allowFullScreen 
@@ -291,7 +291,7 @@ export default function LandingPage() {
               <span className="inline-block text-emerald-400 font-bold text-[14px] tracking-[0.15em] uppercase mb-2">Why Us?</span>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight mb-6">Experience the highest standard of travel</h2>
               <p className="text-emerald-100/80 text-[17px] leading-relaxed max-w-[500px]">
-                We don't just provide a vehicle; we deliver a premium, stress-free travel experience across South India.
+                We don't just provide a vehicle; we deliver a premium, stress-free travel experience across South India with Zytravo Trvls.
               </p>
             </div>
 

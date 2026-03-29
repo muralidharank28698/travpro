@@ -204,7 +204,7 @@ export const MOCK_BOOKINGS: Booking[] = [
 
 export const CURRENT_USER = {
   name: "Murali Dharan",
-  email: "admin@jayasreetravels.com",
+  email: "admin@zytravo.com",
   role: "Fleet Manager",
   avatar: "https://avatar.iran.liara.run/public/1",
 };

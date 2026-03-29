@@ -1,6 +1,6 @@
-# Jayasree Travels: Application Architecture & Flow
+# Zytravo Trvls: Application Architecture & Flow
 
-This document outlines the technical architecture, routing structure, user flows, and database design for the Jayasree Travels platform. The application is built using a modern **Next.js (App Router)** frontend paired with a **Supabase (PostgreSQL)** backend.
+This document outlines the technical architecture, routing structure, user flows, and database design for the Zytravo Trvls platform. The application is built using a modern **Next.js (App Router)** frontend paired with a **Supabase (PostgreSQL)** backend.
 
 ---
 

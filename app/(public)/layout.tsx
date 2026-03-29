@@ -65,13 +65,11 @@ export default function PublicLayout({
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b text-[var(--foreground)] border-[var(--card-border)] py-4 px-6 sm:px-12 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-3 decoration-none group">
           <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-secondary)] flex items-center justify-center shadow-[0_8px_16px_rgba(5,150,105,0.3)] group-hover:scale-105 transition-transform duration-300">
-            <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5H6.5c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.85 7h10.28l1.08 3.11H5.78L6.85 7zM6 14.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm12 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
-            </svg>
+            <span className="text-white font-bold text-2xl">Z</span>
           </div>
           <div className="flex flex-col">
-            <span className="text-[22px] font-black tracking-tighter text-[var(--foreground)] leading-none group-hover:text-[var(--color-primary)] transition-colors">JAYASREE</span>
-            <span className="text-[10px] font-bold tracking-[0.25em] text-[var(--color-primary)] uppercase mt-0.5">Travels</span>
+            <span className="text-[22px] font-black tracking-tighter text-[var(--foreground)] leading-none group-hover:text-[var(--color-primary)] transition-colors uppercase">ZYTRAVO</span>
+            <span className="text-[10px] font-bold tracking-[0.25em] text-[var(--color-primary)] uppercase mt-0.5">TRVLS</span>
           </div>
         </Link>
         
@@ -230,13 +228,11 @@ export default function PublicLayout({
       <footer className="bg-slate-900 border-t border-[var(--card-border)] py-12 px-6 sm:px-12 text-slate-400">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-8 md:gap-6">
           <div className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-secondary)] flex items-center justify-center shadow-lg">
-              <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5H6.5c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.85 7h10.28l1.08 3.11H5.78L6.85 7zM6 14.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm12 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
-              </svg>
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-secondary)] flex items-center justify-center shadow-md">
+              <span className="text-white font-bold text-sm">Z</span>
             </div>
             <div className="flex flex-col">
-              <span className="text-[18px] font-black tracking-tighter text-white leading-none group-hover:text-[var(--color-primary)] transition-colors">JAYASREE</span>
+              <span className="text-[18px] font-black tracking-tighter text-white leading-none group-hover:text-[var(--color-primary)] transition-colors uppercase">ZYTRAVO TRVLS</span>
               <span className="text-[9px] font-bold tracking-[0.25em] text-[var(--muted-light)] uppercase mt-0.5">Travels</span>
             </div>
           </div>
@@ -246,7 +242,7 @@ export default function PublicLayout({
             <Link href="/contact" className="hover:text-white transition">Support</Link>
           </div>
           <div className="text-sm max-w-[300px] md:max-w-none">
-            © {new Date().getFullYear()} Jayasree Travels, Puducherry. All rights reserved.
+            © {new Date().getFullYear()} Zytravo Trvls, Puducherry. All rights reserved.
           </div>
         </div>
       </footer>

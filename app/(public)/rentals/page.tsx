@@ -73,7 +73,7 @@ export default function RentalsPage() {
       
       {/* Features Section */}
       <div className="mt-20 border-t border-[var(--card-border)] pt-16">
-        <h2 className="text-2xl font-bold text-center mb-10">Why Rent With Jayasree Travels?</h2>
+        <h2 className="text-2xl font-bold text-center mb-10">Why Rent With Zytravo Trvls?</h2>
         <div className="grid md:grid-cols-3 gap-8 text-center text-[var(--muted)]">
           <div>
             <div className="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4 text-xl">🛡️</div>

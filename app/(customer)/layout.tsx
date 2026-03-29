@@ -58,11 +58,11 @@ export default function CustomerDashboardLayout({
               justifyContent: "center",
               boxShadow: "0 4px 12px rgb(37 99 235 / 0.3)",
             }}>
-              <span style={{ color: "white", fontWeight: 700, fontSize: "18px" }}>J</span>
+              <span style={{ color: "white", fontWeight: 700, fontSize: "18px" }}>Z</span>
             </div>
             <div>
               <h1 style={{ fontWeight: 700, fontSize: "16px", lineHeight: 1, color: "var(--foreground)", margin: 0 }}>
-                Jayasree Travels
+                Zytravo Trvls
               </h1>
               <p style={{ fontSize: "11px", color: "var(--color-primary)", fontWeight: 600, marginTop: "4px" }}>
                 Customer Portal
@@ -149,7 +149,7 @@ export default function CustomerDashboardLayout({
               alignItems: "center",
               justifyContent: "center",
             }}>
-              <span style={{ color: "white", fontWeight: 700, fontSize: "14px" }}>J</span>
+              <span style={{ color: "white", fontWeight: 700, fontSize: "14px" }}>Z</span>
             </div>
             <span className="font-bold text-[var(--foreground)] truncate max-w-[120px] sm:max-w-none">Customer Portal</span>
           </div>

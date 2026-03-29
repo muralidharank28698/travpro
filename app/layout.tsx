@@ -10,9 +10,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Jayasree Travels — Premium Car Booking",
+  title: "Zytravo Trvls — Premium Car Booking",
   description:
-    "Book premium private cars for your next journey. Seamless booking, verified fleet, and 24/7 support.",
+    "Experience comfort, safety, and ultimate reliability with Zytravo Trvls.",
 };
 
 export default function RootLayout({

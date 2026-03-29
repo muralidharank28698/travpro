@@ -70,11 +70,11 @@ export default function DashboardLayout({
               justifyContent: "center",
               boxShadow: "0 4px 12px rgb(37 99 235 / 0.3)",
             }}>
-              <span style={{ color: "white", fontWeight: 700, fontSize: "18px" }}>J</span>
+              <span style={{ color: "white", fontWeight: 700, fontSize: "18px" }}>Z</span>
             </div>
             <div>
               <h1 style={{ fontWeight: 700, fontSize: "16px", lineHeight: 1, color: "var(--foreground)", margin: 0 }}>
-                Jayasree Travels
+                Zytravo Trvls
               </h1>
               <p style={{ fontSize: "11px", color: "var(--muted-light)", fontWeight: 500, marginTop: "4px" }}>
                 Fleet Management
@@ -146,7 +146,7 @@ export default function DashboardLayout({
                   {user?.user_metadata?.full_name || user?.email || "User"}
                 </p>
                 <p style={{ fontSize: "11px", color: "var(--muted-light)", margin: 0 }}>
-                  {user?.email === 'admin@jayasreetravels.com' ? 'Fleet Manager' : 'Staff'}
+                  {user?.email === 'admin@zytravo.com' ? 'Fleet Manager' : 'Staff'}
                 </p>
               </div>
             </div>
@@ -196,9 +196,9 @@ export default function DashboardLayout({
               alignItems: "center",
               justifyContent: "center",
             }}>
-              <span style={{ color: "white", fontWeight: 700, fontSize: "14px" }}>J</span>
+              <span style={{ color: "white", fontWeight: 700, fontSize: "14px" }}>Z</span>
             </div>
-            <span className="font-bold text-[var(--foreground)] truncate max-w-[120px] sm:max-w-none">Jayasree Travels</span>
+            <span className="font-bold text-[var(--foreground)] truncate max-w-[120px] sm:max-w-none">Zytravo Trvls</span>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
             <div className="w-8 h-8 rounded-lg bg-[var(--color-primary)] flex items-center justify-center text-white font-bold text-[10px] shadow-sm">

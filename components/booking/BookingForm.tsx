@@ -56,7 +56,7 @@ export default function BookingForm({ carId, carName, pricePerDay = 2500 }: Book
             Book this vehicle
           </h2>
           <p className="text-sm font-medium text-slate-500">
-            Secure your rental with Jayasree Travels in just a few clicks.
+            Secure your rental with Zytravo Trvls in just a few clicks.
           </p>
         </div>
 

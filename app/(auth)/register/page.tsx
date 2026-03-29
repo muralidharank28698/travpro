@@ -71,10 +71,10 @@ export default function RegisterPage() {
         {/* Logo */}
         <div className="flex items-center justify-center gap-3 mb-10">
           <Link href="/" className="w-10 h-10 rounded-xl bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-secondary)] flex items-center justify-center shadow-lg decoration-none">
-            <span className="text-white font-bold text-xl">J</span>
+            <span className="text-white font-bold text-xl">Z</span>
           </Link>
           <span className="text-2xl font-bold tracking-tight text-[var(--foreground)]">
-            Jayasree Travels
+            Zytravo Trvls
           </span>
         </div>
 
@@ -85,7 +85,7 @@ export default function RegisterPage() {
               Create an Account
             </h1>
             <p className="text-sm font-medium text-[var(--muted)]">
-              Join us for a premium travel experience
+              Secure your rental with Zytravo Trvls in just a few clicks.
             </p>
           </div>
 
@@ -107,7 +107,7 @@ export default function RegisterPage() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="john@example.com"
+                placeholder="admin@zytravo.com"
                 className="form-input"
                 required
               />

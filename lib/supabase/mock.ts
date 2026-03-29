@@ -18,12 +18,12 @@ let mockBookings: any[] = [
 
 // Mock Credentials
 const MOCK_CREDENTIALS = [
-  { email: 'admin@jayasreetravels.com', password: 'admin123', role: 'admin', name: 'Admin User' },
-  { email: 'user@jayasreetravels.com', password: 'user123', role: 'user', name: 'Mock Customer' },
+  { email: 'admin@zytravo.com', password: 'admin123', role: 'admin', name: 'Admin User' },
+  { email: 'user@zytravo.com', password: 'user123', role: 'user', name: 'Mock Customer' },
 ];
 
 // Mock Session Persistence
-const SESSION_KEY = 'jayasree-mock-auth';
+const SESSION_KEY = 'zytravo-mock-auth';
 const getStoredSession = () => {
   if (typeof window === 'undefined') return null;
   const data = localStorage.getItem(SESSION_KEY);
@@ -87,7 +87,7 @@ export const createMockClient = () => {
         if (!found) {
           return { 
             data: { user: null, session: null }, 
-            error: { message: 'Invalid email or password. Use: admin@jayasreetravels.com / admin123  OR  user@jayasreetravels.com / user123' } 
+            error: { message: 'Invalid email or password. Use: admin@zytravo.com / admin123  OR  user@zytravo.com / user123' } 
           };
         }
 

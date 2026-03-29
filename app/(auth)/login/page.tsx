@@ -67,10 +67,10 @@ export default function LoginPage() {
         {/* Logo */}
         <div className="flex items-center justify-center gap-3 mb-10">
           <Link href="/" className="w-10 h-10 rounded-xl bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-secondary)] flex items-center justify-center shadow-lg decoration-none">
-            <span className="text-white font-bold text-xl">J</span>
+            <span className="text-white font-bold text-xl">Z</span>
           </Link>
           <span className="text-2xl font-bold tracking-tight text-[var(--foreground)]">
-            Jayasree Travels
+            Zytravo Trvls
           </span>
         </div>
 
@@ -146,7 +146,7 @@ export default function LoginPage() {
                 <button
                   type="button"
                   onClick={() => {
-                    setEmail("admin@jayasreetravels.com");
+                    setEmail("admin@zytravo.com");
                     setPassword("admin123");
                   }}
                   className="flex flex-col items-center p-4 rounded-2xl border border-[var(--card-border)] hover:border-[var(--color-primary)] hover:bg-emerald-50/30 transition-all group active:scale-95"
@@ -163,7 +163,7 @@ export default function LoginPage() {
                 <button
                   type="button"
                   onClick={() => {
-                    setEmail("user@jayasreetravels.com");
+                    setEmail("user@zytravo.com");
                     setPassword("user123");
                   }}
                   className="flex flex-col items-center p-4 rounded-2xl border border-[var(--card-border)] hover:border-[var(--color-primary)] hover:bg-emerald-50/30 transition-all group active:scale-95"
