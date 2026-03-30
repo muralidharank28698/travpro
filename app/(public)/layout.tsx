@@ -33,6 +33,11 @@ export default function PublicLayout({
     return () => subscription.unsubscribe();
   }, []);
 
+  // Force scroll to top on every route change
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
   // Close dropdown on click outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
