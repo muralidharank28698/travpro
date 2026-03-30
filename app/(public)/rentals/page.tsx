@@ -35,6 +35,16 @@ export default function RentalsPage() {
                   {car.type}
                 </span>
               </div>
+              <div className="absolute top-4 right-4 animate-fade-in">
+                <span className={`badge bg-white/90 backdrop-blur-sm shadow-sm flex items-center gap-1.5 ${
+                  car.status === "Available" ? "text-emerald-600" : car.status === "Booked" ? "text-rose-600" : "text-amber-600"
+                }`}>
+                  <span className={`w-1.5 h-1.5 rounded-full ${
+                    car.status === "Available" ? "bg-emerald-600" : car.status === "Booked" ? "bg-rose-600" : "bg-amber-600"
+                  }`} />
+                  {car.status}
+                </span>
+              </div>
             </div>
             
             <div className="p-6">
@@ -63,9 +73,18 @@ export default function RentalsPage() {
                 </div>
               </div>
 
-              <Link href={`/rentals/${car.id}`} className="premium-button w-full">
-                Book {car.name}
-              </Link>
+              {car.status === "Available" ? (
+                <Link href={`/rentals/${car.id}`} className="premium-button w-full">
+                  Book {car.name}
+                </Link>
+              ) : (
+                <button 
+                  disabled 
+                  className="w-full py-3.5 rounded-xl font-bold bg-slate-50 text-slate-400 cursor-not-allowed border-2 border-dashed border-slate-200 transition-all text-sm"
+                >
+                  {car.status === "Booked" ? "Currently Booked" : "Under Maintenance"}
+                </button>
+              )}
             </div>
           </div>
         ))}

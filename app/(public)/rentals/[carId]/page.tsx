@@ -74,9 +74,17 @@ export default function CarDetailPage() {
               alt={car.name} 
               className="w-full h-full object-cover"
             />
-            <div className="absolute top-6 left-6">
+            <div className="absolute top-6 left-6 flex gap-3">
               <span className="px-4 py-2 bg-white/90 backdrop-blur-md rounded-full text-[var(--color-primary)] font-bold text-sm shadow-lg">
                 {car.type}
+              </span>
+              <span className={`px-4 py-2 bg-white/90 backdrop-blur-md rounded-full font-bold text-sm shadow-lg flex items-center gap-1.5 ${
+                car.status === "Available" ? "text-emerald-600" : car.status === "Booked" ? "text-rose-600" : "text-amber-600"
+              }`}>
+                <span className={`w-1.5 h-1.5 rounded-full ${
+                  car.status === "Available" ? "bg-emerald-600" : car.status === "Booked" ? "bg-rose-600" : "bg-amber-600"
+                }`} />
+                {car.status}
               </span>
             </div>
           </div>
@@ -127,7 +135,12 @@ export default function CarDetailPage() {
 
         {/* Booking Form Right */}
         <div className="sticky top-28">
-          <BookingForm carId={car.id} carName={car.name} pricePerDay={car.pricePerDay} />
+          <BookingForm 
+            carId={car.id} 
+            carName={car.name} 
+            pricePerDay={car.pricePerDay} 
+            carStatus={car.status}
+          />
           
           {/* Trust Badge Below Form */}
           <div className="mt-8 flex items-center justify-center gap-8 text-[var(--muted-light)] grayscale opacity-60">

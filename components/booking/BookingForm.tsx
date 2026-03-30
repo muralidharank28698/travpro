@@ -8,9 +8,15 @@ interface BookingFormProps {
   carId: string;
   carName: string;
   pricePerDay?: number;
+  carStatus?: "Available" | "Booked" | "Maintenance";
 }
 
-export default function BookingForm({ carId, carName, pricePerDay = 2500 }: BookingFormProps) {
+export default function BookingForm({ 
+  carId, 
+  carName, 
+  pricePerDay = 2500, 
+  carStatus = "Available" 
+}: BookingFormProps) {
   const [state, action, isPending] = useActionState(createBooking, {
     error: "",
   });
@@ -135,13 +141,21 @@ export default function BookingForm({ carId, carName, pricePerDay = 2500 }: Book
 
           <button
             type="submit"
-            disabled={isPending}
-            className="w-full premium-button py-4 text-base font-bold shadow-[0_15px_30px_rgba(5,150,105,0.25)] flex items-center justify-center gap-3 active:scale-[0.98] transition-all"
+            disabled={isPending || carStatus !== "Available"}
+            className={`w-full py-4 text-base font-bold flex items-center justify-center gap-3 active:scale-[0.98] transition-all rounded-xl ${
+              carStatus === "Available" 
+                ? "premium-button shadow-[0_15px_30px_rgba(5,150,105,0.25)]" 
+                : "bg-slate-100 text-slate-400 cursor-not-allowed border-2 border-dashed border-slate-200 shadow-none"
+            }`}
           >
             {isPending ? (
               <>
                 <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
                 Checking Security...
+              </>
+            ) : carStatus !== "Available" ? (
+              <>
+                {carStatus === "Booked" ? "Currently Booked" : "Under Maintenance"}
               </>
             ) : (
               <>

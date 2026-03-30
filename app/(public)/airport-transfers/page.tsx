@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import CustomSelect from "@/components/common/CustomSelect";
 
 const AIRPORTS = [
   { code: "PNY", name: "Puducherry Airport", dist: "Local" },
@@ -25,6 +26,20 @@ export default function AirportTransfersPage() {
   const router = useRouter();
   const [direction, setDirection] = useState<"drop" | "pickup">("drop");
   const [loading, setLoading] = useState(true);
+  const [selectedAirport, setSelectedAirport] = useState("");
+  const [selectedVehicle, setSelectedVehicle] = useState("sedan");
+
+  const airportOptions = AIRPORTS.map(ai => ({
+    value: ai.code,
+    label: `${ai.name} (${ai.code})`,
+    description: `Distance: ${ai.dist}`
+  }));
+
+  const vehicleOptions = [
+    { value: "sedan", label: "Sedan (4 Seats)", description: "Comfortable for 1-4 people" },
+    { value: "suv", label: "SUV (6-7 Seats)", description: "Premium space for families" },
+    { value: "luxury", label: "Luxury Car", description: "Premium, chauffeur-driven experience" },
+  ];
 
   useEffect(() => {
     async function checkUser() {
@@ -80,14 +95,14 @@ export default function AirportTransfersPage() {
             </button>
           </div>
 
-          <form className="space-y-5" onSubmit={(e) => { e.preventDefault(); alert("Booking system coming soon!"); }}>
-            <div className="space-y-2">
-              <label className="text-sm font-semibold text-[var(--foreground)]">Select Airport</label>
-              <select className="form-input text-[var(--foreground)] bg-white">
-                <option value="">Choose an airport...</option>
-                {AIRPORTS.map(ai => <option key={ai.code} value={ai.code}>{ai.name} ({ai.code})</option>)}
-              </select>
-            </div>
+          <form className="space-y-6" onSubmit={(e) => { e.preventDefault(); alert("Booking system coming soon!"); }}>
+            <CustomSelect
+              label="Select Airport"
+              options={airportOptions}
+              value={selectedAirport}
+              onChange={setSelectedAirport}
+              placeholder="Choose an airport..."
+            />
 
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
@@ -108,17 +123,16 @@ export default function AirportTransfersPage() {
               </div>
             )}
 
-            <div className="space-y-2">
-              <label className="text-sm font-semibold text-[var(--foreground)]">Vehicle Preference</label>
-              <select className="form-input text-[var(--foreground)] bg-white">
-                <option value="sedan">Sedan (4 Seats)</option>
-                <option value="suv">SUV (6-7 Seats)</option>
-                <option value="luxury">Luxury Car</option>
-              </select>
-            </div>
+            <CustomSelect
+              label="Vehicle Preference"
+              options={vehicleOptions}
+              value={selectedVehicle}
+              onChange={setSelectedVehicle}
+              placeholder="Select vehicle type..."
+            />
 
             <div className="pt-4">
-              <button type="submit" className="premium-button w-full py-3.5 text-base">
+              <button type="submit" className="premium-button w-full py-4 text-base shadow-[0_15px_30px_rgba(5,150,105,0.2)]">
                 Proceed to Booking
               </button>
             </div>

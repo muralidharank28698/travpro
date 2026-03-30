@@ -19,7 +19,7 @@ export default function PublicLayout({
 
   useEffect(() => {
     const supabase = createClient();
-    
+
     // Get initial session
     supabase.auth.getSession().then(({ data: { session } }: { data: { session: any } }) => {
       setUser(session?.user ?? null);
@@ -62,7 +62,7 @@ export default function PublicLayout({
   return (
     <div className="min-h-screen bg-[var(--background)] flex flex-col">
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b text-[var(--foreground)] border-[var(--card-border)] py-4 px-6 sm:px-12 flex items-center justify-between">
+      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b text-[var(--foreground)] border-[var(--card-border)] py-3 px-6 sm:px-12 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-3 decoration-none group">
           <div className="w-10 h-10 rounded-[12px] bg-slate-900 flex items-center justify-center shadow-md group-hover:bg-[var(--color-primary)] transition-all duration-300">
             <span className="text-white font-black text-xl italic tracking-tighter font-logo">Z</span>
@@ -75,26 +75,30 @@ export default function PublicLayout({
             <span className="text-[9px] font-extrabold tracking-[0.4em] text-[var(--muted-light)] uppercase ml-0.5 transition-colors">TRVLS</span>
           </div>
         </Link>
-        
-        <nav className="hidden md:flex gap-6 font-medium text-sm text-[var(--muted)]">
+
+        <nav className="hidden md:flex gap-3 font-medium text-sm text-[var(--muted)] self-stretch items-center">
           {navItems.map((item) => {
             const isActive = pathname === item.href;
             return (
               <Link
                 key={item.name}
                 href={item.href}
-                className={`transition ${isActive ? "text-[var(--color-primary)]" : "hover:text-[var(--color-primary)]"}`}
+                className={`relative flex items-center px-2 h-full transition-all duration-300 ${isActive ? "text-[var(--color-primary)]" : "text-[var(--muted)] hover:text-[var(--color-primary)]"
+                  }`}
               >
                 {item.name}
+                {isActive && (
+                  <div className="absolute -bottom-[13px] left-1/2 -translate-x-1/2 w-10 h-[2.5px] bg-[var(--color-primary)] rounded-full animate-fade-in" />
+                )}
               </Link>
             );
           })}
         </nav>
-        
+
         <div className="hidden md:flex items-center">
           {user ? (
             <div className="relative" ref={userMenuRef}>
-              <button 
+              <button
                 onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
                 className="flex items-center gap-2 p-1 rounded-full hover:bg-slate-50 transition-all border border-transparent hover:border-[var(--card-border)]"
               >
@@ -117,8 +121,8 @@ export default function PublicLayout({
                   </div>
                   <div className="p-2">
                     {user.user_metadata?.role === 'admin' ? (
-                      <Link 
-                        href="/bookings" 
+                      <Link
+                        href="/bookings"
                         onClick={() => setIsUserMenuOpen(false)}
                         className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-[var(--muted)] hover:text-[var(--color-primary)] hover:bg-emerald-50 transition-all"
                       >
@@ -128,8 +132,8 @@ export default function PublicLayout({
                         Admin Panel
                       </Link>
                     ) : (
-                      <Link 
-                        href="/dashboard" 
+                      <Link
+                        href="/dashboard"
                         onClick={() => setIsUserMenuOpen(false)}
                         className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-[var(--muted)] hover:text-[var(--color-primary)] hover:bg-emerald-50 transition-all"
                       >
@@ -139,7 +143,7 @@ export default function PublicLayout({
                         My Dashboard
                       </Link>
                     )}
-                    <button 
+                    <button
                       onClick={handleSignOut}
                       className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-red-600 hover:bg-red-50 transition-all"
                     >
@@ -161,7 +165,7 @@ export default function PublicLayout({
         </div>
 
         {/* Mobile Nav Toggle */}
-        <button 
+        <button
           className="md:hidden flex items-center p-2 text-[var(--foreground)]"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
@@ -204,8 +208,8 @@ export default function PublicLayout({
                   ) : (
                     <Link href="/dashboard" onClick={() => setIsMobileMenuOpen(false)} className="secondary-button text-center py-3 text-base font-bold">My Dashboard</Link>
                   )}
-                  <button 
-                    onClick={() => { handleSignOut(); setIsMobileMenuOpen(false); }} 
+                  <button
+                    onClick={() => { handleSignOut(); setIsMobileMenuOpen(false); }}
                     className="bg-red-50 text-red-600 font-bold py-3 rounded-xl hover:bg-red-100 transition-all text-base border border-red-100 mt-2"
                   >
                     Sign Out
