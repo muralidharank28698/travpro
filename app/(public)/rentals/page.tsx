@@ -157,7 +157,7 @@ export default function RentalsPage() {
           {/* Advanced Shelf - Collapsible */}
           {isFiltersOpen && (
             <div className="mt-6 pt-6 border-t border-slate-100 animate-fade-in-up">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-end">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 items-end">
                 <CustomSelect
                   label="Seat Capacity"
                   options={seatOptions}
@@ -176,14 +176,6 @@ export default function RentalsPage() {
                   value={selectedTransmission}
                   onChange={setSelectedTransmission}
                 />
-                <div className="flex items-center justify-end">
-                  <button
-                    onClick={() => setIsFiltersOpen(false)}
-                    className="w-full sm:w-48 px-4 py-3 text-xs font-black uppercase tracking-widest bg-slate-900 text-white rounded-xl hover:bg-slate-800 transition-all text-center shadow-lg shadow-slate-200"
-                  >
-                    Apply Filters
-                  </button>
-                </div>
               </div>
             </div>
           )}

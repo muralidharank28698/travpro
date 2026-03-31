@@ -3,6 +3,7 @@
 import { useActionState, useState, useEffect } from "react";
 import { createBooking } from "@/lib/actions/booking";
 import { createClient } from "@/lib/supabase/client";
+import DateTimePicker from "@/components/common/DateTimePicker";
 
 interface BookingFormProps {
   carId: string;
@@ -87,32 +88,21 @@ export default function BookingForm({
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            <div className="space-y-2">
-              <label className="text-[13px] font-bold text-slate-700 uppercase tracking-wider">
-                Pickup Date & Time
-              </label>
-              <input
-                name="startTime"
-                type="datetime-local"
-                className="form-input"
-                value={startTime}
-                onChange={(e) => setStartTime(e.target.value)}
-                required
-              />
-            </div>
-            <div className="space-y-2">
-              <label className="text-[13px] font-bold text-slate-700 uppercase tracking-wider">
-                Return Date & Time
-              </label>
-              <input
-                name="endTime"
-                type="datetime-local"
-                className="form-input"
-                value={endTime}
-                onChange={(e) => setEndTime(e.target.value)}
-                required
-              />
-            </div>
+            <DateTimePicker
+              label="Pickup Date & Time"
+              name="startTime"
+              value={startTime}
+              onChange={setStartTime}
+              placeholder="Select pickup..."
+            />
+            <DateTimePicker
+              label="Return Date & Time"
+              name="endTime"
+              value={endTime}
+              onChange={setEndTime}
+              placeholder="Select return..."
+              minDate={startTime ? startTime.split("T")[0] : undefined}
+            />
           </div>
 
           {/* Pricing Summary */}

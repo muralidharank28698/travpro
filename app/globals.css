@@ -167,9 +167,13 @@ body {
   color: var(--muted-light);
 }
 
+.form-input:hover {
+  border-color: var(--color-primary);
+}
+
 .form-input:focus {
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgb(37 99 235 / 0.1);
+  box-shadow: 0 0 0 4px rgba(5, 150, 105, 0.1); /* Match DatePicker's ring-4 primary/10 */
 }
 
 /* Custom Scrollbar */

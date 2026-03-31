@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import CustomSelect from "@/components/common/CustomSelect";
+import DatePicker from "@/components/common/DatePicker";
+import TimePicker from "@/components/common/TimePicker";
 
 const AIRPORTS = [
   { code: "PNY", name: "Puducherry Airport", dist: "Local" },
@@ -28,6 +30,8 @@ export default function AirportTransfersPage() {
   const [loading, setLoading] = useState(true);
   const [selectedAirport, setSelectedAirport] = useState("");
   const [selectedVehicle, setSelectedVehicle] = useState("sedan");
+  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedTime, setSelectedTime] = useState("");
 
   const airportOptions = AIRPORTS.map(ai => ({
     value: ai.code,
@@ -42,16 +46,38 @@ export default function AirportTransfersPage() {
   ];
 
   useEffect(() => {
+    let mounted = true;
+
     async function checkUser() {
-      const supabase = createClient();
-      const { data } = await supabase.auth.getUser();
-      if (!data.user) {
-        router.push("/login?redirectTo=/airport-transfers");
-      } else {
-        setLoading(false);
+      try {
+        const supabase = createClient();
+        
+        // Get session first (faster)
+        const { data: { session } } = await supabase.auth.getSession();
+        
+        if (!session && mounted) {
+          router.push("/login?redirectTo=/airport-transfers");
+          return;
+        }
+
+        // Verify with getUser (safer)
+        const { data: { user }, error } = await supabase.auth.getUser();
+        
+        if ((error || !user) && mounted) {
+          router.push("/login?redirectTo=/airport-transfers");
+        } else if (mounted) {
+          setLoading(false);
+        }
+      } catch (err) {
+        console.error("Auth check failed:", err);
+        if (mounted) {
+          router.push("/login?redirectTo=/airport-transfers");
+        }
       }
     }
+
     checkUser();
+    return () => { mounted = false; };
   }, [router]);
 
   if (loading) {
@@ -105,14 +131,20 @@ export default function AirportTransfersPage() {
             />
 
             <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <label className="text-sm font-semibold text-[var(--foreground)]">Date</label>
-                <input type="date" className="form-input bg-white text-[var(--foreground)]" required />
-              </div>
-              <div className="space-y-2">
-                <label className="text-sm font-semibold text-[var(--foreground)]">Time</label>
-                <input type="time" className="form-input bg-white text-[var(--foreground)]" required />
-              </div>
+              <DatePicker
+                label="Date"
+                value={selectedDate}
+                onChange={setSelectedDate}
+                placeholder="Select date"
+                required
+              />
+              <TimePicker
+                label="Time"
+                value={selectedTime}
+                onChange={setSelectedTime}
+                placeholder="Select time"
+                required
+              />
             </div>
 
             {direction === 'pickup' && (

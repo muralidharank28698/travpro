@@ -21,16 +21,38 @@ export default function ToursPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let mounted = true;
+
     async function checkUser() {
-      const supabase = createClient();
-      const { data } = await supabase.auth.getUser();
-      if (!data.user) {
-        router.push("/login?redirectTo=/tours");
-      } else {
-        setLoading(false);
+      try {
+        const supabase = createClient();
+        
+        // Get session first (faster)
+        const { data: { session } } = await supabase.auth.getSession();
+        
+        if (!session && mounted) {
+          router.push("/login?redirectTo=/tours");
+          return;
+        }
+
+        // Verify with getUser (safer)
+        const { data: { user }, error } = await supabase.auth.getUser();
+        
+        if ((error || !user) && mounted) {
+          router.push("/login?redirectTo=/tours");
+        } else if (mounted) {
+          setLoading(false);
+        }
+      } catch (err) {
+        console.error("Auth check failed:", err);
+        if (mounted) {
+          router.push("/login?redirectTo=/tours");
+        }
       }
     }
+
     checkUser();
+    return () => { mounted = false; };
   }, [router]);
 
   if (loading) {
