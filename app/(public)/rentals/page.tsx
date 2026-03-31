@@ -2,10 +2,13 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
-import { MOCK_CARS, Car } from "@/lib/mock-data";
+import { Car } from "@/lib/mock-data";
+import { useAppSelector } from "@/lib/store";
 import CustomSelect from "@/components/common/CustomSelect";
 
 export default function RentalsPage() {
+  const MOCK_CARS = useAppSelector((state) => state.cars.items);
+  
   const [selectedModel, setSelectedModel] = useState("All");
   const [selectedType, setSelectedType] = useState("All");
   const [selectedSeats, setSelectedSeats] = useState("All");

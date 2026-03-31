@@ -1,22 +1,25 @@
-import { MOCK_CARS } from "@/lib/mock-data";
-import BookingForm from "@/components/booking/BookingForm";
-import { notFound } from "next/navigation";
+"use client";
 
-export default async function NewBookingPage({
+import { useAppSelector } from "@/lib/store";
+import BookingForm from "@/components/booking/BookingForm";
+import { use } from "react";
+
+export default function NewBookingPage({
   searchParams,
 }: {
   searchParams: Promise<{ carId: string }>;
 }) {
-  const { carId } = await searchParams;
+  const { carId } = use(searchParams);
 
   if (!carId) {
-    notFound();
+    return <div>Car ID is required.</div>;
   }
 
+  const MOCK_CARS = useAppSelector((state) => state.cars.items);
   const car = MOCK_CARS.find((c) => c.id === carId);
 
   if (!car) {
-    notFound();
+    return <div>Car not found.</div>;
   }
 
   return (

@@ -1,7 +1,7 @@
 "use client";
 
 import GlassCard from "@/components/common/GlassCard";
-import { MOCK_CARS } from "@/lib/mock-data";
+import { useAppSelector } from "@/lib/store";
 import Link from "next/link";
 
 const statusConfig: Record<string, { badgeBg: string; badgeColor: string; dotColor: string; label: string }> = {
@@ -11,6 +11,7 @@ const statusConfig: Record<string, { badgeBg: string; badgeColor: string; dotCol
 };
 
 export default function CarsPage() {
+  const MOCK_CARS = useAppSelector((state) => state.cars.items);
   const available = MOCK_CARS.filter((c) => c.status === "Available").length;
 
   return (

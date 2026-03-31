@@ -2,7 +2,7 @@
 
 import { useParams, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import { MOCK_CARS } from "@/lib/mock-data";
+import { useAppSelector } from "@/lib/store";
 import { createClient } from "@/lib/supabase/client";
 import BookingForm from "@/components/booking/BookingForm";
 import Link from "next/link";
@@ -11,6 +11,7 @@ export default function CarDetailPage() {
   const params = useParams();
   const router = useRouter();
   const carId = params.carId as string;
+  const MOCK_CARS = useAppSelector((state) => state.cars.items);
   const car = MOCK_CARS.find((c) => c.id === carId);
 
   const [loading, setLoading] = useState(true);

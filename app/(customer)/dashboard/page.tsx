@@ -1,6 +1,6 @@
 "use client";
 
-import { MOCK_BOOKINGS } from "@/lib/mock-data";
+import { useAppSelector } from "@/lib/store";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -8,7 +8,7 @@ export default function CustomerDashboardPage() {
   const [activeTab, setActiveTab] = useState<"Upcoming" | "Past">("Upcoming");
 
   // In a real app we'd fetch bookings for the current user
-  const myBookings = MOCK_BOOKINGS;
+  const myBookings = useAppSelector((state) => state.bookings.items);
   
   const upcoming = myBookings.filter(b => b.status === "Confirmed" || b.status === "In Progress");
   const past = myBookings.filter(b => b.status === "Completed" || b.status === "Cancelled");

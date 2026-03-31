@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import GlassCard from "@/components/common/GlassCard";
-import { MOCK_BOOKINGS, Booking } from "@/lib/mock-data";
+import { Booking } from "@/lib/mock-data";
+import { useAppSelector } from "@/lib/store";
 import Link from "next/link";
 
 const statusConfig: Record<string, { badgeBg: string; badgeColor: string; dotColor: string }> = {
@@ -13,6 +14,7 @@ const statusConfig: Record<string, { badgeBg: string; badgeColor: string; dotCol
 };
 
 export default function BookingsPage() {
+  const MOCK_BOOKINGS = useAppSelector((state) => state.bookings.items);
   const [filterStatus, setFilterStatus] = useState<Booking["status"] | null>(null);
 
   const stats = {
