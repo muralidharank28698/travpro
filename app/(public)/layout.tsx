@@ -250,7 +250,7 @@ export default function PublicLayout({
       </main>
 
       {/* Footer */}
-      <footer className="bg-surface border-t border-border py-12 px-6 sm:px-12 text-[var(--muted)] transition-colors duration-300">
+      <footer className="bg-background border-t border-border py-12 px-6 sm:px-12 text-[var(--muted)] transition-colors duration-300">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-8 md:gap-6">
           <div className="flex items-center gap-3 group">
             <div className="w-8 h-8 rounded-lg bg-card flex items-center justify-center border border-border group-hover:bg-[var(--color-primary)] group-hover:border-[var(--color-primary)] transition-all duration-300 shadow-sm">

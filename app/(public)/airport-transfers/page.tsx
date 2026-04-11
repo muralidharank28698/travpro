@@ -51,8 +51,6 @@ export default function AirportTransfersPage() {
     async function checkUser() {
       try {
         const supabase = createClient();
-        
-        // Get session first (faster)
         const { data: { session } } = await supabase.auth.getSession();
         
         if (!session && mounted) {
@@ -60,7 +58,6 @@ export default function AirportTransfersPage() {
           return;
         }
 
-        // Verify with getUser (safer)
         const { data: { user }, error } = await supabase.auth.getUser();
         
         if ((error || !user) && mounted) {
@@ -91,110 +88,155 @@ export default function AirportTransfersPage() {
   }
 
   return (
-    <div className="py-12 px-6 sm:px-12 max-w-7xl mx-auto w-full animate-fade-in-up">
-      <div className="mb-12 text-center">
-        <h1 className="text-4xl font-bold tracking-tight text-[var(--foreground)] mb-4">
+    <div className="py-4 sm:py-16 px-3 sm:px-12 max-w-7xl mx-auto w-full animate-fade-in-up">
+      {/* Page Header */}
+      <div className="mb-6 md:mb-16 text-center space-y-2 md:space-y-4">
+        <h1 className="text-xl sm:text-3xl md:text-5xl font-black tracking-tight text-[var(--foreground)]">
           Hassle-Free <span className="text-[var(--color-primary)]">Airport Transfers</span>
         </h1>
-        <p className="text-lg text-[var(--muted)] max-w-2xl mx-auto">
-          Punctual pick-ups and drop-offs to all major airports across South India. We track your flight in real-time, ensuring zero wait times.
+        <p className="text-xs sm:text-base md:text-lg text-[var(--muted)] max-w-2xl mx-auto px-4 font-medium leading-relaxed">
+          Punctual pick-ups and drop-offs to all major airports. We track your flight in real-time.
         </p>
       </div>
 
-      <div className="grid lg:grid-cols-2 gap-12 items-start">
+      <div className="grid xl:grid-cols-2 gap-8 lg:gap-12 items-start">
         {/* Quick Booking Form */}
-        <div className="card p-8">
-          <h2 className="text-2xl font-bold mb-6">Book Transfer</h2>
+        <div className="card p-4 sm:p-10 shadow-2xl border-border/60 bg-card/60 backdrop-blur-xl group overflow-hidden">
+          <div className="flex items-center gap-4 mb-5 md:mb-8">
+            <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl bg-primary/10 text-primary flex items-center justify-center border border-primary/20">
+              <span className="text-xl md:text-2xl">🚗</span>
+            </div>
+            <h2 className="text-xl md:text-2xl font-black tracking-tight">Book Transfer</h2>
+          </div>
           
-          <div className="flex bg-[var(--surface)] p-1 rounded-xl mb-6">
+          <div className="flex flex-col sm:flex-row bg-[var(--surface)] p-1 rounded-xl mb-5 md:mb-8 gap-1">
             <button 
-              className={`flex-1 py-3 text-sm font-semibold rounded-lg transition-all ${direction === 'drop' ? 'bg-card shadow-[0_2px_8px_rgba(0,0,0,0.08)] text-[var(--foreground)]' : 'text-[var(--muted)] hover:text-[var(--foreground)]'}`}
+              className={`flex-1 py-2.5 px-4 text-[11px] sm:text-sm font-black rounded-lg transition-all duration-300 ${direction === 'drop' ? 'bg-card shadow-lg text-[var(--foreground)]' : 'text-[var(--muted)] hover:text-[var(--foreground)]'}`}
               onClick={() => setDirection('drop')}
             >
               Drop to Airport 🛫
             </button>
             <button 
-              className={`flex-1 py-3 text-sm font-semibold rounded-lg transition-all ${direction === 'pickup' ? 'bg-card shadow-[0_2px_8px_rgba(0,0,0,0.08)] text-[var(--foreground)]' : 'text-[var(--muted)] hover:text-[var(--foreground)]'}`}
+              className={`flex-1 py-2.5 px-4 text-[11px] sm:text-sm font-black rounded-lg transition-all duration-300 ${direction === 'pickup' ? 'bg-card shadow-lg text-[var(--foreground)]' : 'text-[var(--muted)] hover:text-[var(--foreground)]'}`}
               onClick={() => setDirection('pickup')}
             >
               Pick-up from Airport 🛬
             </button>
           </div>
 
-          <form className="space-y-6" onSubmit={(e) => { e.preventDefault(); alert("Booking system coming soon!"); }}>
-            <CustomSelect
-              label="Select Airport"
-              options={airportOptions}
-              value={selectedAirport}
-              onChange={setSelectedAirport}
-              placeholder="Choose an airport..."
-            />
-
-            <div className="grid grid-cols-2 gap-4">
-              <DatePicker
-                label="Date"
-                value={selectedDate}
-                onChange={setSelectedDate}
-                placeholder="Select date"
-                required
-              />
-              <TimePicker
-                label="Time"
-                value={selectedTime}
-                onChange={setSelectedTime}
-                placeholder="Select time"
-                required
-              />
-            </div>
-
-            {direction === 'pickup' && (
-              <div className="space-y-2 animate-fade-in-up">
-                <label className="text-sm font-semibold text-[var(--foreground)]">Flight Number <span className="text-[var(--muted-light)]">(Optional)</span></label>
-                <input type="text" placeholder="e.g. 6E-1234" className="form-input bg-card text-[var(--foreground)]" />
-                <p className="text-xs text-[var(--muted-light)]">We'll track your flight and adjust pickup time automatically if delayed.</p>
+          <form className="space-y-4 md:space-y-8" onSubmit={(e) => { e.preventDefault(); alert("Booking system coming soon!"); }}>
+              <div className="space-y-1.5">
+                <label className="text-[9px] md:text-[10px] uppercase tracking-[0.2em] font-black text-[var(--muted-light)] ml-1">Select Airport</label>
+                <CustomSelect
+                  options={airportOptions}
+                  value={selectedAirport}
+                  onChange={setSelectedAirport}
+                  placeholder="Choose an airport..."
+                />
               </div>
-            )}
 
-            <CustomSelect
-              label="Vehicle Preference"
-              options={vehicleOptions}
-              value={selectedVehicle}
-              onChange={setSelectedVehicle}
-              placeholder="Select vehicle type..."
-            />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                <div className="space-y-1.5">
+                  <label className="text-[9px] md:text-[10px] uppercase tracking-[0.2em] font-black text-[var(--muted-light)] ml-1">Travel Date</label>
+                  <DatePicker
+                    value={selectedDate}
+                    onChange={setSelectedDate}
+                    placeholder="Select date"
+                    required
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <label className="text-[9px] md:text-[10px] uppercase tracking-[0.2em] font-black text-[var(--muted-light)] ml-1">Pickup Time</label>
+                  <TimePicker
+                    value={selectedTime}
+                    onChange={setSelectedTime}
+                    placeholder="Select time"
+                    required
+                  />
+                </div>
+              </div>
 
-            <div className="pt-4">
-              <button type="submit" className="premium-button w-full py-4 text-base shadow-[0_15px_30px_rgba(5,150,105,0.2)]">
+              {direction === 'pickup' && (
+                <div className="space-y-2 animate-fade-in-up">
+                  <label className="text-[9px] md:text-[10px] uppercase tracking-[0.2em] font-black text-[var(--muted-light)] ml-1">
+                    Flight Number <span className="opacity-50">(Optional)</span>
+                  </label>
+                  <input 
+                    type="text" 
+                    placeholder="6E-1234" 
+                    className="form-input h-12 md:h-14 bg-surface/30 border-border/50 focus:bg-card focus:border-primary transition-all text-sm font-medium" 
+                  />
+                </div>
+              )}
+
+              <div className="space-y-1.5">
+                <label className="text-[9px] md:text-[10px] uppercase tracking-[0.2em] font-black text-[var(--muted-light)] ml-1">Vehicle Preference</label>
+                <CustomSelect
+                  options={vehicleOptions}
+                  value={selectedVehicle}
+                  onChange={setSelectedVehicle}
+                  placeholder="Select vehicle type..."
+                />
+              </div>
+
+
+            <div className="pt-6">
+              <button type="submit" className="premium-button w-full py-5 text-lg shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-[0.98]">
                 Proceed to Booking
               </button>
             </div>
           </form>
         </div>
 
-        {/* Pricing Info */}
-        <div className="space-y-8">
-          <div className="card p-0 overflow-hidden">
-            <div className="p-6 bg-[var(--surface)] border-b border-[var(--card-border)]">
-              <h2 className="text-xl font-bold">Transparent Pricing</h2>
-              <p className="text-sm text-[var(--muted)] mt-1">Pre-fixed rates. Zero surge pricing. Zero hidden fees.</p>
+        {/* Pricing & Info Section */}
+        <div className="space-y-8 lg:space-y-12">
+          {/* Pricing Table Card */}
+          <div className="card p-0 overflow-hidden shadow-2xl border-border/60">
+            <div className="p-5 sm:p-8 bg-surface/80 border-b border-border/60 backdrop-blur-md">
+              <div className="flex items-center gap-3 mb-2">
+                <span className="text-xl">📊</span>
+                <h2 className="text-xl font-black tracking-tight text-foregroundcaps">Transparent Pricing</h2>
+              </div>
+              <p className="text-[10px] sm:text-sm text-[var(--muted)] font-medium">Pre-fixed rates. Zero surge pricing. Zero hidden fees.</p>
             </div>
-            <div className="overflow-x-auto">
-              <table className="w-full text-left text-sm">
-                <thead className="bg-surface text-[var(--muted)] uppercase text-xs font-semibold tracking-wider">
+
+            {/* Mobile List View (Hidden on Tablet/Desktop) */}
+            <div className="block sm:hidden divide-y divide-border/40">
+              {PRICING.map((p, i) => (
+                <div key={i} className="p-4 space-y-3">
+                  <div className="flex justify-between items-start gap-4">
+                    <span className="text-xs font-black text-foreground">{p.route}</span>
+                    <span className="text-[10px] font-bold text-primary shrink-0 bg-primary/10 px-2 py-0.5 rounded-full">One Way</span>
+                  </div>
+                  <div className="flex justify-between items-end">
+                    <span className="text-[10px] font-medium text-[var(--muted)]">{p.vehicle}</span>
+                    <div className="text-right">
+                      <div className="text-sm font-black text-foreground">₹{p.oneWay}</div>
+                      <div className="text-[9px] font-bold text-[var(--muted-light)]">Round: ₹{p.round}</div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Desktop Table View (Hidden on Mobile) */}
+            <div className="hidden sm:block overflow-x-auto custom-scrollbar">
+              <table className="w-full text-left text-sm" style={{ minWidth: "600px" }}>
+                <thead className="bg-surface/50 text-[var(--muted-light)] uppercase text-[10px] font-black tracking-[0.2em] whitespace-nowrap">
                   <tr>
-                    <th className="px-6 py-4">Route</th>
-                    <th className="px-6 py-4">Vehicle</th>
-                    <th className="px-6 py-4">One Way</th>
-                    <th className="px-6 py-4">Round Trip</th>
+                    <th className="px-8 py-5 border-b border-border/40">Route</th>
+                    <th className="px-8 py-5 border-b border-border/40">Vehicle</th>
+                    <th className="px-8 py-5 border-b border-border/40 text-right">One Way</th>
+                    <th className="px-8 py-5 border-b border-border/40 text-right">Round Trip</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[var(--card-border)] text-[var(--foreground)]">
+                <tbody className="divide-y divide-border/40 text-foreground font-medium">
                   {PRICING.map((p, i) => (
-                    <tr key={i} className="hover:bg-surface transition-colors">
-                      <td className="px-6 py-4 font-medium">{p.route}</td>
-                      <td className="px-6 py-4 text-[var(--muted)]">{p.vehicle}</td>
-                      <td className="px-6 py-4 font-semibold">₹{p.oneWay}</td>
-                      <td className="px-6 py-4 font-semibold">₹{p.round}</td>
+                    <tr key={i} className="hover:bg-primary/5 transition-colors group">
+                      <td className="px-8 py-5 group-hover:text-primary transition-colors">{p.route}</td>
+                      <td className="px-8 py-5 text-[var(--muted)]">{p.vehicle}</td>
+                      <td className="px-8 py-5 text-right font-black">₹{p.oneWay}</td>
+                      <td className="px-8 py-5 text-right font-black">₹{p.round}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -202,13 +244,20 @@ export default function AirportTransfersPage() {
             </div>
           </div>
 
-          <div className="bg-card border-border rounded-xl p-6 text-foreground shadow-sm">
-            <div className="flex gap-4">
-              <span className="text-2xl">💡</span>
+          {/* Tips Card */}
+          <div className="bg-card/40 backdrop-blur-xl border border-border/60 rounded-[2.5rem] p-8 sm:p-10 shadow-xl relative overflow-hidden group">
+            <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
+              <span className="text-6xl">✨</span>
+            </div>
+            <div className="flex gap-6 relative z-10">
+              <div className="w-14 h-14 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center border border-amber-500/20 shrink-0">
+                <span className="text-2xl">💡</span>
+              </div>
               <div>
-                <h4 className="font-bold mb-1">Flight Delayed? No Problem.</h4>
-                <p className="text-sm text-muted leading-relaxed">
-                  For airport pick-ups, the first 60 minutes of waiting after your scheduled landing time are completely free. Our dispatch team monitors flight statuses in real time.
+                <h4 className="text-xl font-black mb-3 tracking-tight text-foreground">Flight Delayed? No Problem.</h4>
+                <p className="text-sm sm:text-base text-[var(--muted)] leading-relaxed font-medium">
+                  For airport pick-ups, the first 60 minutes of waiting after your scheduled landing time are completely free. 
+                  Our dispatch team monitors flight statuses in real time, so you never have to worry about delays.
                 </p>
               </div>
             </div>
