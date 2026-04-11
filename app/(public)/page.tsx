@@ -86,7 +86,7 @@ export default function LandingPage() {
       </section>
 
       {/* Services Grid */}
-      <section className="py-8 lg:py-24 bg-surface relative z-10 px-4 sm:px-12">
+      <section className="py-8 lg:py-24 bg-background relative z-10 px-4 sm:px-12">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-10 md:mb-16 animate-fade-in-up">
             <span className="inline-block text-[var(--color-accent)] font-bold text-[14px] tracking-[0.15em] uppercase mb-2">Category</span>
@@ -329,8 +329,8 @@ export default function LandingPage() {
       </section>
 
       {/* CTA Footer Banner */}
-      <section className="py-8 lg:py-24 bg-surface relative z-10 px-4 sm:px-12">
-        <div className="max-w-5xl mx-auto bg-surface rounded-[2rem] sm:rounded-[3rem] p-8 sm:p-12 lg:p-20 text-center relative overflow-hidden border border-border shadow-sm">
+      <section className="py-8 lg:py-24 bg-background relative z-10 px-4 sm:px-12">
+        <div className="max-w-5xl mx-auto bg-card rounded-[2rem] sm:rounded-[3rem] p-8 sm:p-12 lg:p-20 text-center relative overflow-hidden border border-border shadow-sm">
           <div className="absolute -top-24 -right-24 w-64 h-64 bg-amber-200 rounded-full blur-3xl opacity-30" />
           <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-emerald-300 rounded-full blur-3xl opacity-30" />
           
