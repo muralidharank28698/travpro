@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { ReactNode, useState, useEffect } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const BookingsIcon = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
@@ -51,7 +52,7 @@ export default function DashboardLayout({
       <aside style={{
         width: "280px",
         height: "100vh",
-        backgroundColor: "white",
+        backgroundColor: "var(--card-bg)",
         borderRight: "1px solid var(--card-border)",
         position: "sticky",
         top: 0,
@@ -60,8 +61,8 @@ export default function DashboardLayout({
         {/* Brand */}
         <div style={{ padding: "24px", borderBottom: "1px solid var(--card-border)" }}>
           <Link href="/" className="flex items-center gap-3 decoration-none group">
-            <div className="w-9 h-9 rounded-lg bg-slate-900 flex items-center justify-center shadow-md group-hover:bg-[var(--color-primary)] transition-all duration-300">
-              <span className="text-white font-black text-lg italic tracking-tighter font-logo">Z</span>
+            <div className="w-9 h-9 rounded-lg bg-slate-900 dark:bg-white flex items-center justify-center shadow-md group-hover:bg-[var(--color-primary)] transition-all duration-300">
+              <span className="text-white dark:text-black font-black text-lg italic tracking-tighter font-logo">Z</span>
             </div>
             <div className="flex flex-col -space-y-1 font-logo">
               <div className="flex items-baseline leading-none">
@@ -91,7 +92,7 @@ export default function DashboardLayout({
                   fontWeight: 500,
                   textDecoration: "none",
                   transition: "all 0.2s ease",
-                  backgroundColor: isActive ? "#EFF6FF" : "transparent",
+                  backgroundColor: isActive ? "var(--surface)" : "transparent",
                   color: isActive ? "var(--color-primary)" : "var(--muted)",
                 }}
               >
@@ -115,55 +116,28 @@ export default function DashboardLayout({
 
         {/* User Profile */}
         <div style={{ padding: "16px", borderTop: "1px solid var(--card-border)" }}>
-          <div className="card-elevated" style={{ borderRadius: "12px", padding: "16px" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "12px" }}>
-              <div style={{ 
-                width: "36px", 
-                height: "36px", 
-                borderRadius: "8px", 
-                backgroundColor: "var(--color-primary)", 
-                display: "flex", 
-                alignItems: "center", 
-                justifyContent: "center",
-                color: "white",
-                fontWeight: "bold",
-                fontSize: "14px"
-              }}>
+          <div className="flex justify-between items-center mb-4 px-2">
+            <span className="text-sm font-semibold text-[var(--muted)]">Theme</span>
+            <ThemeToggle />
+          </div>
+          <div className="card bg-surface/30 p-4 border border-border/40 transition-all hover:bg-surface/50 group/profile">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white font-black shadow-lg shadow-primary/20 transition-transform group-hover/profile:scale-105">
                 {user?.user_metadata?.full_name?.[0] || user?.email?.[0] || "U"}
               </div>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <p style={{ fontSize: "14px", fontWeight: 600, color: "var(--foreground)", margin: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+              <div className="flex-1 min-w-0">
+                <p className="text-[15px] font-black text-[var(--foreground)] truncate group-hover/profile:text-primary transition-colors">
                   {user?.user_metadata?.full_name || user?.email || "User"}
                 </p>
-                <p style={{ fontSize: "11px", color: "var(--muted-light)", margin: 0 }}>
-                  {user?.email === 'admin@zytravo.com' ? 'Fleet Manager' : 'Staff'}
+                <p className="text-[11px] font-bold text-[var(--muted)] truncate uppercase tracking-wider">
+                  {user?.email === 'admin@zytravo.com' ? 'Fleet Manager' : 'Admin Staff'}
                 </p>
               </div>
             </div>
+
             <button
               onClick={handleSignOut}
-              style={{
-                width: "100%",
-                padding: "8px",
-                borderRadius: "8px",
-                fontSize: "12px",
-                fontWeight: 600,
-                backgroundColor: "var(--surface)",
-                color: "var(--muted)",
-                border: "1px solid var(--card-border)",
-                cursor: "pointer",
-                transition: "all 0.2s ease",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = "rgba(239, 68, 68, 0.05)";
-                e.currentTarget.style.color = "red";
-                e.currentTarget.style.borderColor = "rgba(239, 68, 68, 0.2)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = "var(--surface)";
-                e.currentTarget.style.color = "var(--muted)";
-                e.currentTarget.style.borderColor = "var(--card-border)";
-              }}
+              className="w-full py-2.5 rounded-xl text-[13px] font-semibold text-red-500 hover:text-white bg-red-500/5 hover:bg-red-500 border border-red-500/10 hover:border-red-500 active:scale-95 transition-all duration-300 cursor-pointer text-center"
             >
               Sign Out
             </button>
@@ -174,10 +148,10 @@ export default function DashboardLayout({
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col h-screen overflow-hidden">
         {/* Mobile Header */}
-        <header className="lg:hidden sticky top-0 z-50 flex items-center justify-between p-4 border-b border-[var(--card-border)] bg-white/80 backdrop-blur-md">
+        <header className="lg:hidden sticky top-0 z-50 flex items-center justify-between p-4 border-b border-[var(--card-border)] bg-background/80 backdrop-blur-md">
           <Link href="/" className="flex items-center gap-2 decoration-none group font-logo">
-            <div className="w-8 h-8 rounded-lg bg-slate-900 flex items-center justify-center shadow-sm">
-              <span className="text-white font-black text-sm italic tracking-tighter">Z</span>
+            <div className="w-8 h-8 rounded-lg bg-slate-900 dark:bg-white flex items-center justify-center shadow-sm">
+              <span className="text-white dark:text-black font-black text-sm italic tracking-tighter">Z</span>
             </div>
             <div className="flex flex-col -space-y-1">
               <div className="flex items-baseline leading-none">
@@ -187,13 +161,11 @@ export default function DashboardLayout({
               <span className="text-[6px] font-bold tracking-[0.4em] text-[var(--muted-light)] uppercase ml-0.5">TRVLS</span>
             </div>
           </Link>
-          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-            <div className="w-8 h-8 rounded-lg bg-[var(--color-primary)] flex items-center justify-center text-white font-bold text-[10px] shadow-sm">
-              {user?.user_metadata?.full_name?.[0] || user?.email?.[0] || "U"}
-            </div>
-            <button 
+          <div className="flex items-center gap-3">
+            <ThemeToggle />
+            <button
               onClick={handleSignOut}
-              className="text-[10px] font-bold text-red-600 bg-red-50 px-3 py-1.5 rounded-lg border border-red-100 active:scale-95 transition-all"
+              className="text-[10px] font-black text-red-500 bg-red-500/10 hover:bg-red-500 hover:text-white px-4 py-2 rounded-xl border border-red-500/20 active:scale-95 transition-all shadow-sm shadow-red-500/5"
             >
               Sign Out
             </button>
@@ -201,18 +173,17 @@ export default function DashboardLayout({
         </header>
 
         {/* Mobile Navigation */}
-        <nav className="lg:hidden flex border-b border-[var(--card-border)] bg-white/50 backdrop-blur-sm px-4 overflow-x-auto no-scrollbar scroll-smooth">
+        <nav className="lg:hidden flex border-b border-border bg-background/50 backdrop-blur-sm px-4 overflow-x-auto no-scrollbar scroll-smooth">
           {navItems.map((item) => {
             const isActive = pathname === item.href;
             return (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`flex items-center gap-2 px-4 py-3 text-sm font-semibold whitespace-nowrap border-b-2 transition-all duration-200 ${
-                  isActive 
-                    ? "text-[var(--color-primary)] border-[var(--color-primary)]" 
+                className={`flex items-center gap-2 px-4 py-3 text-sm font-semibold whitespace-nowrap border-b-2 transition-all duration-200 ${isActive
+                    ? "text-[var(--color-primary)] border-[var(--color-primary)]"
                     : "text-[var(--muted)] border-transparent"
-                }`}
+                  }`}
               >
                 {item.icon}
                 {item.name}
@@ -221,7 +192,7 @@ export default function DashboardLayout({
           })}
         </nav>
 
-        <main className="flex-1 overflow-y-auto custom-scrollbar bg-slate-50/30">
+        <main className="flex-1 overflow-y-auto custom-scrollbar bg-background">
           <div className="max-w-[1200px] mx-auto p-4 sm:p-6 lg:p-8 animate-fade-in-up">
             {children}
           </div>

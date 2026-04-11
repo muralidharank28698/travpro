@@ -39,28 +39,28 @@ export default function CustomerDashboardPage() {
       </div>
 
       {/* Tabs - Sleek underlined style */}
-      <div className="flex border-b border-slate-200">
+      <div className="flex border-b border-border/50">
         <button
           className={`pb-3 px-1 mr-8 text-sm font-bold transition-all border-b-2 focus:outline-none ${activeTab === 'Upcoming'
               ? 'border-[var(--color-primary)] text-[var(--color-primary)]'
-              : 'border-transparent text-[var(--muted)] hover:text-slate-800'
+              : 'border-transparent text-[var(--muted)] hover:text-foreground'
             }`}
           onClick={() => setActiveTab("Upcoming")}
         >
           Upcoming trips
-          <span className="ml-2 inline-flex items-center justify-center bg-slate-100 text-slate-600 text-[10px] px-2 py-0.5 rounded-full">
+          <span className="ml-2 inline-flex items-center justify-center bg-slate-100 text-muted text-[10px] px-2 py-0.5 rounded-full">
             {upcoming.length}
           </span>
         </button>
         <button
           className={`pb-3 px-1 text-sm font-bold transition-all border-b-2 focus:outline-none ${activeTab === 'Past'
               ? 'border-[var(--color-primary)] text-[var(--color-primary)]'
-              : 'border-transparent text-[var(--muted)] hover:text-slate-800'
+              : 'border-transparent text-[var(--muted)] hover:text-foreground'
             }`}
           onClick={() => setActiveTab("Past")}
         >
           Past & Cancelled
-          <span className="ml-2 inline-flex items-center justify-center bg-slate-100 text-slate-600 text-[10px] px-2 py-0.5 rounded-full">
+          <span className="ml-2 inline-flex items-center justify-center bg-slate-100 text-muted text-[10px] px-2 py-0.5 rounded-full">
             {past.length}
           </span>
         </button>
@@ -69,8 +69,8 @@ export default function CustomerDashboardPage() {
       {/* Bookings List */}
       <div className="space-y-5">
         {displayBookings.length === 0 ? (
-          <div className="flex flex-col items-center justify-center p-12 text-center rounded-2xl border border-dashed border-slate-200 bg-slate-50/50">
-            <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mb-4 text-slate-300">
+          <div className="flex flex-col items-center justify-center p-12 text-center rounded-2xl border border-dashed border-border/60 bg-surface/30">
+            <div className="w-16 h-16 bg-surface border-border/50">
               <Compass className="w-8 h-8" />
             </div>
             <h3 className="text-lg font-bold text-emerald-950">No {activeTab.toLowerCase()} trips.</h3>
@@ -81,20 +81,20 @@ export default function CustomerDashboardPage() {
           </div>
         ) : (
           displayBookings.map((booking) => (
-            <div key={booking.id} className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-md transition-all group p-5 sm:p-6 flex flex-col gap-5 relative">
+            <div key={booking.id} className="bg-card rounded-2xl shadow-sm border border-border/60 hover:border-border transition-all group p-5 sm:p-6 flex flex-col gap-5 relative backdrop-blur-sm">
                
                {/* Header Row */}
-               <div className="flex justify-between items-center border-b border-slate-100 pb-4">
+               <div className="flex justify-between items-center border-b border-border/40 pb-4">
                  <div className="flex items-center gap-3">
                    <span className={`text-[9px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full text-white ${
                     booking.status === 'Confirmed' ? 'bg-emerald-500 shadow-sm shadow-emerald-500/20' : 
                     booking.status === 'In Progress' ? 'bg-blue-500 shadow-sm shadow-blue-500/20' : 
                     booking.status === 'Cancelled' ? 'bg-red-500 shadow-sm shadow-red-500/20' :
-                    'bg-slate-500'
+                    'bg-surface0'
                   }`}>
                     {booking.status}
                   </span>
-                  <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">{booking.tripType}</span>
+                  <span className="text-xs font-bold text-muted uppercase tracking-wider">{booking.tripType}</span>
                  </div>
                  <span className="text-xs text-slate-400 font-mono tracking-wider items-center gap-1.5 hidden sm:flex">
                    <Car className="w-3.5 h-3.5 opacity-40" /> #{booking.id}
@@ -104,16 +104,16 @@ export default function CustomerDashboardPage() {
                {/* Main Title & Price */}
                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                  <div>
-                   <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight leading-none">{booking.carName}</h2>
+                   <h2 className="text-2xl sm:text-3xl font-extrabold text-foreground tracking-tight leading-none">{booking.carName}</h2>
                  </div>
                  <div className="text-left md:text-right">
                    <p className="text-[10px] uppercase tracking-widest text-slate-400 font-extrabold mb-1 hidden md:block">Total Fare</p>
-                   <p className="text-3xl font-bold text-slate-900 tracking-tighter">₹{booking.amount.toLocaleString()}</p>
+                   <p className="text-3xl font-bold text-foreground tracking-tighter">₹{booking.amount.toLocaleString()}</p>
                  </div>
                </div>
 
                {/* Route & Actions Bottom Bar */}
-               <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 bg-slate-50/80 rounded-xl p-4 md:px-5 border border-slate-100/80">
+               <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 bg-surface/80 rounded-xl p-4 md:px-5 border border-border/50 shadow-inner">
                  
                  {/* Compact Route View */}
                 <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 text-sm flex-1">
@@ -121,7 +121,7 @@ export default function CustomerDashboardPage() {
                   <div className="flex flex-col">
                     <div className="flex items-center gap-1.5 mb-1.5">
                       <MapPin className="w-3.5 h-3.5 text-[var(--color-primary)]" />
-                      <p className="font-bold text-slate-800 text-sm leading-none">{booking.pickupLocation}</p>
+                      <p className="font-bold text-foreground text-sm leading-none">{booking.pickupLocation}</p>
                     </div>
                     <p className="text-xs font-medium text-slate-400 ml-5">{booking.startDate}</p>
                   </div>
@@ -130,20 +130,20 @@ export default function CustomerDashboardPage() {
                   <ArrowRight className="w-4 h-4 text-slate-300 hidden sm:block" />
 
                   {/* Drop off */}
-                  <div className="flex flex-col mt-1 sm:mt-0 pt-3 border-t border-slate-200 sm:border-0 sm:pt-0">
+                  <div className="flex flex-col mt-1 sm:mt-0 pt-3 border-t border-border/50 sm:border-0 sm:pt-0">
                      <div className="flex items-center gap-1.5 mb-1.5">
                       <MapPin className="w-3.5 h-3.5 text-slate-400" />
-                      <p className="font-bold text-slate-800 text-sm leading-none">{booking.dropoffLocation}</p>
+                      <p className="font-bold text-foreground text-sm leading-none">{booking.dropoffLocation}</p>
                     </div>
                     <p className="text-xs font-medium text-slate-400 ml-5">{booking.endDate}</p>
                   </div>
                 </div>
 
                  {/* Action Buttons */}
-                 <div className="flex items-center justify-between sm:justify-start gap-2 mt-2 md:mt-0 pt-4 md:pt-0 border-t border-slate-200 md:border-transparent shrink-0">
+                 <div className="flex items-center justify-between sm:justify-start gap-2 mt-2 md:mt-0 pt-4 md:pt-0 border-t border-border/50 md:border-transparent shrink-0">
                    {activeTab === "Upcoming" && (
                     <>
-                      <button className="text-xs font-bold text-slate-500 hover:text-red-500 py-2.5 px-4 transition-colors flex items-center justify-center gap-1.5">
+                      <button className="text-xs font-bold text-muted hover:text-red-500 py-2.5 px-4 transition-colors flex items-center justify-center gap-1.5">
                         <XCircle className="w-3.5 h-3.5" /> Cancel
                       </button>
                       <button className="premium-button text-xs py-2.5 px-6 flex items-center justify-center gap-1.5 shadow-md">
@@ -152,8 +152,8 @@ export default function CustomerDashboardPage() {
                     </>
                   )}
                   {activeTab === "Past" && (
-                    <button className="secondary-button text-xs py-2.5 px-6 w-full sm:w-auto flex items-center justify-center gap-1.5 bg-white border-slate-200 shadow-sm">
-                      <Download className="w-3.5 h-3.5 text-slate-500" /> Download Invoice
+                    <button className="secondary-button text-xs py-2.5 px-6 w-full sm:w-auto flex items-center justify-center gap-1.5 bg-card border-border shadow-sm hover:bg-surface transition-colors">
+                      <Download className="w-3.5 h-3.5 text-muted" /> Download Invoice
                     </button>
                   )}
                  </div>

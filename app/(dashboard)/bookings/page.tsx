@@ -7,10 +7,10 @@ import { useAppSelector } from "@/lib/store";
 import Link from "next/link";
 
 const statusConfig: Record<string, { badgeBg: string; badgeColor: string; dotColor: string }> = {
-  Confirmed: { badgeBg: "#ECFDF5", badgeColor: "#059669", dotColor: "#10B981" },
-  "In Progress": { badgeBg: "#EFF6FF", badgeColor: "#2563EB", dotColor: "#3B82F6" },
-  Completed: { badgeBg: "#F1F5F9", badgeColor: "#64748B", dotColor: "#94A3B8" },
-  Cancelled: { badgeBg: "#FEF2F2", badgeColor: "#DC2626", dotColor: "#EF4444" },
+  Confirmed: { badgeBg: "rgba(16, 185, 129, 0.1)", badgeColor: "#10B981", dotColor: "#10B981" },
+  "In Progress": { badgeBg: "rgba(59, 130, 246, 0.1)", badgeColor: "#3B82F6", dotColor: "#3B82F6" },
+  Completed: { badgeBg: "rgba(var(--muted-rgb), 0.1)", badgeColor: "var(--muted)", dotColor: "var(--muted-light)" },
+  Cancelled: { badgeBg: "rgba(239, 68, 68, 0.1)", badgeColor: "#EF4444", dotColor: "#EF4444" },
 };
 
 export default function BookingsPage() {
@@ -57,40 +57,36 @@ export default function BookingsPage() {
       </div>
 
       {/* Stats Row */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {statCards.map((stat) => {
           const isActive = filterStatus === stat.filter;
           return (
             <div 
               key={stat.label} 
               onClick={() => setFilterStatus(stat.filter)}
-              className="cursor-pointer transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
+              className={`card p-6 border transition-all duration-300 cursor-pointer group hover:-translate-y-1 ${
+                isActive 
+                  ? "bg-primary/10 border-primary ring-1 ring-primary/20 shadow-xl shadow-primary/5" 
+                  : "bg-surface/40 dark:bg-card/40 border-border/60 hover:border-border hover:bg-surface/60 dark:hover:bg-card/60"
+              }`}
             >
-              <GlassCard 
-                className={`transition-all duration-200 ${
-                  isActive 
-                    ? "ring-2 ring-[var(--color-primary)] ring-offset-2 bg-white/80 shadow-md" 
-                    : "hover:bg-white/50"
-                }`}
-              >
-                <div className="flex flex-col">
-                  <p className="text-[10px] font-bold text-[var(--muted)] uppercase tracking-widest mb-1">
-                    {stat.label}
-                  </p>
-                  <p className="text-2xl sm:text-3xl font-black" style={{ color: stat.color }}>
-                    {stat.value}
-                  </p>
-                </div>
-              </GlassCard>
+              <div className="flex flex-col">
+                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-muted mb-2 group-hover:text-foreground transition-colors">
+                  {stat.label}
+                </p>
+                <p className="text-3xl font-black tracking-tighter" style={{ color: stat.color === 'var(--foreground)' ? 'var(--foreground)' : stat.color }}>
+                  {stat.value}
+                </p>
+              </div>
             </div>
           );
         })}
       </div>
 
       {/* Bookings List */}
-      <div className="card !p-0 overflow-hidden border-none shadow-sm ring-1 ring-slate-100">
+      <div className="card !p-0 overflow-hidden border border-border/60 bg-card/40 backdrop-blur-md shadow-2xl">
         {/* Table Header - Hidden on Mobile */}
-        <div className="hidden lg:grid grid-cols-[1fr_1.2fr_1fr_0.8fr_0.8fr_0.7fr] gap-4 px-6 py-3 bg-slate-50 border-b border-[var(--card-border)] text-[10px] font-black uppercase tracking-widest text-[var(--muted)]">
+        <div className="hidden lg:grid grid-cols-[1fr_1.2fr_1fr_0.8fr_0.8fr_0.7fr] gap-4 px-6 py-4 bg-surface/50 border-b border-border/40 text-[10px] font-black uppercase tracking-[0.2em] text-muted">
           <span>Booking</span>
           <span>Route</span>
           <span>Customer</span>
@@ -100,14 +96,14 @@ export default function BookingsPage() {
         </div>
 
         {/* Rows */}
-        <div className="divide-y divide-slate-100">
+        <div className="divide-y divide-border/20">
           {filteredBookings.length === 0 ? (
             <div className="p-12 flex flex-col items-center justify-center text-center">
-              <div className="w-12 h-12 rounded-full bg-slate-50 flex items-center justify-center mb-3">
-                <span className="text-2xl">🔍</span>
+              <div className="w-16 h-16 rounded-2xl bg-surface/50 border border-border/40 flex items-center justify-center mb-4">
+                <span className="text-3xl transform -rotate-12">🔍</span>
               </div>
-              <h3 className="text-sm font-bold text-[var(--foreground)]">No bookings found</h3>
-              <p className="text-xs text-[var(--muted)] mt-1">Try selecting a different filter.</p>
+              <h3 className="text-sm font-black text-foreground">No bookings found</h3>
+              <p className="text-xs text-muted mt-2">Try selecting a different filter.</p>
             </div>
           ) : (
             filteredBookings.map((booking, index) => {
@@ -115,32 +111,32 @@ export default function BookingsPage() {
               return (
                 <div
                   key={booking.id}
-                  className="lg:grid lg:grid-cols-[1fr_1.2fr_1fr_0.8fr_0.8fr_0.7fr] flex flex-col gap-4 lg:gap-4 p-5 lg:px-6 lg:py-5 hover:bg-slate-50/80 transition-all animate-fade-in-up group"
+                  className="lg:grid lg:grid-cols-[1fr_1.2fr_1fr_0.8fr_0.8fr_0.7fr] flex flex-col gap-4 lg:gap-4 p-5 lg:px-6 lg:py-6 hover:bg-primary/[0.03] transition-all animate-fade-in-up group"
                   style={{ animationDelay: `${index * 50}ms` }}
                 >
                   {/* Booking Info */}
                   <div className="flex flex-col">
-                    <p className="text-sm font-bold text-[var(--foreground)] group-hover:text-[var(--color-primary)] transition-colors">
+                    <p className="text-[15px] font-black text-foreground group-hover:text-primary transition-colors">
                       {booking.carName}
                     </p>
-                    <div className="flex items-center gap-2 mt-1">
-                      <span className="text-[10px] font-mono text-[var(--muted-light)] bg-slate-100 px-1.5 py-0.5 rounded uppercase">{booking.id}</span>
-                      <span className="text-[10px] font-bold text-[var(--muted)] px-2 py-0.5 bg-white border border-slate-100 rounded shadow-sm">
+                    <div className="flex items-center gap-2 mt-2">
+                      <span className="text-[10px] font-mono font-bold text-muted bg-surface/80 border border-border/50 px-2 py-0.5 rounded tracking-wider uppercase">{booking.id}</span>
+                      <span className="text-[10px] font-black text-muted-light px-2.5 py-0.5 border border-border/40 rounded shadow-sm bg-surface/30">
                         {booking.tripType}
                       </span>
                     </div>
                   </div>
 
                   {/* Route */}
-                  <div className="flex items-center gap-3 bg-slate-50/50 lg:bg-transparent p-3 lg:p-0 rounded-xl border border-slate-100 lg:border-none">
-                    <div className="flex flex-col items-center gap-0.5 opacity-60">
-                      <div className="w-1.5 h-1.5 rounded-full border border-[var(--color-primary)]" />
-                      <div className="w-px h-3 bg-slate-300" />
-                      <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-primary)]" />
+                  <div className="flex items-center gap-3 bg-surface/30 lg:bg-transparent p-4 lg:p-0 rounded-2xl border border-border/40 lg:border-none">
+                    <div className="flex flex-col items-center gap-0.5 opacity-40">
+                      <div className="w-2 h-2 rounded-full border-2 border-primary" />
+                      <div className="w-[2px] h-4 bg-border/40" />
+                      <div className="w-2 h-2 rounded-full bg-primary" />
                     </div>
                     <div className="flex flex-col min-w-0">
-                      <p className="text-xs font-semibold text-[var(--foreground)] truncate">{booking.pickupLocation}</p>
-                      <p className="text-xs text-[var(--muted)] truncate">{booking.dropoffLocation}</p>
+                      <p className="text-xs font-black text-foreground truncate">{booking.pickupLocation}</p>
+                      <p className="text-[11px] font-bold text-muted truncate">{booking.dropoffLocation}</p>
                     </div>
                   </div>
 
@@ -163,16 +159,16 @@ export default function BookingsPage() {
                     </div>
 
                     {/* Amount */}
-                    <div className="flex flex-col lg:justify-center pt-3 lg:pt-0 border-t border-slate-50 lg:border-none">
-                      <p className="text-[10px] font-bold lg:hidden text-[var(--muted-light)] uppercase tracking-wider mb-1">Fare</p>
-                      <p className="text-sm lg:text-base font-black text-[var(--foreground)]">₹{booking.amount.toLocaleString()}</p>
+                    <div className="flex flex-col lg:justify-center pt-3 lg:pt-0 border-t border-border/20 lg:border-none">
+                      <p className="text-[10px] font-black lg:hidden text-muted-light uppercase tracking-[0.2em] mb-1">Fare</p>
+                      <p className="text-base lg:text-lg font-black text-foreground">₹{booking.amount.toLocaleString()}</p>
                     </div>
 
                     {/* Status */}
-                    <div className="flex flex-col lg:justify-center items-end lg:items-start pt-3 lg:pt-0 border-t border-slate-50 lg:border-none">
-                      <p className="text-[10px] font-bold lg:hidden text-[var(--muted-light)] uppercase tracking-wider mb-1">Status</p>
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold shadow-sm ring-1 ring-inset ring-black/5" style={{ backgroundColor: config.badgeBg, color: config.badgeColor }}>
-                        <span className="w-1 h-1 rounded-full" style={{ backgroundColor: config.dotColor }} />
+                    <div className="flex flex-col lg:justify-center items-end lg:items-start pt-3 lg:pt-0 border-t border-border/20 lg:border-none">
+                      <p className="text-[10px] font-black lg:hidden text-muted-light uppercase tracking-[0.2em] mb-1">Status</p>
+                      <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[10px] font-black border border-border/10 shadow-sm" style={{ backgroundColor: config.badgeBg, color: config.badgeColor }}>
+                        <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: config.dotColor }} />
                         {booking.status}
                       </span>
                     </div>

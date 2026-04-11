@@ -1,5 +1,17 @@
 @import "tailwindcss";
 
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card-bg);
+  --color-border: var(--card-border);
+  --color-muted: var(--muted);
+  --color-surface: var(--surface);
+  --color-primary: var(--brand-primary);
+  --color-secondary: var(--brand-secondary);
+  --color-accent: var(--brand-accent);
+}
+
 :root {
   --background: #FCFCFD;
   --foreground: #141416;
@@ -10,12 +22,30 @@
   --surface: #F4F5F6;
   
   /* Premium Emerald Travel Theme (No Blue) */
-  --color-primary: #059669; /* Emerald 600 - Lush, natural, trustworthy */
-  --color-primary-light: #34D399; /* Emerald 400 */
-  --color-primary-dark: #047857; /* Emerald 700 */
-  --color-secondary: #10B981; /* Emerald 500 for softer hovers */
-  --color-accent: #D97706; /* Golden Amber for premium touches/stars */
+  --brand-primary: #059669; /* Emerald 600 - Lush, natural, trustworthy */
+  --brand-primary-light: #34D399; /* Emerald 400 */
+  --brand-primary-dark: #047857; /* Emerald 700 */
+  --brand-secondary: #10B981; /* Emerald 500 for softer hovers */
+  --brand-accent: #D97706; /* Golden Amber for premium touches/stars */
   
+  --color-success: #059669;
+  --color-warning: #F59E0B;
+  --color-danger: #EF466F;
+}
+
+.dark {
+  --background: #0D0E12; /* Deep nhost off-black */
+  --foreground: #FAFAFA;
+  --card-bg: #111115; /* Subtle card distinction */
+  --card-border: #232326;
+  --muted: #A1A1AA;
+  --muted-light: #52525B;
+  --surface: #1C1C20;
+  --brand-primary: #059669;
+  --brand-primary-light: #34D399;
+  --brand-primary-dark: #047857;
+  --brand-secondary: #10B981;
+  --brand-accent: #D97706;
   --color-success: #059669;
   --color-warning: #F59E0B;
   --color-danger: #EF466F;
@@ -66,7 +96,7 @@ body {
   font-weight: 700;
   color: white;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  background: var(--color-primary); /* Solid color instead of gradient */
+  background: var(--brand-primary); /* Solid color instead of gradient */
   border: none;
   cursor: pointer;
   text-decoration: none;
@@ -75,8 +105,9 @@ body {
 }
 
 .premium-button:hover {
-  background: var(--color-primary-dark);
-  box-shadow: 0px 8px 16px -4px rgba(59, 113, 254, 0.3); /* Colored shadow */
+  background: #065F46; /* Solid Dark Emerald for guaranteed contrast */
+  color: white !important;
+  box-shadow: 0 10px 25px -5px rgba(5, 150, 105, 0.4);
   transform: translateY(-2px);
 }
 
@@ -90,7 +121,6 @@ body {
   background: var(--muted-light);
 }
 
-/* Secondary Button (Figma Style) */
 .secondary-button {
   display: inline-flex;
   align-items: center;
@@ -99,7 +129,7 @@ body {
   border-radius: 0.75rem;
   font-weight: 700;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  background: white;
+  background: transparent;
   color: var(--foreground);
   border: 2px solid var(--card-border); /* Thicker border */
   text-decoration: none;
@@ -109,8 +139,8 @@ body {
 }
 
 .secondary-button:hover {
-  border-color: var(--color-primary);
-  color: var(--color-primary);
+  border-color: var(--brand-primary);
+  color: var(--brand-primary);
 }
 
 /* Badge System */
@@ -130,9 +160,19 @@ body {
   color: #059669;
 }
 
+.dark .badge-success {
+  background: #064e3b;
+  color: #34d399;
+}
+
 .badge-warning {
   background: #FFFBEB;
   color: #D97706;
+}
+
+.dark .badge-warning {
+  background: #78350f;
+  color: #fbbf24;
 }
 
 .badge-info {
@@ -140,14 +180,29 @@ body {
   color: #2563EB;
 }
 
+.dark .badge-info {
+  background: #1e3a8a;
+  color: #60a5fa;
+}
+
 .badge-danger {
   background: #FEF2F2;
   color: #DC2626;
 }
 
+.dark .badge-danger {
+  background: #7f1d1d;
+  color: #f87171;
+}
+
 .badge-neutral {
   background: #F1F5F9;
   color: #64748B;
+}
+
+.dark .badge-neutral {
+  background: #334155;
+  color: #cbd5e1;
 }
 
 /* Form Inputs */
@@ -156,7 +211,7 @@ body {
   padding: 0.75rem 1rem;
   border-radius: 0.75rem;
   border: 1px solid var(--card-border);
-  background: white;
+  background: transparent;
   outline: none;
   transition: all 0.2s ease;
   color: var(--foreground);
@@ -168,11 +223,11 @@ body {
 }
 
 .form-input:hover {
-  border-color: var(--color-primary);
+  border-color: var(--brand-primary);
 }
 
 .form-input:focus {
-  border-color: var(--color-primary);
+  border-color: var(--brand-primary);
   box-shadow: 0 0 0 4px rgba(5, 150, 105, 0.1); /* Match DatePicker's ring-4 primary/10 */
 }
 

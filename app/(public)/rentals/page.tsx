@@ -93,7 +93,7 @@ export default function RentalsPage() {
       </div>
 
       {/* Filter Toolbar - Super Compact */}
-      <div className="card mb-12 bg-white/80 backdrop-blur-md relative z-40 shadow-xl border-none ring-1 ring-slate-100 transition-all duration-500">
+      <div className="card mb-12 bg-card/80 backdrop-blur-md relative z-40 shadow-xl border-none ring-1 ring-slate-100 transition-all duration-500">
         <div className="p-4 sm:p-5">
           {/* Primary Row */}
           <div className="flex flex-col lg:flex-row items-center gap-4 lg:gap-8">
@@ -126,7 +126,7 @@ export default function RentalsPage() {
                 className={`flex items-center gap-2 px-0 sm:px-4 py-2.5 rounded-xl text-[11px] uppercase tracking-wider font-bold transition-all duration-300 justify-center border border-transparent ${
                   activeFilterCount > 0 
                     ? "text-rose-500 hover:bg-rose-50 hover:border-rose-100 cursor-pointer" 
-                    : "text-slate-300 cursor-not-allowed opacity-50"
+                    : "text-foreground cursor-not-allowed opacity-50"
                 }`}
               >
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -140,8 +140,8 @@ export default function RentalsPage() {
                 onClick={() => setIsFiltersOpen(!isFiltersOpen)}
                 className={`flex items-center gap-2.5 px-5 sm:px-6 py-2.5 rounded-xl text-xs font-bold transition-all duration-300 w-auto lg:w-auto justify-center whitespace-nowrap shadow-sm ${
                   isFiltersOpen || activeFilterCount > 0
-                    ? "bg-emerald-50 text-[var(--color-primary)] ring-1 ring-emerald-100"
-                    : "bg-slate-900 text-white hover:bg-slate-800 shadow-slate-200"
+                    ? "bg-surface text-[var(--color-primary)] ring-1 ring-border"
+                    : "bg-slate-900 dark:bg-card dark:text-foreground dark:border dark:border-border text-white hover:bg-slate-800"
                 }`}
               >
                 <svg className={`w-3.5 h-3.5 transition-transform duration-300 ${isFiltersOpen ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -159,7 +159,7 @@ export default function RentalsPage() {
 
           {/* Advanced Shelf - Collapsible */}
           {isFiltersOpen && (
-            <div className="mt-6 pt-6 border-t border-slate-100 animate-fade-in-up">
+            <div className="mt-6 pt-6 border-t border-border animate-fade-in-up">
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 items-end">
                 <CustomSelect
                   label="Seat Capacity"
@@ -197,12 +197,12 @@ export default function RentalsPage() {
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 <div className="absolute top-4 left-4">
-                  <span className="badge badge-info bg-white/90 backdrop-blur-sm text-[var(--color-primary)]">
+                  <span className="badge badge-info bg-card/90 backdrop-blur-sm text-[var(--color-primary)]">
                     {car.type}
                   </span>
                 </div>
                 <div className="absolute top-4 right-4 animate-fade-in">
-                  <span className={`badge bg-white/90 backdrop-blur-sm shadow-sm flex items-center gap-1.5 ${
+                  <span className={`badge bg-card/90 backdrop-blur-sm shadow-sm flex items-center gap-1.5 ${
                     car.status === "Available" ? "text-emerald-600" : car.status === "Booked" ? "text-rose-600" : "text-amber-600"
                   }`}>
                     <span className={`w-1.5 h-1.5 rounded-full ${
@@ -242,13 +242,13 @@ export default function RentalsPage() {
                 </div>
 
                 {car.status === "Available" ? (
-                  <Link href={`/rentals/${car.id}`} className="premium-button w-full shadow-lg shadow-emerald-50">
+                  <Link href={`/rentals/${car.id}`} className="premium-button w-full shadow-sm">
                     Book {car.name}
                   </Link>
                 ) : (
                   <button 
                     disabled 
-                    className="w-full py-3.5 rounded-xl font-bold bg-slate-50 text-slate-400 cursor-not-allowed border-2 border-dashed border-slate-200 transition-all text-sm"
+                    className="w-full py-3.5 rounded-xl font-bold bg-surface text-[var(--muted)] cursor-not-allowed border-2 border-dashed border-border transition-all text-sm"
                   >
                     {car.status === "Booked" ? "Currently Booked" : "Under Maintenance"}
                   </button>
@@ -258,8 +258,8 @@ export default function RentalsPage() {
           ))}
         </div>
       ) : (
-        <div className="py-24 text-center animate-fade-in-up card border-dashed border-2 bg-slate-50/50">
-          <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl shadow-sm">
+        <div className="py-24 text-center animate-fade-in-up card border-dashed border-2 bg-surface/50">
+          <div className="w-16 h-16 bg-card rounded-full flex items-center justify-center mx-auto mb-4 text-2xl shadow-sm">
             🚗
           </div>
           <h2 className="text-xl font-bold text-[var(--foreground)] tracking-tight">No cars found matching your filters</h2>

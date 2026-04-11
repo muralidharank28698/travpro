@@ -101,10 +101,10 @@ export default function TourDetailsPage() {
               className="w-full h-full object-cover"
             />
             <div className="absolute top-6 right-6 flex gap-3">
-              <button className="p-3 bg-white/20 backdrop-blur-md rounded-full text-white hover:bg-white/40 transition-all">
+              <button className="p-3 bg-card backdrop-blur-md rounded-full text-white hover:bg-white/40 transition-all">
                 <Share2 className="w-5 h-5" />
               </button>
-              <button className="p-3 bg-white/20 backdrop-blur-md rounded-full text-white hover:bg-white/40 transition-all">
+              <button className="p-3 bg-card backdrop-blur-md rounded-full text-white hover:bg-white/40 transition-all">
                 <Heart className="w-5 h-5" />
               </button>
             </div>
@@ -156,8 +156,8 @@ export default function TourDetailsPage() {
             )}
 
             <div className="grid sm:grid-cols-2 gap-8 pt-8">
-              <div className="card p-6 border-emerald-50 bg-emerald-50/10">
-                <h3 className="font-bold mb-4 flex items-center gap-2 text-emerald-700">
+              <div className="bg-card border-border">
+                <h3 className="text-foreground font-bold mb-4 flex items-center gap-2">
                   <CheckCircle2 className="w-5 h-5" />
                   Inclusions
                 </h3>
@@ -167,8 +167,8 @@ export default function TourDetailsPage() {
                   ))}
                 </ul>
               </div>
-              <div className="card p-6 border-red-50 bg-red-50/10">
-                <h3 className="font-bold mb-4 flex items-center gap-2 text-red-700">
+              <div className="bg-card border-border opacity-80">
+                <h3 className="text-foreground font-bold mb-4 flex items-center gap-2">
                   <Clock className="w-5 h-5 rotate-45" />
                   Exclusions
                 </h3>
@@ -228,7 +228,7 @@ export default function TourDetailsPage() {
                   <span className="text-[var(--muted)]">GST (5%)</span>
                   <span>₹{(tour.price * 0.05).toLocaleString()}</span>
                 </div>
-                <div className="h-px bg-slate-100 my-4"></div>
+                <div className="h-px bg-border/50 my-4"></div>
                 <div className="flex justify-between items-center font-black text-xl">
                   <span>Total</span>
                   <span className="text-emerald-600">₹{(tour.price * 1.05).toLocaleString()}</span>

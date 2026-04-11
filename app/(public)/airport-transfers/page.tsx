@@ -84,8 +84,8 @@ export default function AirportTransfersPage() {
     return (
       <div className="min-h-[80vh] flex flex-col items-center justify-center p-6 text-center animate-fade-in-up">
         <div className="w-16 h-16 border-4 border-[var(--color-primary)] border-t-transparent rounded-full animate-spin mb-6"></div>
-        <h2 className="text-xl font-black text-slate-800 tracking-tight">Securing your session...</h2>
-        <p className="text-sm font-medium text-slate-400 mt-2 uppercase tracking-widest">Preparing your transfer request</p>
+        <h2 className="text-xl font-black text-foreground tracking-tight">Securing your session...</h2>
+        <p className="text-sm font-medium text-[var(--muted-light)] mt-2 uppercase tracking-widest">Preparing your transfer request</p>
       </div>
     );
   }
@@ -108,13 +108,13 @@ export default function AirportTransfersPage() {
           
           <div className="flex bg-[var(--surface)] p-1 rounded-xl mb-6">
             <button 
-              className={`flex-1 py-3 text-sm font-semibold rounded-lg transition-all ${direction === 'drop' ? 'bg-white shadow-[0_2px_8px_rgba(0,0,0,0.08)] text-[var(--foreground)]' : 'text-[var(--muted)] hover:text-[var(--foreground)]'}`}
+              className={`flex-1 py-3 text-sm font-semibold rounded-lg transition-all ${direction === 'drop' ? 'bg-card shadow-[0_2px_8px_rgba(0,0,0,0.08)] text-[var(--foreground)]' : 'text-[var(--muted)] hover:text-[var(--foreground)]'}`}
               onClick={() => setDirection('drop')}
             >
               Drop to Airport 🛫
             </button>
             <button 
-              className={`flex-1 py-3 text-sm font-semibold rounded-lg transition-all ${direction === 'pickup' ? 'bg-white shadow-[0_2px_8px_rgba(0,0,0,0.08)] text-[var(--foreground)]' : 'text-[var(--muted)] hover:text-[var(--foreground)]'}`}
+              className={`flex-1 py-3 text-sm font-semibold rounded-lg transition-all ${direction === 'pickup' ? 'bg-card shadow-[0_2px_8px_rgba(0,0,0,0.08)] text-[var(--foreground)]' : 'text-[var(--muted)] hover:text-[var(--foreground)]'}`}
               onClick={() => setDirection('pickup')}
             >
               Pick-up from Airport 🛬
@@ -150,7 +150,7 @@ export default function AirportTransfersPage() {
             {direction === 'pickup' && (
               <div className="space-y-2 animate-fade-in-up">
                 <label className="text-sm font-semibold text-[var(--foreground)]">Flight Number <span className="text-[var(--muted-light)]">(Optional)</span></label>
-                <input type="text" placeholder="e.g. 6E-1234" className="form-input bg-white text-[var(--foreground)]" />
+                <input type="text" placeholder="e.g. 6E-1234" className="form-input bg-card text-[var(--foreground)]" />
                 <p className="text-xs text-[var(--muted-light)]">We'll track your flight and adjust pickup time automatically if delayed.</p>
               </div>
             )}
@@ -180,7 +180,7 @@ export default function AirportTransfersPage() {
             </div>
             <div className="overflow-x-auto">
               <table className="w-full text-left text-sm">
-                <thead className="bg-[#F8FAFC] text-[var(--muted)] uppercase text-xs font-semibold tracking-wider">
+                <thead className="bg-surface text-[var(--muted)] uppercase text-xs font-semibold tracking-wider">
                   <tr>
                     <th className="px-6 py-4">Route</th>
                     <th className="px-6 py-4">Vehicle</th>
@@ -190,7 +190,7 @@ export default function AirportTransfersPage() {
                 </thead>
                 <tbody className="divide-y divide-[var(--card-border)] text-[var(--foreground)]">
                   {PRICING.map((p, i) => (
-                    <tr key={i} className="hover:bg-slate-50 transition-colors">
+                    <tr key={i} className="hover:bg-surface transition-colors">
                       <td className="px-6 py-4 font-medium">{p.route}</td>
                       <td className="px-6 py-4 text-[var(--muted)]">{p.vehicle}</td>
                       <td className="px-6 py-4 font-semibold">₹{p.oneWay}</td>
@@ -202,12 +202,12 @@ export default function AirportTransfersPage() {
             </div>
           </div>
 
-          <div className="bg-emerald-50 border border-emerald-100 rounded-xl p-6 text-emerald-900 shadow-sm">
+          <div className="bg-card border-border rounded-xl p-6 text-foreground shadow-sm">
             <div className="flex gap-4">
               <span className="text-2xl">💡</span>
               <div>
                 <h4 className="font-bold mb-1">Flight Delayed? No Problem.</h4>
-                <p className="text-sm text-emerald-800 leading-relaxed">
+                <p className="text-sm text-muted leading-relaxed">
                   For airport pick-ups, the first 60 minutes of waiting after your scheduled landing time are completely free. Our dispatch team monitors flight statuses in real time.
                 </p>
               </div>

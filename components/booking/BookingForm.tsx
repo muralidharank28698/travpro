@@ -59,7 +59,7 @@ export default function BookingForm({
     <div className="animate-fade-in-up">
       <div className="card p-8 border-t-4 border-t-[var(--color-primary)] shadow-2xl">
         <div className="space-y-2 mb-8">
-          <h2 className="text-2xl font-black tracking-tight text-slate-800">
+          <h2 className="text-2xl font-black tracking-tight text-foreground">
             Book this vehicle
           </h2>
           <p className="text-sm font-medium text-slate-500">
@@ -107,17 +107,17 @@ export default function BookingForm({
 
           {/* Pricing Summary */}
           {daysCount > 0 && (
-            <div className="bg-emerald-50 rounded-2xl p-5 border border-emerald-100 animate-fade-in-up">
+            <div className="text-foreground mb-1 shadow-none bg-card border-border ring-0">
               <div className="flex justify-between text-sm mb-2">
-                <span className="text-emerald-800 font-medium">Daily Rate (x {daysCount} Days)</span>
-                <span className="text-emerald-900 font-bold">₹{(daysCount * pricePerDay).toLocaleString()}</span>
+                <span className="text-muted font-medium">Daily Rate (x {daysCount} Days)</span>
+                <span className="text-foreground font-bold">₹{(daysCount * pricePerDay).toLocaleString()}</span>
               </div>
-              <div className="flex justify-between text-sm mb-3 pb-3 border-b border-emerald-200/50">
-                <span className="text-emerald-800 font-medium">GST & Fees (5%)</span>
-                <span className="text-emerald-900 font-bold">₹{(totalPrice - (daysCount * pricePerDay)).toLocaleString()}</span>
+              <div className="flex justify-between text-sm mb-3 pb-3 border-b border-border/50">
+                <span className="text-muted font-medium">GST & Fees (5%)</span>
+                <span className="text-foreground font-bold">₹{(totalPrice - (daysCount * pricePerDay)).toLocaleString()}</span>
               </div>
               <div className="flex justify-between items-center pt-1">
-                <span className="text-base font-black text-emerald-950">Total Amount</span>
+                <span className="text-base font-black text-foreground">Total Amount</span>
                 <span className="text-xl font-black text-[var(--color-primary)]">₹{totalPrice.toLocaleString()}</span>
               </div>
             </div>

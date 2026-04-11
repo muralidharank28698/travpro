@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { ReactNode, useState, useEffect, useRef } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 export default function PublicLayout({
   children,
@@ -15,6 +16,7 @@ export default function PublicLayout({
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [user, setUser] = useState<any>(null);
+  const [authLoading, setAuthLoading] = useState(true);
   const userMenuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -23,6 +25,7 @@ export default function PublicLayout({
     // Get initial session
     supabase.auth.getSession().then(({ data: { session } }: { data: { session: any } }) => {
       setUser(session?.user ?? null);
+      setAuthLoading(false);
     });
 
     // Listen for auth changes
@@ -68,10 +71,10 @@ export default function PublicLayout({
   return (
     <div className="min-h-screen bg-[var(--background)] flex flex-col">
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b text-[var(--foreground)] border-[var(--card-border)] py-3 px-6 sm:px-12 flex items-center justify-between">
+      <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b text-foreground border-border py-3 px-6 sm:px-12 flex items-center justify-between">
         <Link href="/" onClick={() => window.location.href = "/"} className="flex items-center gap-3 decoration-none group">
-          <div className="w-10 h-10 rounded-[12px] bg-slate-900 flex items-center justify-center shadow-md group-hover:bg-[var(--color-primary)] transition-all duration-300">
-            <span className="text-white font-black text-xl italic tracking-tighter font-logo">Z</span>
+          <div className="w-10 h-10 rounded-[12px] bg-slate-900 dark:bg-white flex items-center justify-center shadow-md group-hover:bg-primary transition-all duration-300">
+            <span className="text-white dark:text-black font-black text-xl italic tracking-tighter font-logo">Z</span>
           </div>
           <div className="flex flex-col -space-y-1.5 font-logo">
             <div className="flex items-baseline leading-none">
@@ -102,13 +105,18 @@ export default function PublicLayout({
         </nav>
 
         <div className="hidden md:flex items-center">
-          {user ? (
+          <div className="mr-4">
+            <ThemeToggle />
+          </div>
+          {authLoading ? (
+            <div className="w-[100px] h-10" />
+          ) : user ? (
             <div className="relative" ref={userMenuRef}>
               <button
                 onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                className="flex items-center gap-2 p-1 rounded-full hover:bg-slate-50 transition-all border border-transparent hover:border-[var(--card-border)]"
+                className="flex items-center gap-2 p-1 rounded-full hover:bg-surface transition-all border border-transparent hover:border-border"
               >
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-secondary)] flex items-center justify-center text-white font-bold text-sm shadow-sm ring-2 ring-emerald-50 ring-offset-2">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-bold text-sm shadow-sm ring-2 ring-emerald-50 ring-offset-2 dark:ring-1 dark:ring-border dark:ring-offset-0">
                   {user.user_metadata?.full_name?.[0] || user.email?.[0] || 'U'}
                 </div>
                 <svg className={`w-4 h-4 text-[var(--muted)] transition-transform duration-200 ${isUserMenuOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -117,10 +125,10 @@ export default function PublicLayout({
               </button>
 
               {isUserMenuOpen && (
-                <div className="absolute right-0 mt-3 w-64 bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-[var(--card-border)] overflow-hidden animate-fade-in-up z-50">
-                  <div className="p-4 border-b border-[var(--card-border)] bg-slate-50/50">
-                    <p className="text-xs font-bold text-[var(--muted-light)] uppercase tracking-widest mb-1">Authenticated</p>
-                    <p className="text-sm font-bold text-[var(--foreground)] truncate">
+                <div className="absolute right-0 mt-3 w-64 bg-card/95 backdrop-blur-md rounded-2xl shadow-2xl border border-border overflow-hidden animate-fade-in-up z-50">
+                  <div className="p-4 border-b border-border bg-surface/50">
+                    <p className="text-xs font-bold text-muted-light uppercase tracking-widest mb-1">Authenticated</p>
+                    <p className="text-sm font-bold text-foreground truncate">
                       {user.user_metadata?.full_name || user.email}
                     </p>
                     <p className="text-[10px] text-[var(--muted)] truncate mt-0.5">{user.email}</p>
@@ -130,7 +138,7 @@ export default function PublicLayout({
                       <Link
                         href="/bookings"
                         onClick={() => setIsUserMenuOpen(false)}
-                        className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-[var(--muted)] hover:text-[var(--color-primary)] hover:bg-emerald-50 transition-all"
+                        className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-muted hover:text-primary hover:bg-surface transition-all"
                       >
                         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
@@ -141,7 +149,7 @@ export default function PublicLayout({
                       <Link
                         href="/dashboard"
                         onClick={() => setIsUserMenuOpen(false)}
-                        className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-[var(--muted)] hover:text-[var(--color-primary)] hover:bg-emerald-50 transition-all"
+                        className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-muted hover:text-primary hover:bg-surface transition-all"
                       >
                         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -164,7 +172,7 @@ export default function PublicLayout({
               )}
             </div>
           ) : (
-            <div className="flex gap-4">
+            <div className="flex gap-4 items-center">
               <Link href="/login" className="secondary-button text-sm py-2 px-4">Log In</Link>
               <Link href="/register" className="premium-button text-sm py-2 px-4 shadow-md">Sign Up</Link>
             </div>
@@ -172,23 +180,26 @@ export default function PublicLayout({
         </div>
 
         {/* Mobile Nav Toggle */}
-        <button
-          className="md:hidden flex items-center p-2 text-[var(--foreground)]"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
-          <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <div className="md:hidden flex items-center gap-2">
+          <ThemeToggle />
+          <button
+            className="flex items-center p-2 text-[var(--foreground)]"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             {isMobileMenuOpen ? (
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             ) : (
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
             )}
           </svg>
-        </button>
+          </button>
+        </div>
       </header>
 
       {/* Mobile Menu Dropdown */}
       {isMobileMenuOpen && (
-        <div className="md:hidden sticky top-[72px] z-40 bg-white border-b border-[var(--card-border)] shadow-lg animate-fade-in-up">
+        <div className="md:hidden sticky top-[72px] z-40 bg-card border-b border-border shadow-lg animate-fade-in-up">
           <nav className="flex flex-col py-6 px-6 gap-6">
             {navItems.map((item) => {
               const isActive = pathname === item.href;
@@ -207,8 +218,8 @@ export default function PublicLayout({
               {user ? (
                 <>
                   <div className="flex flex-col gap-1 mb-2 px-2">
-                    <span className="text-[10px] font-bold text-[var(--muted-light)] uppercase tracking-[0.2em]">Logged in as</span>
-                    <span className="text-sm font-bold text-[var(--foreground)]">{user.user_metadata?.full_name || user.email}</span>
+                    <span className="text-[10px] font-bold text-muted-light uppercase tracking-[0.2em]">Logged in as</span>
+                    <span className="text-sm font-bold text-foreground">{user.user_metadata?.full_name || user.email}</span>
                   </div>
                   {user.user_metadata?.role === 'admin' ? (
                     <Link href="/bookings" onClick={() => setIsMobileMenuOpen(false)} className="premium-button text-center py-3 text-base shadow-md font-bold">Admin Panel</Link>
@@ -239,29 +250,29 @@ export default function PublicLayout({
       </main>
 
       {/* Footer */}
-      <footer className="bg-slate-900 border-t border-[var(--card-border)] py-12 px-6 sm:px-12 text-slate-400">
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-8 md:gap-6">
+      <footer className="bg-surface border-t border-border py-12 px-6 sm:px-12 text-[var(--muted)] transition-colors duration-300">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-8 md:gap-6">
           <div className="flex items-center gap-3 group">
-            <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center border border-white/10 group-hover:bg-[var(--color-primary)] group-hover:border-[var(--color-primary)] transition-all duration-300">
-              <span className="text-white font-black text-sm italic tracking-tighter font-logo">Z</span>
+            <div className="w-8 h-8 rounded-lg bg-card flex items-center justify-center border border-border group-hover:bg-[var(--color-primary)] group-hover:border-[var(--color-primary)] transition-all duration-300 shadow-sm">
+              <span className="text-foreground group-hover:text-white font-black text-sm italic tracking-tighter font-logo transition-colors">Z</span>
             </div>
             <div className="flex flex-col -space-y-1 font-logo">
               <div className="flex items-baseline leading-none">
                 <span className="text-[18px] font-black tracking-tighter text-[var(--color-primary)]">ZY</span>
-                <span className="text-[18px] font-black tracking-tighter text-white">TRAVO</span>
+                <span className="text-[18px] font-black tracking-tighter text-foreground transition-colors">TRAVO</span>
               </div>
-              <span className="text-[8px] font-bold tracking-[0.4em] text-slate-500 uppercase ml-0.5">TRVLS</span>
+              <span className="text-[8px] font-bold tracking-[0.4em] text-[var(--muted-light)] uppercase ml-0.5">TRVLS</span>
             </div>
           </div>
-          <div className="flex flex-wrap gap-4 sm:gap-6 text-sm">
-            <Link href="/about" className="hover:text-white transition">About Us</Link>
-            <Link href="/operator-register" className="hover:text-white transition">Partner with Us</Link>
-            <Link href="/terms" className="hover:text-white transition">Terms & Conditions</Link>
-            <Link href="/privacy" className="hover:text-white transition">Privacy Policy</Link>
-            <Link href="/contact" className="hover:text-white transition">Support</Link>
+          <div className="flex flex-wrap gap-x-6 gap-y-3 text-sm font-medium">
+            <Link href="/about" className="hover:text-[var(--color-primary)] transition-colors">About Us</Link>
+            <Link href="/operator-register" className="hover:text-[var(--color-primary)] transition-colors">Partner with Us</Link>
+            <Link href="/terms" className="hover:text-[var(--color-primary)] transition-colors">Terms & Conditions</Link>
+            <Link href="/privacy" className="hover:text-[var(--color-primary)] transition-colors">Privacy Policy</Link>
+            <Link href="/contact" className="hover:text-[var(--color-primary)] transition-colors">Support</Link>
           </div>
-          <div className="text-sm max-w-[300px] md:max-w-none">
-            © {new Date().getFullYear()} Zytravo Trvls, Puducherry. All rights reserved.
+          <div className="text-[11px] font-bold uppercase tracking-widest opacity-60">
+            © {new Date().getFullYear()} Zytravo Trvls. All rights reserved.
           </div>
         </div>
       </footer>

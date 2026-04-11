@@ -37,7 +37,7 @@ export default function CarDetailPage() {
     return (
       <div className="min-h-[80vh] flex flex-col items-center justify-center p-6 text-center animate-fade-in-up">
         <div className="w-16 h-16 border-4 border-[var(--color-primary)] border-t-transparent rounded-full animate-spin mb-6"></div>
-        <h2 className="text-xl font-black text-slate-800 tracking-tight">Securing your session...</h2>
+        <h2 className="text-xl font-black text-foreground tracking-tight">Securing your session...</h2>
         <p className="text-sm font-medium text-slate-400 mt-2 uppercase tracking-widest">Preparing your booking experience</p>
       </div>
     );
@@ -76,10 +76,10 @@ export default function CarDetailPage() {
               className="w-full h-full object-cover"
             />
             <div className="absolute top-6 left-6 flex gap-3">
-              <span className="px-4 py-2 bg-white/90 backdrop-blur-md rounded-full text-[var(--color-primary)] font-bold text-sm shadow-lg">
+              <span className="px-4 py-2 bg-card/90 backdrop-blur-md rounded-full text-[var(--color-primary)] font-bold text-sm shadow-lg">
                 {car.type}
               </span>
-              <span className={`px-4 py-2 bg-white/90 backdrop-blur-md rounded-full font-bold text-sm shadow-lg flex items-center gap-1.5 ${
+              <span className={`px-4 py-2 bg-card/90 backdrop-blur-md rounded-full font-bold text-sm shadow-lg flex items-center gap-1.5 ${
                 car.status === "Available" ? "text-emerald-600" : car.status === "Booked" ? "text-rose-600" : "text-amber-600"
               }`}>
                 <span className={`w-1.5 h-1.5 rounded-full ${
@@ -94,7 +94,7 @@ export default function CarDetailPage() {
             <div>
               <div className="flex justify-between items-center mb-2">
                 <h1 className="text-3xl font-black tracking-tight text-[var(--foreground)]">{car.name}</h1>
-                <div className="flex items-center gap-1.5 bg-yellow-50 text-yellow-700 px-3 py-1.5 rounded-xl text-sm font-bold border border-yellow-100">
+                <div className="flex items-center gap-1.5 bg-card border-border text-foreground">
                   ⭐ {car.rating}
                 </div>
               </div>
@@ -127,7 +127,7 @@ export default function CarDetailPage() {
                   </p>
                 </div>
                 <div className="text-right">
-                  <p className="text-xs font-bold text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full inline-block">Free Cancellation</p>
+                  <p className="text-foreground bg-card border border-border px-3 py-1 rounded-full inline-block">Free Cancellation</p>
                 </div>
               </div>
             </div>

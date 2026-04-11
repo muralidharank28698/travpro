@@ -93,15 +93,15 @@ export default function TimePicker({
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className={`w-full flex items-center justify-between gap-3 px-4 py-3 rounded-xl border bg-white text-left transition-all duration-200 cursor-pointer ${
+        className={`w-full flex items-center justify-between gap-3 px-4 py-3 rounded-xl border bg-card text-left transition-all duration-300 cursor-pointer ${
           isOpen
-            ? "border-[var(--color-primary)] ring-4 ring-[var(--color-primary)]/10 shadow-sm"
-            : "border-[var(--card-border)] hover:border-[var(--color-primary)] shadow-sm"
+            ? "border-[var(--color-primary)] ring-4 ring-[var(--color-primary)]/10"
+            : "border-[var(--card-border)] hover:border-[var(--color-primary)]"
         }`}
       >
         <div className="flex items-center gap-3">
           <svg
-            className="w-5 h-5 text-slate-400 shrink-0"
+            className={`w-5 h-5 shrink-0 transition-colors ${isOpen ? "text-[var(--color-primary)]" : "text-[var(--muted-light)]"}`}
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -113,12 +113,12 @@ export default function TimePicker({
               d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
             />
           </svg>
-          <span className={`text-sm font-medium ${value ? "text-[var(--foreground)]" : "text-slate-400"}`}>
+          <span className={`text-sm font-medium ${value ? "text-[var(--foreground)]" : "text-[var(--muted-light)]"}`}>
             {value ? formatDisplay() : placeholder}
           </span>
         </div>
         <svg
-          className={`w-4 h-4 text-slate-400 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+          className={`w-4 h-4 text-[var(--muted-light)] transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -129,11 +129,11 @@ export default function TimePicker({
 
       {isOpen && (
         <div
-          className="absolute left-0 right-0 mt-2 bg-white rounded-2xl shadow-2xl border border-slate-100 z-50 animate-fade-in-up overflow-hidden"
+          className="absolute left-0 right-0 mt-2 bg-card/95 backdrop-blur-md rounded-2xl shadow-2xl border border-[var(--card-border)] z-50 animate-fade-in-up overflow-hidden"
           style={{ minWidth: 220 }}
         >
-          <div className="px-4 py-3 border-b border-slate-100 bg-slate-50/50">
-            <p className="text-xs font-bold text-slate-500 uppercase tracking-widest">Select Time</p>
+          <div className="px-4 py-3 border-b border-[var(--card-border)] bg-surface/50">
+            <p className="text-xs font-bold text-[var(--muted)] uppercase tracking-widest">Select Time</p>
           </div>
           <div ref={listRef} className="max-h-[280px] overflow-y-auto py-2 px-2 custom-scrollbar">
             {HOURS.map((h) => {
@@ -144,7 +144,7 @@ export default function TimePicker({
                   {isFirstOfPeriod && (
                     <div className="flex items-center gap-2 px-3 py-2 mt-1">
                       <span className="text-sm">{getPeriodIcon(h)}</span>
-                      <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400">
+                      <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--muted-light)]">
                         {getPeriodLabel(h)}
                       </span>
                     </div>
@@ -160,8 +160,8 @@ export default function TimePicker({
                         onClick={() => selectTime(h, m)}
                         className={`w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-150 ${
                           isActive
-                            ? "bg-[var(--color-primary)] text-white font-bold shadow-sm"
-                            : "text-slate-600 hover:bg-emerald-50 hover:text-[var(--color-primary)]"
+                            ? "bg-[var(--color-primary)] text-white font-bold shadow-md shadow-primary/20"
+                            : "text-[var(--foreground)] hover:bg-primary/10 hover:text-[var(--color-primary)]"
                         }`}
                       >
                         {formatSlot(h, m)}

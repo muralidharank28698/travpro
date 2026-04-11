@@ -54,7 +54,7 @@ export default function CustomSelect({
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className={`w-full flex items-center justify-between px-4 py-3 bg-white border rounded-xl transition-all duration-300 text-sm ${
+        className={`w-full flex items-center justify-between px-4 py-3 bg-card border rounded-xl transition-all duration-300 text-sm ${
           isOpen 
             ? "border-[var(--color-primary)] ring-4 ring-[var(--color-primary)]/10" 
             : "border-[var(--card-border)] hover:border-[var(--color-primary)]"
@@ -74,7 +74,7 @@ export default function CustomSelect({
       </button>
 
       {isOpen && (
-        <div className="absolute z-50 w-full mt-2 bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-[var(--card-border)] overflow-hidden animate-fade-in-up origin-top">
+        <div className="absolute z-50 w-full mt-2 bg-card/95 backdrop-blur-md rounded-2xl shadow-2xl border border-[var(--card-border)] overflow-hidden animate-fade-in-up origin-top">
           <div className="max-h-60 overflow-y-auto custom-scrollbar">
             {options.length === 0 ? (
               <div className="px-4 py-6 text-center text-[var(--muted-light)] text-xs uppercase tracking-widest font-bold">
@@ -89,9 +89,9 @@ export default function CustomSelect({
                     onChange(option.value);
                     setIsOpen(false);
                   }}
-                  className={`w-full text-left px-4 py-3 text-sm transition-all duration-200 hover:bg-emerald-50 group ${
+                  className={`w-full text-left px-4 py-3 text-sm transition-all duration-200 hover:bg-surface group ${
                     option.value === value 
-                      ? "bg-emerald-50/50 text-[var(--color-primary)] font-bold" 
+                      ? "bg-surface text-[var(--color-primary)] font-bold" 
                       : "text-[var(--foreground)] font-medium"
                   }`}
                 >

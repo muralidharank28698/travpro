@@ -76,17 +76,17 @@ export default function LandingPage() {
           </div>
 
           {/* Decorative Floating Elements */}
-          <div className="absolute top-[5%] -left-[2%] w-14 h-14 lg:w-16 lg:h-16 bg-white rounded-full shadow-[0_15px_30px_rgba(0,0,0,0.1)] z-20 flex items-center justify-center text-2xl lg:text-3xl animate-[bounce_3s_infinite]" style={{ animationDelay: "0.2s" }}>
+          <div className="absolute top-[5%] -left-[2%] w-14 h-14 lg:w-16 lg:h-16 bg-card rounded-full shadow-[0_15px_30px_rgba(0,0,0,0.1)] z-20 flex items-center justify-center text-2xl lg:text-3xl animate-[bounce_3s_infinite]" style={{ animationDelay: "0.2s" }}>
             ✈️
           </div>
-          <div className="absolute bottom-[10%] -right-[2%] w-14 h-14 lg:w-16 lg:h-16 bg-white rounded-full shadow-[0_15px_30px_rgba(0,0,0,0.1)] z-20 flex items-center justify-center text-2xl lg:text-3xl animate-[bounce_4s_infinite]" style={{ animationDelay: "1s" }}>
+          <div className="absolute bottom-[10%] -right-[2%] w-14 h-14 lg:w-16 lg:h-16 bg-card rounded-full shadow-[0_15px_30px_rgba(0,0,0,0.1)] z-20 flex items-center justify-center text-2xl lg:text-3xl animate-[bounce_4s_infinite]" style={{ animationDelay: "1s" }}>
             🚗
           </div>
         </div>
       </section>
 
       {/* Services Grid */}
-      <section className="py-8 lg:py-24 bg-slate-50 relative z-10 px-4 sm:px-12">
+      <section className="py-8 lg:py-24 bg-surface relative z-10 px-4 sm:px-12">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-10 md:mb-16 animate-fade-in-up">
             <span className="inline-block text-[var(--color-accent)] font-bold text-[14px] tracking-[0.15em] uppercase mb-2">Category</span>
@@ -95,7 +95,7 @@ export default function LandingPage() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Card 1 */}
-            <Link href="/rentals" className="bg-white rounded-[2rem] p-4 shadow-[0_15px_40px_rgba(0,0,0,0.04)] hover:shadow-[0_25px_50px_rgba(5,150,105,0.12)] hover:-translate-y-3 transition-all duration-300 group block decoration-none text-left flex flex-col h-full animate-fade-in-up" style={{ animationDelay: "100ms" }}>
+            <Link href="/rentals" className="bg-card rounded-[2rem] p-4 shadow-[0_15px_40px_rgba(0,0,0,0.04)] hover:shadow-[0_25px_50px_rgba(5,150,105,0.12)] hover:-translate-y-3 transition-all duration-300 group block decoration-none text-left flex flex-col h-full animate-fade-in-up" style={{ animationDelay: "100ms" }}>
               <div className="relative h-56 w-full overflow-hidden rounded-[1.5rem] mb-6">
                 <img 
                   src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?q=80&w=800" 
@@ -104,8 +104,8 @@ export default function LandingPage() {
                 />
               </div>
               <div className="px-4 pb-4 flex-1 flex flex-col">
-                <h3 className="text-[22px] font-extrabold text-slate-800 mb-3">Car Rentals</h3>
-                <p className="text-slate-500 text-[15px] leading-relaxed mb-6 flex-1 font-medium">
+                <h3 className="text-[22px] font-extrabold text-foreground mb-3">Car Rentals</h3>
+                <p className="text-muted text-[15px] leading-relaxed mb-6 flex-1 font-medium">
                   Chauffeur-driven hatchbacks, sedans, and SUVs for hourly or daily requirements.
                 </p>
                 <div className="mt-auto">
@@ -117,7 +117,7 @@ export default function LandingPage() {
             </Link>
 
             {/* Card 2 */}
-            <Link href="/tours" className="bg-white rounded-[2rem] p-4 shadow-[0_15px_40px_rgba(0,0,0,0.04)] hover:shadow-[0_25px_50px_rgba(217,119,6,0.12)] hover:-translate-y-3 transition-all duration-300 group block decoration-none text-left flex flex-col h-full animate-fade-in-up" style={{ animationDelay: "200ms" }}>
+            <Link href="/tours" className="bg-card rounded-[2rem] p-4 shadow-[0_15px_40px_rgba(0,0,0,0.04)] hover:shadow-[0_25px_50px_rgba(217,119,6,0.12)] hover:-translate-y-3 transition-all duration-300 group block decoration-none text-left flex flex-col h-full animate-fade-in-up" style={{ animationDelay: "200ms" }}>
               <div className="relative h-56 w-full overflow-hidden rounded-[1.5rem] mb-6">
                 <img 
                   src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=800" 
@@ -126,8 +126,8 @@ export default function LandingPage() {
                 />
               </div>
               <div className="px-4 pb-4 flex-1 flex flex-col">
-                <h3 className="text-[22px] font-extrabold text-slate-800 mb-3">Tour Packages</h3>
-                <p className="text-slate-500 text-[15px] leading-relaxed mb-6 flex-1 font-medium">
+                <h3 className="text-[22px] font-extrabold text-foreground mb-3">Tour Packages</h3>
+                <p className="text-muted text-[15px] leading-relaxed mb-6 flex-1 font-medium">
                   Curated trips across South India from Pondicherry to Ooty, Munnar, and Hampi.
                 </p>
                 <div className="mt-auto">
@@ -139,7 +139,7 @@ export default function LandingPage() {
             </Link>
 
             {/* Card 3 */}
-            <Link href="/airport-transfers" className="bg-white rounded-[2rem] p-4 shadow-[0_15px_40px_rgba(0,0,0,0.04)] hover:shadow-[0_25px_50px_rgba(5,150,105,0.12)] hover:-translate-y-3 transition-all duration-300 group block decoration-none text-left flex flex-col h-full animate-fade-in-up" style={{ animationDelay: "300ms" }}>
+            <Link href="/airport-transfers" className="bg-card rounded-[2rem] p-4 shadow-[0_15px_40px_rgba(0,0,0,0.04)] hover:shadow-[0_25px_50px_rgba(5,150,105,0.12)] hover:-translate-y-3 transition-all duration-300 group block decoration-none text-left flex flex-col h-full animate-fade-in-up" style={{ animationDelay: "300ms" }}>
               <div className="relative h-56 w-full overflow-hidden rounded-[1.5rem] mb-6">
                 <img 
                   src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=800" 
@@ -148,8 +148,8 @@ export default function LandingPage() {
                 />
               </div>
               <div className="px-4 pb-4 flex-1 flex flex-col">
-                <h3 className="text-[22px] font-extrabold text-slate-800 mb-3">Airport Transfers</h3>
-                <p className="text-slate-500 text-[15px] leading-relaxed mb-6 flex-1 font-medium">
+                <h3 className="text-[22px] font-extrabold text-foreground mb-3">Airport Transfers</h3>
+                <p className="text-muted text-[15px] leading-relaxed mb-6 flex-1 font-medium">
                   Punctual pick-up and drop-off spanning Chennai, Bangalore, and local airports.
                 </p>
                 <div className="mt-auto">
@@ -161,7 +161,7 @@ export default function LandingPage() {
             </Link>
 
             {/* Card 4 */}
-            <Link href="/driver-hire" className="bg-white rounded-[2rem] p-4 shadow-[0_15px_40px_rgba(0,0,0,0.04)] hover:shadow-[0_25px_50px_rgba(5,150,105,0.12)] hover:-translate-y-3 transition-all duration-300 group block decoration-none text-left flex flex-col h-full animate-fade-in-up" style={{ animationDelay: "400ms" }}>
+            <Link href="/driver-hire" className="bg-card rounded-[2rem] p-4 shadow-[0_15px_40px_rgba(0,0,0,0.04)] hover:shadow-[0_25px_50px_rgba(5,150,105,0.12)] hover:-translate-y-3 transition-all duration-300 group block decoration-none text-left flex flex-col h-full animate-fade-in-up" style={{ animationDelay: "400ms" }}>
               <div className="relative h-56 w-full overflow-hidden rounded-[1.5rem] mb-6">
                 <img 
                   src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=800" 
@@ -170,8 +170,8 @@ export default function LandingPage() {
                 />
               </div>
               <div className="px-4 pb-4 flex-1 flex flex-col">
-                <h3 className="text-[22px] font-extrabold text-slate-800 mb-3">Hire a Driver</h3>
-                <p className="text-slate-500 text-[15px] leading-relaxed mb-6 flex-1 font-medium">
+                <h3 className="text-[22px] font-extrabold text-foreground mb-3">Hire a Driver</h3>
+                <p className="text-muted text-[15px] leading-relaxed mb-6 flex-1 font-medium">
                   Professional, background-verified drivers available for your own vehicle.
                 </p>
                 <div className="mt-auto">
@@ -186,7 +186,7 @@ export default function LandingPage() {
       </section>
 
       {/* Top Destinations Section */}
-      <section className="py-8 lg:py-24 bg-white relative z-10 px-4 sm:px-12">
+      <section className="py-8 lg:py-24 bg-card relative z-10 px-4 sm:px-12">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-10 md:mb-16 animate-fade-in-up">
             <span className="inline-block text-[var(--color-accent)] font-bold text-[14px] tracking-[0.15em] uppercase mb-2">Top Selling</span>
@@ -203,12 +203,12 @@ export default function LandingPage() {
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
                 />
               </div>
-              <div className="absolute bottom-0 left-0 right-0 bg-white/90 backdrop-blur-md p-6 m-4 rounded-[1.5rem]">
+              <div className="absolute bottom-0 left-0 right-0 bg-card/90 backdrop-blur-md p-6 m-4 rounded-[1.5rem]">
                 <div className="flex justify-between items-center mb-2">
-                  <h3 className="text-xl font-bold text-slate-800">Munnar, Kerala</h3>
+                  <h3 className="text-xl font-bold text-foreground">Munnar, Kerala</h3>
                   <span className="font-bold text-[var(--color-primary)]">₹12,500</span>
                 </div>
-                <div className="flex items-center text-slate-500 text-sm font-medium gap-2">
+                <div className="flex items-center text-muted text-sm font-medium gap-2">
                   <span>📍 Appx. 11h Drive</span>
                   <span className="w-1 h-1 rounded-full bg-slate-300"></span>
                   <span>3 Days Trip</span>
@@ -225,12 +225,12 @@ export default function LandingPage() {
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
                 />
               </div>
-              <div className="absolute bottom-0 left-0 right-0 bg-white/90 backdrop-blur-md p-6 m-4 rounded-[1.5rem]">
+              <div className="absolute bottom-0 left-0 right-0 bg-card/90 backdrop-blur-md p-6 m-4 rounded-[1.5rem]">
                 <div className="flex justify-between items-center mb-2">
-                  <h3 className="text-xl font-bold text-slate-800">Ooty, Tamil Nadu</h3>
+                  <h3 className="text-xl font-bold text-foreground">Ooty, Tamil Nadu</h3>
                   <span className="font-bold text-[var(--color-primary)]">₹8,500</span>
                 </div>
-                <div className="flex items-center text-slate-500 text-sm font-medium gap-2">
+                <div className="flex items-center text-muted text-sm font-medium gap-2">
                   <span>📍 Appx. 10h Drive</span>
                   <span className="w-1 h-1 rounded-full bg-slate-300"></span>
                   <span>2 Days Trip</span>
@@ -247,12 +247,12 @@ export default function LandingPage() {
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
                 />
               </div>
-              <div className="absolute bottom-0 left-0 right-0 bg-white/90 backdrop-blur-md p-6 m-4 rounded-[1.5rem]">
+              <div className="absolute bottom-0 left-0 right-0 bg-card/90 backdrop-blur-md p-6 m-4 rounded-[1.5rem]">
                 <div className="flex justify-between items-center mb-2">
-                  <h3 className="text-xl font-bold text-slate-800">Pondicherry</h3>
+                  <h3 className="text-xl font-bold text-foreground">Pondicherry</h3>
                   <span className="font-bold text-[var(--color-primary)]">₹5,000</span>
                 </div>
-                <div className="flex items-center text-slate-500 text-sm font-medium gap-2">
+                <div className="flex items-center text-muted text-sm font-medium gap-2">
                   <span>📍 Appx. 3h Drive</span>
                   <span className="w-1 h-1 rounded-full bg-slate-300"></span>
                   <span>1 Day Trip</span>
@@ -274,15 +274,15 @@ export default function LandingPage() {
               <div className="absolute inset-0 bg-gradient-to-t from-emerald-900/80 to-transparent" />
             </div>
             {/* Floating Trust Badge */}
-            <div className="absolute -bottom-8 -right-8 bg-white p-6 rounded-[2rem] shadow-2xl z-20 max-w-[200px] hidden md:block animate-[bounce_4s_infinite]">
+            <div className="absolute -bottom-8 -right-8 bg-card p-6 rounded-[2rem] shadow-2xl z-20 max-w-[200px] hidden md:block animate-[bounce_4s_infinite]">
               <div className="flex items-center gap-4 mb-2">
                 <span className="text-3xl">⭐</span>
                 <div>
-                  <div className="font-extrabold text-xl text-slate-800">4.9/5</div>
-                  <div className="text-xs font-bold text-slate-500 uppercase tracking-wider">Rating</div>
+                  <div className="font-extrabold text-xl text-foreground">4.9/5</div>
+                  <div className="text-xs font-bold text-muted uppercase tracking-wider">Rating</div>
                 </div>
               </div>
-              <p className="text-sm text-slate-600 font-medium">Trusted by 10k+ happy customers.</p>
+              <p className="text-sm text-muted font-medium">Trusted by 10k+ happy customers.</p>
             </div>
           </div>
 
@@ -329,16 +329,16 @@ export default function LandingPage() {
       </section>
 
       {/* CTA Footer Banner */}
-      <section className="py-8 lg:py-24 bg-slate-50 relative z-10 px-4 sm:px-12">
-        <div className="max-w-5xl mx-auto bg-emerald-50 rounded-[2rem] sm:rounded-[3rem] p-8 sm:p-12 lg:p-20 text-center relative overflow-hidden border border-emerald-100 shadow-[0_20px_40px_rgba(5,150,105,0.05)]">
+      <section className="py-8 lg:py-24 bg-surface relative z-10 px-4 sm:px-12">
+        <div className="max-w-5xl mx-auto bg-surface rounded-[2rem] sm:rounded-[3rem] p-8 sm:p-12 lg:p-20 text-center relative overflow-hidden border border-border shadow-sm">
           <div className="absolute -top-24 -right-24 w-64 h-64 bg-amber-200 rounded-full blur-3xl opacity-30" />
           <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-emerald-300 rounded-full blur-3xl opacity-30" />
           
           <div className="relative z-10 max-w-2xl mx-auto space-y-6 lg:space-y-8">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-800 tracking-tight">Ready to start your journey?</h2>
-            <p className="text-slate-600 text-base lg:text-lg font-medium">Book your reliable ride today and experience the absolute best in comfort and safety across South India.</p>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-foreground tracking-tight">Ready to start your journey?</h2>
+            <p className="text-muted text-base lg:text-lg font-medium">Book your reliable ride today and experience the absolute best in comfort and safety across South India.</p>
             <div className="flex justify-center pt-4">
-              <Link href="/rentals" className="text-[16px] lg:text-[18px] py-3 lg:py-4 px-8 lg:px-10 rounded-xl lg:rounded-2xl shadow-[0px_20px_35px_rgba(5,150,105,0.25)] hover:-translate-y-1 transition-transform text-white font-bold bg-[var(--color-primary)] w-full sm:w-auto">
+              <Link href="/rentals" className="premium-button text-[16px] lg:text-[18px] py-3 lg:py-4 px-8 lg:px-10 rounded-xl lg:rounded-2xl shadow-md hover:-translate-y-1 transition-transform w-full sm:w-auto">
                 Book Your Ride Now
               </Link>
             </div>
