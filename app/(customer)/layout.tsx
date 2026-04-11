@@ -29,8 +29,9 @@ export default function CustomerDashboardLayout({
   };
 
   const navItems = [
-    { name: "My Bookings", href: "/dashboard", icon: "🎫" },
     { name: "New Booking", href: "/rentals", icon: "➕" },
+    { name: "My Bookings", href: "/dashboard", icon: "🎫" },
+    { name: "Settings", href: "/dashboard/settings", icon: "⚙️" },
   ];
 
   return (
@@ -47,7 +48,7 @@ export default function CustomerDashboardLayout({
       }} className="hidden lg:flex flex-col">
         {/* Brand */}
         <div style={{ padding: "24px", borderBottom: "1px solid var(--card-border)" }}>
-          <Link href="/" className="flex items-center gap-3 decoration-none group">
+          <Link href="/" onClick={() => window.location.href = "/"} className="flex items-center gap-3 decoration-none group">
             <div className="w-9 h-9 rounded-lg bg-slate-900 flex items-center justify-center shadow-md group-hover:bg-[var(--color-primary)] transition-all duration-300">
               <span className="text-white font-black text-lg italic tracking-tighter font-logo">Z</span>
             </div>
@@ -64,7 +65,9 @@ export default function CustomerDashboardLayout({
         {/* Navigation */}
         <nav style={{ flex: 1, padding: "24px 16px", display: "flex", flexDirection: "column", gap: "4px" }}>
           {navItems.map((item) => {
-            const isActive = pathname === item.href;
+            const isActive = item.href === "/dashboard" 
+              ? pathname === item.href 
+              : pathname.startsWith(item.href);
             return (
               <Link
                 key={item.href}
@@ -118,7 +121,7 @@ export default function CustomerDashboardLayout({
           </div>
           <button
             onClick={handleSignOut}
-            className="w-full py-2.5 rounded-lg text-sm font-semibold text-[var(--muted)] hover:text-red-600 hover:bg-red-50 transition-colors"
+            className="w-full py-2.5 rounded-lg text-sm font-semibold text-[var(--muted)] hover:text-red-600 hover:bg-red-50 active:scale-95 transition-all duration-200 cursor-pointer"
           >
             Sign Out
           </button>
@@ -129,7 +132,7 @@ export default function CustomerDashboardLayout({
       <div className="flex-1 flex flex-col h-screen overflow-hidden">
         {/* Mobile Header */}
         <header className="lg:hidden sticky top-0 z-50 flex items-center justify-between p-4 border-b border-[var(--card-border)] bg-white/80 backdrop-blur-md">
-          <Link href="/" className="flex items-center gap-2 decoration-none group font-logo">
+          <Link href="/" onClick={() => window.location.href = "/"} className="flex items-center gap-2 decoration-none group font-logo">
             <div className="w-8 h-8 rounded-lg bg-slate-900 flex items-center justify-center shadow-sm">
               <span className="text-white font-black text-sm italic tracking-tighter">Z</span>
             </div>
@@ -150,21 +153,23 @@ export default function CustomerDashboardLayout({
         </header>
 
         {/* Mobile Navigation */}
-        <nav className="lg:hidden flex border-b border-[var(--card-border)] bg-white/50 backdrop-blur-sm px-4 overflow-x-auto no-scrollbar scroll-smooth">
+        <nav className="lg:hidden flex w-full bg-white/50 backdrop-blur-sm border-b border-[var(--card-border)]">
           {navItems.map((item) => {
-            const isActive = pathname === item.href;
+            const isActive = item.href === "/dashboard" 
+              ? pathname === item.href 
+              : pathname.startsWith(item.href);
             return (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`flex items-center gap-2 px-4 py-3 text-sm font-semibold whitespace-nowrap border-b-2 transition-all duration-200 ${
+                className={`flex-1 flex flex-col sm:flex-row justify-center items-center gap-1 sm:gap-2 py-2.5 text-[10px] sm:text-xs font-semibold border-b-2 transition-all duration-200 text-center focus:outline-none ${
                   isActive 
                     ? "text-[var(--color-primary)] border-[var(--color-primary)]" 
                     : "text-[var(--muted)] border-transparent"
                 }`}
               >
-                <span style={{ fontSize: "16px" }}>{item.icon}</span>
-                {item.name}
+                <span className="text-[14px] sm:text-[16px]">{item.icon}</span>
+                <span className="whitespace-nowrap">{item.name}</span>
               </Link>
             );
           })}

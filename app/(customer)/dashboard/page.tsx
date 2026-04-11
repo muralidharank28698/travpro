@@ -3,131 +3,163 @@
 import { useAppSelector } from "@/lib/store";
 import Link from "next/link";
 import { useState } from "react";
+import {
+  Car,
+  MapPin,
+  ArrowRight,
+  Download,
+  XCircle,
+  Map,
+  Compass
+} from "lucide-react";
 
 export default function CustomerDashboardPage() {
   const [activeTab, setActiveTab] = useState<"Upcoming" | "Past">("Upcoming");
 
   // In a real app we'd fetch bookings for the current user
   const myBookings = useAppSelector((state) => state.bookings.items);
-  
+
   const upcoming = myBookings.filter(b => b.status === "Confirmed" || b.status === "In Progress");
   const past = myBookings.filter(b => b.status === "Completed" || b.status === "Cancelled");
 
   const displayBookings = activeTab === "Upcoming" ? upcoming : past;
 
   return (
-    <div className="space-y-8 animate-fade-in-up">
+    <div className="space-y-6 animate-fade-in-up">
       {/* Header */}
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight text-[var(--foreground)]">
-          My Bookings
-        </h1>
-        <p className="text-[var(--muted)] mt-2 text-sm max-w-2xl">
-          View your upcoming trips, track your driver, and download invoices for past journeys.
-        </p>
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6 mt-8">
+        <div>
+          <h1 className="text-3xl font-extrabold tracking-tight bg-gradient-to-br from-emerald-950 to-emerald-700 bg-clip-text text-transparent">
+            My Bookings
+          </h1>
+          <p className="text-[var(--muted)] mt-1.5 text-sm">
+            Track your rides and manage your travel history.
+          </p>
+        </div>
       </div>
 
-      {/* Tabs */}
-      <div className="flex bg-[var(--surface)] p-1 rounded-xl w-fit">
-        <button 
-          className={`px-6 py-2 text-sm font-semibold rounded-lg transition-all ${activeTab === 'Upcoming' ? 'bg-white shadow-[0_2px_8px_rgba(0,0,0,0.08)] text-[var(--foreground)]' : 'text-[var(--muted)] hover:text-[var(--foreground)]'}`}
+      {/* Tabs - Sleek underlined style */}
+      <div className="flex border-b border-slate-200">
+        <button
+          className={`pb-3 px-1 mr-8 text-sm font-bold transition-all border-b-2 focus:outline-none ${activeTab === 'Upcoming'
+              ? 'border-[var(--color-primary)] text-[var(--color-primary)]'
+              : 'border-transparent text-[var(--muted)] hover:text-slate-800'
+            }`}
           onClick={() => setActiveTab("Upcoming")}
         >
-          Upcoming ({upcoming.length})
+          Upcoming trips
+          <span className="ml-2 inline-flex items-center justify-center bg-slate-100 text-slate-600 text-[10px] px-2 py-0.5 rounded-full">
+            {upcoming.length}
+          </span>
         </button>
-        <button 
-          className={`px-6 py-2 text-sm font-semibold rounded-lg transition-all ${activeTab === 'Past' ? 'bg-white shadow-[0_2px_8px_rgba(0,0,0,0.08)] text-[var(--foreground)]' : 'text-[var(--muted)] hover:text-[var(--foreground)]'}`}
+        <button
+          className={`pb-3 px-1 text-sm font-bold transition-all border-b-2 focus:outline-none ${activeTab === 'Past'
+              ? 'border-[var(--color-primary)] text-[var(--color-primary)]'
+              : 'border-transparent text-[var(--muted)] hover:text-slate-800'
+            }`}
           onClick={() => setActiveTab("Past")}
         >
-          Past ({past.length})
+          Past & Cancelled
+          <span className="ml-2 inline-flex items-center justify-center bg-slate-100 text-slate-600 text-[10px] px-2 py-0.5 rounded-full">
+            {past.length}
+          </span>
         </button>
       </div>
 
       {/* Bookings List */}
-      <div className="space-y-6">
+      <div className="space-y-5">
         {displayBookings.length === 0 ? (
-          <div className="card p-12 text-center border-dashed border-2">
-            <div className="text-4xl mb-4">🚗</div>
-            <h3 className="text-lg font-bold text-[var(--foreground)]">No {activeTab.toLowerCase()} bookings found</h3>
-            <p className="text-[var(--muted)] text-sm mt-2 mb-6">Looks like you don't have any trips scheduled.</p>
-            <Link href="/rentals" className="premium-button text-sm px-6 py-2">
-              Book a Ride
+          <div className="flex flex-col items-center justify-center p-12 text-center rounded-2xl border border-dashed border-slate-200 bg-slate-50/50">
+            <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mb-4 text-slate-300">
+              <Compass className="w-8 h-8" />
+            </div>
+            <h3 className="text-lg font-bold text-emerald-950">No {activeTab.toLowerCase()} trips.</h3>
+            <p className="text-[var(--muted)] text-sm mt-1.5 mb-6 max-w-sm">When you book a ride, your route and ticket info will show up here.</p>
+            <Link href="/rentals" className="premium-button text-sm px-6 py-2.5">
+              Explore Rides
             </Link>
           </div>
         ) : (
           displayBookings.map((booking) => (
-            <div key={booking.id} className="card p-0 overflow-hidden group">
-              {/* Card Header Status Row */}
-              <div className="p-4 bg-slate-50 border-b border-[var(--card-border)] flex justify-between items-center bg-gradient-to-r from-[var(--surface)] to-transparent">
-                <div className="flex items-center gap-3">
-                  <span className={`w-2 h-2 rounded-full ${booking.status === 'Confirmed' ? 'bg-emerald-500' : booking.status === 'In Progress' ? 'bg-blue-500' : 'bg-slate-400'}`}></span>
-                  <span className="text-xs font-bold uppercase tracking-wider text-[var(--foreground)]">{booking.status}</span>
-                </div>
-                <span className="text-xs font-mono text-[var(--muted-light)]">ID: {booking.id}</span>
-              </div>
+            <div key={booking.id} className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-md transition-all group p-5 sm:p-6 flex flex-col gap-5 relative">
+               
+               {/* Header Row */}
+               <div className="flex justify-between items-center border-b border-slate-100 pb-4">
+                 <div className="flex items-center gap-3">
+                   <span className={`text-[9px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full text-white ${
+                    booking.status === 'Confirmed' ? 'bg-emerald-500 shadow-sm shadow-emerald-500/20' : 
+                    booking.status === 'In Progress' ? 'bg-blue-500 shadow-sm shadow-blue-500/20' : 
+                    booking.status === 'Cancelled' ? 'bg-red-500 shadow-sm shadow-red-500/20' :
+                    'bg-slate-500'
+                  }`}>
+                    {booking.status}
+                  </span>
+                  <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">{booking.tripType}</span>
+                 </div>
+                 <span className="text-xs text-slate-400 font-mono tracking-wider items-center gap-1.5 hidden sm:flex">
+                   <Car className="w-3.5 h-3.5 opacity-40" /> #{booking.id}
+                 </span>
+               </div>
 
-              {/* Card Body */}
-              <div className="p-6 md:p-8 flex flex-col md:flex-row gap-8 justify-between">
-                
-                <div className="flex-1 space-y-6">
-                  {/* Service Info */}
-                  <div>
-                    <span className="text-xs font-semibold text-[var(--color-primary)] px-2 py-1 rounded bg-[var(--surface)] uppercase tracking-widest mb-3 inline-block">
-                      {booking.tripType}
-                    </span>
-                    <h2 className="text-xl font-bold text-[var(--foreground)]">{booking.carName}</h2>
-                  </div>
+               {/* Main Title & Price */}
+               <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                 <div>
+                   <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight leading-none">{booking.carName}</h2>
+                 </div>
+                 <div className="text-left md:text-right">
+                   <p className="text-[10px] uppercase tracking-widest text-slate-400 font-extrabold mb-1 hidden md:block">Total Fare</p>
+                   <p className="text-3xl font-bold text-slate-900 tracking-tighter">₹{booking.amount.toLocaleString()}</p>
+                 </div>
+               </div>
 
-                  {/* Route Timeline */}
-                  <div className="flex items-start gap-4">
-                    <div className="flex flex-col items-center mt-1">
-                      <div className="w-3 h-3 rounded-full border-[3px] border-[var(--color-primary)] bg-white" />
-                      <div className="w-0.5 h-12 bg-slate-200" />
-                      <div className="w-3 h-3 rounded-full bg-[var(--color-primary)]" />
+               {/* Route & Actions Bottom Bar */}
+               <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 bg-slate-50/80 rounded-xl p-4 md:px-5 border border-slate-100/80">
+                 
+                 {/* Compact Route View */}
+                <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 text-sm flex-1">
+                  {/* Pick up */}
+                  <div className="flex flex-col">
+                    <div className="flex items-center gap-1.5 mb-1.5">
+                      <MapPin className="w-3.5 h-3.5 text-[var(--color-primary)]" />
+                      <p className="font-bold text-slate-800 text-sm leading-none">{booking.pickupLocation}</p>
                     </div>
-                    <div className="space-y-4 flex-1">
-                      <div>
-                        <p className="text-xs font-semibold text-[var(--muted)] uppercase mb-0.5">Pick-up</p>
-                        <p className="font-medium text-sm text-[var(--foreground)]">{booking.pickupLocation}</p>
-                        <p className="text-xs text-[var(--muted-light)] mt-0.5">{booking.startDate}</p>
-                      </div>
-                      <div>
-                        <p className="text-xs font-semibold text-[var(--muted)] uppercase mb-0.5">Drop-off</p>
-                        <p className="font-medium text-sm text-[var(--foreground)]">{booking.dropoffLocation}</p>
-                        <p className="text-xs text-[var(--muted-light)] mt-0.5">{booking.endDate}</p>
-                      </div>
+                    <p className="text-xs font-medium text-slate-400 ml-5">{booking.startDate}</p>
+                  </div>
+                  
+                  {/* Divider arrow */}
+                  <ArrowRight className="w-4 h-4 text-slate-300 hidden sm:block" />
+
+                  {/* Drop off */}
+                  <div className="flex flex-col mt-1 sm:mt-0 pt-3 border-t border-slate-200 sm:border-0 sm:pt-0">
+                     <div className="flex items-center gap-1.5 mb-1.5">
+                      <MapPin className="w-3.5 h-3.5 text-slate-400" />
+                      <p className="font-bold text-slate-800 text-sm leading-none">{booking.dropoffLocation}</p>
                     </div>
+                    <p className="text-xs font-medium text-slate-400 ml-5">{booking.endDate}</p>
                   </div>
                 </div>
 
-                {/* Price and Actions */}
-                <div className="flex flex-col justify-between items-start md:items-end border-t md:border-t-0 md:border-l border-[var(--card-border)] pt-6 md:pt-0 md:pl-8">
-                  <div className="mb-6 md:mb-0">
-                    <p className="text-xs text-[var(--muted)] font-semibold uppercase tracking-wider mb-1 md:text-right">Total Amount</p>
-                    <p className="text-3xl font-bold text-[var(--foreground)]">₹{booking.amount.toLocaleString()}</p>
-                    <p className="text-[10px] text-[var(--muted-light)] md:text-right mt-1">Includes GST & base tolls</p>
-                  </div>
+                 {/* Action Buttons */}
+                 <div className="flex items-center justify-between sm:justify-start gap-2 mt-2 md:mt-0 pt-4 md:pt-0 border-t border-slate-200 md:border-transparent shrink-0">
+                   {activeTab === "Upcoming" && (
+                    <>
+                      <button className="text-xs font-bold text-slate-500 hover:text-red-500 py-2.5 px-4 transition-colors flex items-center justify-center gap-1.5">
+                        <XCircle className="w-3.5 h-3.5" /> Cancel
+                      </button>
+                      <button className="premium-button text-xs py-2.5 px-6 flex items-center justify-center gap-1.5 shadow-md">
+                        <Map className="w-3.5 h-3.5" /> Track Ride
+                      </button>
+                    </>
+                  )}
+                  {activeTab === "Past" && (
+                    <button className="secondary-button text-xs py-2.5 px-6 w-full sm:w-auto flex items-center justify-center gap-1.5 bg-white border-slate-200 shadow-sm">
+                      <Download className="w-3.5 h-3.5 text-slate-500" /> Download Invoice
+                    </button>
+                  )}
+                 </div>
 
-                  <div className="flex flex-col gap-3 w-full md:w-auto">
-                    {activeTab === "Upcoming" && (
-                      <button className="premium-button text-sm py-2 px-6 shadow-md w-full justify-center">
-                        Track Driver
-                      </button>
-                    )}
-                    {activeTab === "Upcoming" && (
-                      <button className="secondary-button text-sm py-2 px-6 w-full justify-center text-red-600 hover:text-red-700 hover:bg-red-50 hover:border-red-200">
-                        Cancel Trip
-                      </button>
-                    )}
-                    {activeTab === "Past" && (
-                      <button className="secondary-button text-sm py-2 px-6 w-full justify-center">
-                        Download Invoice
-                      </button>
-                    )}
-                  </div>
-                </div>
-
-              </div>
+               </div>
+               
             </div>
           ))
         )}

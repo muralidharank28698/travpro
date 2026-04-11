@@ -113,12 +113,12 @@ export default function ToursPage() {
                   <span className="text-xs text-[var(--muted-light)] font-medium">Starting from</span>
                   <span className="text-lg font-bold text-[var(--foreground)]">₹{tour.price.toLocaleString()}</span>
                 </div>
-                <button 
-                  onClick={() => alert("Tour itinerary loading...")}
+                <Link 
+                  href={`/tours/${tour.id}`}
                   className="premium-button py-2 px-5 text-sm"
                 >
                   View Itinerary
-                </button>
+                </Link>
               </div>
             </div>
           </div>

@@ -62,13 +62,14 @@ export default function PublicLayout({
     { name: "Tour Packages", href: "/tours" },
     { name: "Airport Transfers", href: "/airport-transfers" },
     { name: "Hire a Driver", href: "/driver-hire" },
+    { name: "About Us", href: "/about" },
   ];
 
   return (
     <div className="min-h-screen bg-[var(--background)] flex flex-col">
       {/* Header */}
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b text-[var(--foreground)] border-[var(--card-border)] py-3 px-6 sm:px-12 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-3 decoration-none group">
+        <Link href="/" onClick={() => window.location.href = "/"} className="flex items-center gap-3 decoration-none group">
           <div className="w-10 h-10 rounded-[12px] bg-slate-900 flex items-center justify-center shadow-md group-hover:bg-[var(--color-primary)] transition-all duration-300">
             <span className="text-white font-black text-xl italic tracking-tighter font-logo">Z</span>
           </div>
@@ -148,6 +149,7 @@ export default function PublicLayout({
                         My Dashboard
                       </Link>
                     )}
+
                     <button
                       onClick={handleSignOut}
                       className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-red-600 hover:bg-red-50 transition-all"
@@ -191,14 +193,14 @@ export default function PublicLayout({
             {navItems.map((item) => {
               const isActive = pathname === item.href;
               return (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className={`text-lg font-bold transition ${isActive ? "text-[var(--color-primary)]" : "text-[var(--muted)] hover:text-[var(--color-primary)]"}`}
-                >
-                  {item.name}
-                </Link>
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={`text-lg font-bold transition ${isActive ? "text-[var(--color-primary)]" : "text-[var(--muted)] hover:text-[var(--color-primary)]"}`}
+                  >
+                    {item.name}
+                  </Link>
               );
             })}
             <div className="flex flex-col gap-3 mt-4 pt-6 border-t border-[var(--card-border)]">
@@ -252,6 +254,8 @@ export default function PublicLayout({
             </div>
           </div>
           <div className="flex flex-wrap gap-4 sm:gap-6 text-sm">
+            <Link href="/about" className="hover:text-white transition">About Us</Link>
+            <Link href="/operator-register" className="hover:text-white transition">Partner with Us</Link>
             <Link href="/terms" className="hover:text-white transition">Terms & Conditions</Link>
             <Link href="/privacy" className="hover:text-white transition">Privacy Policy</Link>
             <Link href="/contact" className="hover:text-white transition">Support</Link>
