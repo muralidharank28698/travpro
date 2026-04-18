@@ -1,93 +1,50 @@
-# Zytravo Trvls: Application Architecture & Flow
+# Application Architecture
 
-This document outlines the technical architecture, routing structure, user flows, and database design for the Zytravo Trvls platform. The application is built using a modern **Next.js (App Router)** frontend paired with a **Supabase (PostgreSQL)** backend.
-
----
-
-## 1. Technology Stack
-
-- **Framework**: Next.js 16 (App Router) with Turbopack for ultrafast development.
-- **Styling**: Tailwind CSS v4 featuring a custom "Emerald Reserve" global design system.
-- **Backend / Database**: Supabase (PostgreSQL).
-- **Authentication**: Supabase Auth (Email & Password).
-- **Component Library**: Hand-crafted React Server Components (RSC) with heavily stylized glassmorphic and modern Figma-inspired layouts.
+This document outlines the core design patterns and system architecture that power the Zytravo Trvls platform.
 
 ---
 
-## 2. Directory & Routing Architecture
+## 1. High-Level Design Patterns
 
-The application utilizes Next.js **Route Groups** (folders wrapped in parentheses) to cleanly separate layouts and authentication scopes without affecting the URL structure.
+### Client-Server Separation
+The application uses **Next.js Server Components** by default to minimize the JavaScript sent to the client. Interactive elements (like the `ChatWidget` or `BookingForm`) are marked with `"use client"` and are kept as small as possible to ensure fast initial page loads.
 
-```text
-app/
-├── (public)/              # Publicly accessible pages
-│   ├── layout.tsx         # Shared Header & Footer (Navigation, Logo)
-│   ├── page.tsx           # Main Landing Page / Hero Banner
-│   ├── rentals/           # Car fleet browsing and reservation flow
-│   ├── tours/             # Pre-packaged South India tour plans
-│   ├── airport-transfers/ # Dedicated airport pickup/drop-off services
-│   └── driver-hire/       # Chauffeur-only booking service
-│
-├── (auth)/                # Authentication flows
-│   ├── login/             # User sign-in
-│   └── register/          # New user signup (creates Supabase profile)
-│
-├── (customer)/            # Private Customer Portal
-│   ├── layout.tsx         # Customer Sidebar (My Account, Billing)
-│   └── dashboard/         # View upcoming/past bookings and invoices
-│
-└── (dashboard)/           # Private Admin & Fleet Management Portal
-    ├── layout.tsx         # Admin Sidebar (Bookings, Fleet)
-    ├── bookings/          # Central hub for admins to approve/track all trips
-    └── cars/              # Inventory system to add/edit/remove vehicles
-```
+### Internationalized Routing (i18n)
+All routes are wrapped in a `[locale]` dynamic segment. The `middleware.ts` (internal to next-intl) detects the user's preferred language and redirects them to the appropriate prefix (e.g., `/en/login` or `/fr/rentals`).
 
 ---
 
-## 3. User Journey & Application Flow
+## 2. Data Flow Architecture
 
-### A. The Public User Flow
-1. **Discovery**: A user lands on `/` (Landing Page) and explores the core services.
-2. **Browsing**: They navigate to `/rentals` or `/tours` to view the available fleet or packages. The data is either pulled from the database or the mock-data fallback system.
-3. **Intent to Book**: They select a vehicle/tour and click "Book Now". This opens the `BookingForm.tsx` component.
-4. **Authentication Check**: If the user is not logged in, they are redirected to `/login`.
+### Database & Security (Supabase)
+The system uses a **PostgreSQL** database where security is enforced through **Row Level Security (RLS)**. 
+- **User Scope**: Normal users can only read/write their own bookings.
+- **Admin Scope**: Users with the `admin` role in their profile have broad access to fleet management and all reservation data.
 
-### B. The Customer Portal Flow
-1. **Dashboard Entry**: After logging in and booking, the user visits `/dashboard`.
-2. **Booking Management**: They see a clear split between **Upcoming** and **Past Trips**.
-3. **Actions**: They can track their assigned driver, view their invoice, or cancel upcoming trips.
-
-### C. The Admin Management Flow
-1. **Fleet Management (`/cars`)**: Admins log in to the dashboard to update vehicle statuses (e.g., from "Available" to "Maintenance"), adjust pricing, or add new vehicles to the fleet.
-2. **Booking Operations (`/bookings`)**: When a customer submits a booking, it appears here. Admins can update the status (e.g., Pending -> Confirmed -> In Progress -> Completed), which automatically updates the customer's dashboard in real-time.
+### Secure Data Updates (Server Actions)
+Instead of traditional API endpoints, all mutations (creating bookings, signing out, updating settings) are handled through **Next.js Server Actions**.
+- **Location**: `lib/supabase/actions.ts` (or similar utility folders).
+- **Benefit**: Ensures that credentials never leak to the browser and that data is validated on the server before hitting the database.
 
 ---
 
-## 4. Backend & Database Schema
+## 3. Component Architecture
 
-The core operations run on a **Supabase PostgreSQL** database. The system is designed to enforce security at the database level using Row Level Security (RLS).
+### The "Emerald Reserve" Design System
+Zytravo uses a custom design system defined in `globals.css` using Tailwind CSS v4 variables. It prioritizes:
+- **Glassmorphism**: Using `backdrop-blur` and semi-transparent `bg-card` values.
+- **Layering**: Using a strict z-index system (e.g., the `ChatWidget` is at `z-[9999]`).
 
-### Core Tables
-
-1. **`users`**
-   - **Purpose**: Stores extended profile data linked securely to the core `auth.users` authentication table.
-   - **Key Fields**: `id`, `email`, `full_name`, `phone`, `user_role` (ENUM: `admin` | `customer`).
-
-2. **`vehicles`**
-   - **Purpose**: The central inventory for the car rental and tour fleet.
-   - **Key Fields**: `id`, `name`, `type`, `seats`, `price_per_day`, `status` (Available, Booked, Maintenance), `image_urls`.
-
-3. **`bookings`**
-   - **Purpose**: The transactional heart of the application, tracking all customer service requests.
-   - **Key Fields**: `id`, `customer_id` (foreign key to users), `service_type` (Rental, Tour, Airport transfer), `total_amount`, `status` (Pending, Confirmed, Completed, Cancelled).
-
-> **Data Validation & Server Actions**
-> All data manipulation (creating bookings, updating cars) bypasses generic API routes and uses **Next.js Server Actions** (`lib/actions/*.ts`). These functions execute securely on the server, validate user roles via Supabase, and communicate directly with the database safely away from the client.
+### State & Providers
+The application root (`layout.tsx`) wraps the children in several essential providers:
+1. **NextIntlClientProvider**: Provides translation messages to client components.
+2. **ThemeProvider**: Manages the dark/light mode switching.
+3. **StoreProvider**: Injects the Redux state into the application.
+4. **Supabase Auth Listener**: A client-side hook that detects login/logout events to update the UI in real-time.
 
 ---
 
-## 5. Mock Mode Configuration
-
-The application includes an emergency "Mock Mode". By setting `NEXT_PUBLIC_MOCK_MODE=true` in the `.env` file, the entire application will bypass the Supabase database and retrieve data exclusively from `lib/mock-data.ts`. 
-
-This is highly useful for iterating on UI designs or demonstrating the application flow to stakeholders before the live database is fully configured or network-accessible.
+## 4. Operational Modes (Mock vs. Live)
+The architecture includes a flexible **Mock Mode** for demonstration and development purposes.
+- When `NEXT_PUBLIC_MOCK_MODE` is enabled, the UI bypasses database fetch calls and pulls from `lib/mock-data.ts`.
+- This allows for high-fidelity UI testing even when the database is in maintenance or under configuration.
