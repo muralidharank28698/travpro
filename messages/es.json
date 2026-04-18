@@ -367,7 +367,7 @@
       "login_alerts_desc": "Reciba notificaciones de inicios de sesión no reconocidos",
       "sessions": "Sesiones activas",
       "this_device": "Este dispositivo",
-      "revoke": "Revocar"
+      "revoke_button": "Revocar"
     },
     "notifications": {
       "title": "Preferencias de notificación",

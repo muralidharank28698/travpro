@@ -4,6 +4,8 @@ import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import { Link, useRouter } from "@/navigation";
 import { ArrowLeft, Clock, MapPin, Users, Calendar, CheckCircle2, Star, Share2, Heart } from "lucide-react";
+import DatePicker from "@/components/common/DatePicker";
+import CustomSelect from "@/components/common/CustomSelect";
 
 const TOUR_PACKAGES = [
   { 
@@ -193,30 +195,27 @@ export default function TourDetailsPage() {
             <form onSubmit={handleBooking} className="space-y-5">
               <div className="space-y-2">
                 <label className="text-xs uppercase tracking-widest font-bold text-[var(--muted-light)]">Travel Date</label>
-                <div className="relative">
-                  <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--muted)]" />
-                  <input 
-                    type="date" 
-                    required 
-                    className="form-input !pl-12" 
-                    onChange={(e) => setBookingData({...bookingData, date: e.target.value})}
-                  />
-                </div>
+                <DatePicker 
+                  value={bookingData.date}
+                  onChange={(val) => setBookingData({...bookingData, date: val})}
+                  placeholder="Select travel date"
+                  minDate={new Date().toISOString().split('T')[0]}
+                  required
+                />
               </div>
 
               <div className="space-y-2">
                 <label className="text-xs uppercase tracking-widest font-bold text-[var(--muted-light)]">Total Passengers</label>
-                <div className="relative">
-                  <Users className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--muted)]" />
-                  <select 
-                    className="form-input !pl-12"
-                    onChange={(e) => setBookingData({...bookingData, pax: Number(e.target.value)})}
-                  >
-                    {[1,2,3,4,5,6,7,8,9,10].map(n => (
-                      <option key={n} value={n}>{n} {n === 1 ? 'Person' : 'People'}</option>
-                    ))}
-                  </select>
-                </div>
+                <CustomSelect
+                  icon={Users}
+                  options={[1,2,3,4,5,6,7,8,9,10].map(n => ({ 
+                    value: String(n), 
+                    label: `${n} ${n === 1 ? 'Person' : 'People'}` 
+                  }))}
+                  value={String(bookingData.pax)}
+                  onChange={(val) => setBookingData({...bookingData, pax: Number(val)})}
+                  placeholder="Select passengers"
+                />
               </div>
 
               <div className="pt-4 space-y-4">

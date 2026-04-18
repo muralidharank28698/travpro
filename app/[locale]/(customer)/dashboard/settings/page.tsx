@@ -32,6 +32,8 @@ import {
   ShieldCheck,
   AlertTriangle,
 } from "lucide-react";
+import CustomSelect from "@/components/common/CustomSelect";
+import TimePicker from "@/components/common/TimePicker";
 
 type SettingsTab = "personal" | "security" | "notifications" | "payments";
 
@@ -54,6 +56,9 @@ export default function SettingsPage() {
   const [notifSMS, setNotifSMS] = useState(true);
   const [notifEmail, setNotifEmail] = useState(true);
   const [notifPush, setNotifPush] = useState(false);
+  const [location, setLocation] = useState("pondy");
+  const [quietHoursStart, setQuietHoursStart] = useState("22:00");
+  const [quietHoursEnd, setQuietHoursEnd] = useState("07:00");
 
   // Billing state
   const [billingPage, setBillingPage] = useState(1);
@@ -206,17 +211,17 @@ export default function SettingsPage() {
 
                     <div className="space-y-2">
                       <label className="text-[10px] uppercase tracking-[0.25em] font-black text-slate-400 ml-1">{t('personal.location')}</label>
-                      <div className="relative group">
-                        <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-[18px] h-[18px] text-slate-400" />
-                        <select className="form-input !pl-12 h-12 bg-card border-slate-100 focus:bg-card text-[15px] font-semibold appearance-none transition-all">
-                          <option value="pondy">Puducherry, India</option>
-                          <option value="tn">Tamil Nadu, India</option>
-                          <option value="kar">Karnataka, India</option>
-                        </select>
-                        <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
-                          <ArrowLeft className="w-4 h-4 -rotate-90 opacity-40" />
-                        </div>
-                      </div>
+                      <CustomSelect
+                        icon={MapPin}
+                        options={[
+                          { value: "pondy", label: "Puducherry, India" },
+                          { value: "tn", label: "Tamil Nadu, India" },
+                          { value: "kar", label: "Karnataka, India" },
+                        ]}
+                        value={location}
+                        onChange={setLocation}
+                        placeholder="Select location"
+                      />
                     </div>
                   </div>
 
@@ -251,7 +256,7 @@ export default function SettingsPage() {
                   </p>
                 </div>
                 <button className="bg-red-500/10 hover:bg-red-500/20 text-red-500 font-bold text-xs uppercase tracking-widest px-6 py-3 rounded-xl transition-all shadow-sm whitespace-nowrap relative z-10 shrink-0 border border-red-500/20">
-                  Delete Forever
+                  {t('personal.danger_button')}
                 </button>
               </div>
             </div>
@@ -584,18 +589,25 @@ export default function SettingsPage() {
                 </div>
 
                 {/* Quiet Hours */}
-                <div className="p-5 rounded-2xl bg-surface/40 border border-border/50 transition-all hover:bg-surface/60 group/quiet">
+                {/* <div className="p-5 rounded-2xl bg-surface/40 border border-border/50 transition-all hover:bg-surface/60 group/quiet">
                   <div className="flex items-center gap-3 mb-3">
                     <BellOff className="w-5 h-5 text-slate-400" />
                     <p className="text-sm font-bold text-[var(--foreground)]">Quiet Hours</p>
                   </div>
                   <p className="text-xs text-[var(--muted)] mb-4">Mute all non-critical notifications during specific hours</p>
-                  <div className="flex items-center gap-3">
-                    <input type="time" defaultValue="22:00" className="form-input h-10 text-sm font-medium w-32 text-center" />
-                    <span className="text-xs font-bold text-[var(--muted-light)]">to</span>
-                    <input type="time" defaultValue="07:00" className="form-input h-10 text-sm font-medium w-32 text-center" />
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <TimePicker
+                      label="From"
+                      value={quietHoursStart}
+                      onChange={setQuietHoursStart}
+                    />
+                    <TimePicker
+                      label="To"
+                      value={quietHoursEnd}
+                      onChange={setQuietHoursEnd}
+                    />
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           )}

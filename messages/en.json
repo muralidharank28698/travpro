@@ -367,7 +367,7 @@
       "login_alerts_desc": "Get notified of unrecognized sign-ins",
       "sessions": "Active Sessions",
       "this_device": "This device",
-      "revoke": "Revoke"
+      "revoke_button": "Revoke"
     },
     "notifications": {
       "title": "Notification Preferences",
