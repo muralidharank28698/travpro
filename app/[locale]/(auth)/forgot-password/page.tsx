@@ -21,7 +21,7 @@ export default function ForgotPasswordPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6 bg-slate-50/50">
+    <div className="min-h-screen flex items-center justify-center p-6 bg-[var(--background)]">
       <div className="max-w-md w-full animate-fade-in-up">
         <Link 
           href="/login" 
@@ -31,7 +31,7 @@ export default function ForgotPasswordPage() {
           {t('back')}
         </Link>
 
-        <div className="card p-10 shadow-2xl border-emerald-50">
+        <div className="card p-10 shadow-2xl border-border/40">
           {!isSubmitted ? (
             <div className="space-y-8">
               <div className="space-y-3">
@@ -88,7 +88,7 @@ export default function ForgotPasswordPage() {
             </div>
           ) : (
             <div className="text-center space-y-8 py-4 animate-scale-in">
-              <div className="w-20 h-20 bg-emerald-50 text-emerald-500 rounded-3xl mx-auto flex items-center justify-center">
+              <div className="w-20 h-20 bg-emerald-500/10 text-emerald-500 rounded-3xl mx-auto flex items-center justify-center">
                 <CheckCircle2 className="w-10 h-10" />
               </div>
               
@@ -100,7 +100,7 @@ export default function ForgotPasswordPage() {
                 </p>
               </div>
 
-              <div className="p-4 bg-amber-50/50 rounded-2xl border border-amber-100/50 text-xs text-amber-800 leading-relaxed">
+              <div className="p-4 bg-amber-500/10 rounded-2xl border border-amber-500/20 text-xs text-amber-600 dark:text-amber-500 leading-relaxed">
                 {t('spam_notice')}
               </div>
 

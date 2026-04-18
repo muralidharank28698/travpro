@@ -52,7 +52,7 @@ export default function CustomerDashboardLayout({
       }} className="hidden lg:flex flex-col">
         {/* Brand */}
         <div style={{ padding: "24px", borderBottom: "1px solid var(--card-border)" }}>
-          <Link href="/" onClick={() => window.location.href = "/"} className="flex items-center gap-3 decoration-none group">
+          <Link href="/" className="flex items-center gap-3 decoration-none group">
             <div className="w-9 h-9 rounded-lg bg-slate-900 dark:bg-white flex items-center justify-center shadow-md group-hover:bg-[var(--color-primary)] transition-all duration-300">
               <span className="text-white dark:text-black font-black text-lg italic tracking-tighter font-logo">Z</span>
             </div>
@@ -127,7 +127,7 @@ export default function CustomerDashboardLayout({
       <div className="flex-1 flex flex-col h-screen overflow-hidden">
         {/* Mobile Header */}
         <header className="lg:hidden sticky top-0 z-50 flex items-center justify-between p-4 border-b border-border bg-background/80 backdrop-blur-md">
-          <Link href="/" onClick={() => window.location.href = "/"} className="flex items-center gap-2 decoration-none group font-logo">
+          <Link href="/" className="flex items-center gap-2 decoration-none group font-logo">
             <div className="w-8 h-8 rounded-lg bg-slate-900 dark:bg-white flex items-center justify-center shadow-sm">
               <span className="text-white dark:text-black font-black text-sm italic tracking-tighter">Z</span>
             </div>

@@ -112,7 +112,7 @@ export default function PublicLayout({
             <LanguageSwitcher />
             <ThemeToggle />
           </div>
-          
+
           {authLoading ? (
             <div className="w-[100px] h-10" />
           ) : user ? (
@@ -193,12 +193,12 @@ export default function PublicLayout({
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            {isMobileMenuOpen ? (
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            ) : (
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            )}
-          </svg>
+              {isMobileMenuOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
           </button>
         </div>
       </header>
@@ -210,14 +210,14 @@ export default function PublicLayout({
             {navItems.map((item) => {
               const isActive = pathname === item.href;
               return (
-                  <Link
-                    key={item.name}
-                    href={item.href as any}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className={`text-lg font-bold transition ${isActive ? "text-[var(--color-primary)]" : "text-[var(--muted)] hover:text-[var(--color-primary)]"}`}
-                  >
-                    {item.name}
-                  </Link>
+                <Link
+                  key={item.name}
+                  href={item.href as any}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`text-lg font-bold transition ${isActive ? "text-[var(--color-primary)]" : "text-[var(--muted)] hover:text-[var(--color-primary)]"}`}
+                >
+                  {item.name}
+                </Link>
               );
             })}
             <div className="flex flex-col gap-3 mt-4 pt-6 border-t border-[var(--card-border)]">
@@ -258,7 +258,7 @@ export default function PublicLayout({
       {/* Footer */}
       <footer className="bg-background border-t border-border py-12 px-6 sm:px-12 text-[var(--muted)] transition-colors duration-300">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-8 md:gap-6">
-          <div className="flex items-center gap-3 group">
+          <Link href="/" className="flex items-center gap-3 group decoration-none">
             <div className="w-8 h-8 rounded-lg bg-card flex items-center justify-center border border-border group-hover:bg-[var(--color-primary)] group-hover:border-[var(--color-primary)] transition-all duration-300 shadow-sm">
               <span className="text-foreground group-hover:text-white font-black text-sm italic tracking-tighter font-logo transition-colors">Z</span>
             </div>
@@ -269,7 +269,7 @@ export default function PublicLayout({
               </div>
               <span className="text-[8px] font-bold tracking-[0.4em] text-[var(--muted-light)] uppercase ml-0.5">TRVLS</span>
             </div>
-          </div>
+          </Link>
           <div className="flex flex-wrap gap-x-6 gap-y-3 text-sm font-medium">
             <Link href="/about" className="hover:text-[var(--color-primary)] transition-colors">{tf('about')}</Link>
             <Link href="/operator-register" className="hover:text-[var(--color-primary)] transition-colors">{tf('partner')}</Link>

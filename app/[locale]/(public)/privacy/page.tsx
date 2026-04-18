@@ -68,7 +68,7 @@ export default function PrivacyPage() {
           </p>
         </section>
 
-        <section className="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+        <section className="bg-surface p-6 rounded-2xl border border-border/60">
           <h3 className="font-bold text-[var(--foreground)] mb-2">Contact Privacy Officer</h3>
           <p className="text-sm">
             If you have any questions about this policy, please reach out to us at <span className="font-bold text-[var(--color-primary)]">privacy@zytravo.com</span>.
