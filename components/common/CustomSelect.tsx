@@ -16,6 +16,8 @@ interface CustomSelectProps {
   label?: string;
   error?: string;
   className?: string;
+  buttonClassName?: string;
+  icon?: React.ElementType;
 }
 
 export default function CustomSelect({
@@ -26,6 +28,8 @@ export default function CustomSelect({
   label,
   error,
   className = "",
+  buttonClassName = "",
+  icon: Icon,
 }: CustomSelectProps) {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -58,11 +62,14 @@ export default function CustomSelect({
           isOpen 
             ? "border-[var(--color-primary)] ring-4 ring-[var(--color-primary)]/10" 
             : "border-[var(--card-border)] hover:border-[var(--color-primary)]"
-        } ${error ? "border-red-500" : ""}`}
+        } ${error ? "border-red-500" : ""} ${buttonClassName}`}
       >
-        <span className={selectedOption ? "text-[var(--foreground)] font-medium" : "text-[var(--muted-light)]"}>
-          {selectedOption ? selectedOption.label : placeholder}
-        </span>
+        <div className="flex items-center gap-3">
+          {Icon && <Icon className="w-4 h-4 text-[var(--muted)]" />}
+          <span className={selectedOption ? "text-[var(--foreground)] font-medium" : "text-[var(--muted-light)]"}>
+            {selectedOption ? selectedOption.label : placeholder}
+          </span>
+        </div>
         <svg 
           className={`w-4 h-4 text-[var(--muted-light)] transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`} 
           fill="none" 

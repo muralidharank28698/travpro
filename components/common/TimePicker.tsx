@@ -93,13 +93,13 @@ export default function TimePicker({
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className={`w-full flex items-center justify-between gap-3 px-4 py-3 rounded-xl border bg-card text-left transition-all duration-300 cursor-pointer ${
+        className={`w-full min-h-[56px] flex items-center justify-between gap-3 px-4 py-3 rounded-xl border bg-card text-left transition-all duration-300 cursor-pointer ${
           isOpen
             ? "border-[var(--color-primary)] ring-4 ring-[var(--color-primary)]/10"
             : "border-[var(--card-border)] hover:border-[var(--color-primary)]"
         }`}
       >
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 overflow-hidden">
           <svg
             className={`w-5 h-5 shrink-0 transition-colors ${isOpen ? "text-[var(--color-primary)]" : "text-[var(--muted-light)]"}`}
             fill="none"
@@ -113,7 +113,7 @@ export default function TimePicker({
               d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
             />
           </svg>
-          <span className={`text-sm font-medium ${value ? "text-[var(--foreground)]" : "text-[var(--muted-light)]"}`}>
+          <span className={`text-sm font-medium whitespace-nowrap truncate ${value ? "text-[var(--foreground)]" : "text-[var(--muted-light)]"}`}>
             {value ? formatDisplay() : placeholder}
           </span>
         </div>

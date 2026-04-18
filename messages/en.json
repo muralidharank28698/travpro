@@ -1,0 +1,475 @@
+{
+  "Navigation": {
+    "rentals": "Rentals",
+    "tours": "Tours",
+    "transfers": "Transfers",
+    "hire": "Hire a Driver",
+    "about": "About",
+    "login": "Log In",
+    "signup": "Sign Up",
+    "dashboard": "My Dashboard",
+    "admin": "Admin Panel",
+    "signout": "Sign Out",
+    "authenticated": "Authenticated",
+    "logged_in_as": "Logged in as"
+  },
+  "Hero": {
+    "badge": "Best Destinations Around South India",
+    "title": "Travel, enjoy and live a new and full life",
+    "subtitle": "From quick airport drops and premium car rentals to extensive South India tours. Experience comfort, safety, and ultimate reliability with Zytravo Trvls.",
+    "cta_rentals": "Find out more",
+    "cta_demo": "Play Demo"
+  },
+  "Landing": {
+    "Services": {
+      "badge": "Category",
+      "title": "We Offer Best Services",
+      "rentals": {
+        "title": "Car Rentals",
+        "description": "Chauffeur-driven hatchbacks, sedans, and SUVs for hourly or daily requirements.",
+        "cta": "Browse Fleet"
+      },
+      "tours": {
+        "title": "Tour Packages",
+        "description": "Curated trips across South India from Pondicherry to Ooty, Munnar, and Hampi.",
+        "cta": "View Packages"
+      },
+      "transfers": {
+        "title": "Airport Transfers",
+        "description": "Punctual pick-up and drop-off spanning Chennai, Bangalore, and local airports.",
+        "cta": "Book Transfer"
+      },
+      "hire": {
+        "title": "Hire a Driver",
+        "description": "Professional, background-verified drivers available for your own vehicle.",
+        "cta": "Find Drivers"
+      }
+    },
+    "Destinations": {
+      "badge": "Top Selling",
+      "title": "Top Destinations",
+      "drive": "Appx. {hours}h Drive",
+      "trip": "{days} Days Trip"
+    },
+    "WhyUs": {
+      "badge": "Why Us?",
+      "title": "Experience the highest standard of travel",
+      "subtitle": "We don't just provide a vehicle; we deliver a premium, stress-free travel experience across South India with Zytravo Trvls.",
+      "safety": {
+        "title": "Safety First, Always",
+        "description": "Every vehicle in our fleet undergoes rigorous maintenance checks before every single trip."
+      },
+      "chauffeurs": {
+        "title": "Elite Chauffeurs",
+        "description": "Our drivers are permanently employed, background-verified professionals with years of inter-city expertise."
+      },
+      "reliability": {
+        "title": "24/7 Reliability",
+        "description": "Flight delayed at 3 AM? We'll be there. Our dispatch and support team operates around the clock."
+      },
+      "stats": {
+        "rating": "Rating",
+        "trusted": "Trusted by 10k+ happy customers."
+      }
+    },
+    "CTA": {
+      "title": "Ready to start your journey?",
+      "subtitle": "Book your reliable ride today and experience the absolute best in comfort and safety across South India.",
+      "button": "Book Your Ride Now"
+    }
+  },
+  "Auth": {
+    "login": {
+      "title": "Welcome back",
+      "subtitle": "Sign in to manage your bookings and fleet",
+      "email": "Email Address",
+      "password": "Password",
+      "submit": "Sign In",
+      "loading": "Signing in...",
+      "no_account": "Don't have an account?",
+      "signup": "Sign up",
+      "error": {
+        "required": "Please enter both email and password.",
+        "invalid": "Invalid credentials"
+      },
+      "quick": "Quick Access (Dev Mode)",
+      "admin_role": "Admin Role",
+      "user_role": "User Role"
+    },
+    "register": {
+      "title": "Create Account",
+      "subtitle": "Join Zytravo Trvls for a premium travel experience",
+      "name": "Full Name",
+      "email": "Email Address",
+      "password": "Password",
+      "phone": "Phone Number",
+      "submit": "Create Account",
+      "loading": "Creating account...",
+      "has_account": "Already have an account?",
+      "login": "Sign in",
+      "operator": "Are you a vehicle operator?",
+      "operator_link": "Register as operator"
+    },
+    "forgot": {
+      "back": "Back to Login",
+      "title": "Forgot <span>Password?</span>",
+      "subtitle": "Enter the email address associated with your account and we'll send you a recovery link.",
+      "email": "Email Address",
+      "submit": "Send Reset Instructions",
+      "remember": "Remember your password?",
+      "login": "Log In",
+      "success_title": "Check your email",
+      "success_msg": "We've sent password reset instructions to:",
+      "spam_notice": "Didn't receive the email? Check your spam folder or wait a few minutes before trying again.",
+      "try_again": "Try a different email",
+      "powered": "Powered by Zytravo Trvls"
+    }
+  },
+  "Rentals": {
+    "title": "Premium Car Rentals",
+    "subtitle": "Explore our wide range of well-maintained hatchbacks, sedans, and SUVs.",
+    "filters": {
+      "model": "Select Car Model...",
+      "category": "Select Category...",
+      "seats": "Seat Capacity",
+      "fuel": "Fuel Preference",
+      "transmission": "Transmission",
+      "clear": "Clear All",
+      "more": "More Filters",
+      "hide": "Hide Options",
+      "any_seats": "Any Seats",
+      "any_fuel": "Any Fuel",
+      "any_trans": "Any Transmission",
+      "seats_count": "{count} Seats",
+      "vehicles_count": "{count} Vehicles"
+    },
+    "car": {
+      "available": "Available",
+      "book": "Book {name}",
+      "booked": "Currently Booked",
+      "maintenance": "Under Maintenance",
+      "seats": "{count} Seats",
+      "per_trip": "/ trip"
+    },
+    "empty": {
+      "title": "No cars found matching your filters",
+      "subtitle": "Try adjusting your selection or reset all filters to browse our entire fleet.",
+      "reset": "Reset All Filters"
+    },
+    "features": {
+      "title": "Why Rent With Zytravo Trvls?",
+      "safe": {
+        "title": "Completely Sanitized",
+        "description": "Every vehicle undergoes deep cleaning and sanitization before handover."
+      },
+      "price": {
+        "title": "Transparent Pricing",
+        "description": "No hidden costs. Pay exactly what you see including GST and base tolls."
+      },
+      "support": {
+        "title": "24/7 Roadside Assist",
+        "description": "GPS enabled tracking and full 24/7 support throughout your journey."
+      }
+    }
+  },
+  "Tours": {
+    "title": "Curated Tour Packages",
+    "subtitle": "Explore the rich heritage and natural beauty of South India with our carefully crafted itineraries.",
+    "securing": "Securing your session...",
+    "preparing": "Preparing your tour packages",
+    "duration": "Duration",
+    "destinations": "Destinations",
+    "includes": "Includes",
+    "starting": "Starting from",
+    "view": "View Itinerary"
+  },
+  "Transfers": {
+    "title": "Hassle-Free Airport Transfers",
+    "subtitle": "Punctual pick-ups and drop-offs to all major airports. We track your flight in real-time.",
+    "securing": "Securing your session...",
+    "preparing": "Preparing airport transfer options...",
+    "form": {
+      "title": "Book Transfer",
+      "drop": "Drop to Airport",
+      "pickup": "Pick-up from Airport",
+      "select": "Select Airport",
+      "date": "Travel Date",
+      "time": "Pickup Time",
+      "flight": "Flight Number (Optional)",
+      "vehicle": "Vehicle Preference",
+      "placeholder": "Choose an airport...",
+      "date_placeholder": "Select date",
+      "time_placeholder": "Select time",
+      "vehicle_placeholder": "Select vehicle type...",
+      "submit": "Proceed to Booking"
+    },
+    "pricing": {
+      "title": "Transparent Pricing",
+      "subtitle": "Pre-fixed rates. Zero surge pricing. Zero hidden fees.",
+      "route": "Route",
+      "vehicle": "Vehicle",
+      "oneway": "One Way",
+      "round": "Round Trip"
+    },
+    "delay": {
+      "title": "Flight Delayed? No Problem.",
+      "description": "For airport pick-ups, the first 60 minutes of waiting after your scheduled landing time are completely free. Our dispatch team monitors flight statuses in real time."
+    }
+  },
+  "DriverHire": {
+    "title": "Professional Drivers on Hire",
+    "subtitle": "Got your own car but need a reliable driver? Hire our verified, highly-trained chauffeurs.",
+    "securing": "Securing your session...",
+    "preparing": "Preparing driver hire options...",
+    "duration": "Duration",
+    "coverage": "Coverage",
+    "starting": "Starting at",
+    "hire": "Hire Now",
+    "standard": {
+      "title": "The Zytravo Standard",
+      "subtitle": "We don't just provide drivers; we provide peace of mind. Every chauffeur undergoes strict verification.",
+      "license": "Valid Commercial License",
+      "exp": "5+ Years Experience",
+      "verified": "Background Verified",
+      "trained": "Defensive Driving Trained",
+      "safe": {
+        "title": "100% Safe & Insured",
+        "description": "Optional daily transit insurance covers your vehicle during your trip."
+      }
+    }
+  },
+  "About": {
+    "title": "About Zytravo Trvls",
+    "subtitle": "Your trusted travel partner in Puducherry, delivering safe, reliable, and comfortable travel experiences.",
+    "vision": {
+      "title": "Our Vision",
+      "description": "To be the most trusted and preferred travel partner in Puducherry and across South India."
+    },
+    "mission": {
+      "title": "Our Mission",
+      "list": [
+        "Provide safe and comfortable travel solutions for every journey.",
+        "Maintain a fleet of modern, well-maintained vehicles.",
+        "Offer transparent pricing with no hidden charges.",
+        "Deliver exceptional customer service at every touchpoint."
+      ]
+    },
+    "values": {
+      "title": "Our Core Values",
+      "safety": "Safety",
+      "safety_desc": "Safety of passengers is our top priority at all times",
+      "reliability": "Reliability",
+      "reliability_desc": "On-time pick-up and drop — we always keep our promises",
+      "transparency": "Transparency",
+      "transparency_desc": "Clear pricing, no hidden costs or last-minute surprises",
+      "comfort": "Comfort",
+      "comfort_desc": "Clean, air-conditioned, and well-maintained vehicles",
+      "customer": "Customer First",
+      "customer_desc": "Every decision is made with the customer in mind"
+    },
+    "fleet": {
+      "title": "Our Modern Fleet",
+      "hatchback": "Hatchbacks & Sedans",
+      "hatchback_desc": "Swift, i10, Dzire, Xcent (4 Pax)",
+      "suv": "Comfort SUVs",
+      "suv_desc": "Innova, Ertiga, Scorpio (6-7 Pax)",
+      "group": "Group Travel",
+      "group_desc": "Tempo Traveller (12-15 Pax) & Mini Bus"
+    },
+    "contact": "Contact Us Today"
+  },
+  "Contact": {
+    "title": "Contact Support",
+    "subtitle": "Have questions or need assistance with your booking? We're here to help 24/7.",
+    "getintouch": "Get in Touch",
+    "call": "Call Us",
+    "email": "Email Us",
+    "office": "Office",
+    "available": "Available 24/7",
+    "response": "2-4 Hours Response Time",
+    "address": "No. 12, Heritage Town, Puducherry - 605001",
+    "form": {
+      "name": "Full Name",
+      "email": "Email Address",
+      "message": "Message",
+      "submit": "Send Message",
+      "placeholder_name": "John Doe",
+      "placeholder_email": "john@example.com",
+      "placeholder_message": "How can we help you?"
+    },
+    "back": "Back to Home"
+  },
+  "NotFound": {
+    "title": "Page Not <span>Found</span>",
+    "subtitle": "The page you are looking for might have been moved, deleted, or never existed. Let's get you back on track.",
+    "home": "Go to Homepage",
+    "back": "Go Back",
+    "help": "Need help?",
+    "contact": "Contact Support →"
+  },
+  "CustomerDashboard": {
+    "title": "My Bookings",
+    "subtitle": "Track your rides and manage your travel history.",
+    "upcoming": "Upcoming trips",
+    "past": "Past & Cancelled",
+    "empty_title": "No {tab} trips.",
+    "empty_subtitle": "When you book a ride, your route and ticket info will show up here.",
+    "explore": "Explore Rides",
+    "total_fare": "Total Fare",
+    "cancel": "Cancel",
+    "track": "Track Ride",
+    "download": "Download Invoice",
+    "nav": {
+      "new_booking": "New Booking",
+      "my_bookings": "My Bookings",
+      "settings": "Settings"
+    }
+  },
+  "Settings": {
+    "title": "Account <span>Settings</span>",
+    "subtitle": "Manage your personal information and security",
+    "back": "Back to Dashboard",
+    "general": "General",
+    "tabs": {
+      "personal": "Personal Info",
+      "security": "Security",
+      "notifications": "Notifications",
+      "payments": "Payments"
+    },
+    "personal": {
+      "success": "Profile updated successfully!",
+      "update": "Update",
+      "premium": "Premium Member",
+      "full_name": "Full Name",
+      "email": "Email Address",
+      "phone": "Phone Number",
+      "location": "Current Location",
+      "save": "Apply Changes",
+      "danger_title": "Permanent Delete",
+      "danger_desc": "Once confirmed, all your active bookings and data legacy will be wiped. Proceed with extreme caution.",
+      "danger_button": "Delete Forever"
+    },
+    "security": {
+      "success": "Security settings updated!",
+      "change_pw": "Change Password",
+      "change_pw_desc": "Update your password to keep your account secure",
+      "current_pw": "Current Password",
+      "new_pw": "New Password",
+      "confirm_pw": "Confirm Password",
+      "pw_strength": "Password Strength",
+      "pw_hint": "Good — Add special characters for stronger security",
+      "update_pw": "Update Password",
+      "twofa_title": "Two-Factor Authentication",
+      "twofa_desc": "Add an extra layer of security to your account",
+      "auth_app": "Authenticator App",
+      "auth_app_desc": "Use Google Authenticator or Authy",
+      "login_alerts": "Login Alerts",
+      "login_alerts_desc": "Get notified of unrecognized sign-ins",
+      "sessions": "Active Sessions",
+      "this_device": "This device",
+      "revoke": "Revoke"
+    },
+    "notifications": {
+      "title": "Notification Preferences",
+      "subtitle": "Choose what updates you want to receive",
+      "categories": "Categories",
+      "booking_updates": "Booking Updates",
+      "booking_updates_desc": "Confirmations, cancellations, and status changes",
+      "promotions": "Promotions & Offers",
+      "promotions_desc": "Seasonal discounts and exclusive deals",
+      "trip_reminders": "Trip Reminders",
+      "trip_reminders_desc": "Pickup time alerts and pre-trip notifications",
+      "channels": "Delivery Channels",
+      "email": "Email",
+      "sms": "SMS",
+      "push": "Push",
+      "browser": "Browser notifications",
+      "quiet_title": "Quiet Hours",
+      "quiet_desc": "Mute all non-critical notifications during specific hours",
+      "to": "to"
+    },
+    "payments": {
+      "title": "Billing History",
+      "subtitle": "Your recent transactions and invoices",
+      "showing": "Showing",
+      "to": "to",
+      "of": "of",
+      "entries": "entries"
+    }
+  },
+  "AdminBookings": {
+    "title": "Bookings",
+    "subtitle": "Manage and track all your fleet reservations.",
+    "export": "Export Data",
+    "total": "Total Bookings",
+    "confirmed": "Confirmed",
+    "in_progress": "In Progress",
+    "completed": "Completed",
+    "cancelled": "Cancelled",
+    "round_trip": "Round Trip",
+    "one_way": "One Way",
+    "status": {
+      "confirmed": "Confirmed",
+      "in_progress": "In Progress",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    },
+    "headers": {
+      "booking": "Booking",
+      "route": "Route",
+      "customer": "Customer",
+      "date": "Date",
+      "amount": "Amount",
+      "status": "Status",
+      "schedule": "Schedule",
+      "fare": "Fare"
+    },
+    "empty_title": "No bookings found",
+    "empty_subtitle": "Try selecting a different filter.",
+    "to": "to"
+  },
+  "FleetManagement": {
+    "title": "Fleet Management",
+    "available_of": "{available} of {total} vehicles currently available for booking.",
+    "add_vehicle": "+ Add New Vehicle",
+    "active": "Active",
+    "total": "Total",
+    "seats": "Seats",
+    "fuel": "Fuel",
+    "trips": "Trips",
+    "per_day": "per day",
+    "book_now": "Book Now",
+    "unavailable": "Unavailable",
+    "status": {
+      "available": "Available",
+      "booked": "Booked",
+      "maintenance": "Maintenance"
+    }
+  },
+  "Dashboard": {
+    "nav": {
+      "bookings": "Bookings",
+      "fleet": "Fleet",
+      "theme": "Theme",
+      "signout": "Sign Out"
+    },
+    "roles": {
+      "manager": "Fleet Manager",
+      "staff": "Admin Staff",
+      "operator": "Operator",
+      "customer": "Customer Account"
+    },
+    "auth": {
+      "securing": "Securing your session...",
+      "preparing": "Preparing your options..."
+    }
+  },
+  "Footer": {
+    "about": "About Us",
+    "partner": "Partner with Us",
+    "terms": "Terms & Conditions",
+    "privacy": "Privacy Policy",
+    "support": "Support",
+    "rights": "All rights reserved."
+  }
+}

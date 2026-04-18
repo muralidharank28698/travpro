@@ -1,0 +1,474 @@
+{
+  "Navigation": {
+    "rentals": "Alquileres",
+    "tours": "Tours",
+    "transfers": "Traslados",
+    "hire": "Conductores",
+    "about": "Nosotros",
+    "login": "Ingresar",
+    "signup": "Registro",
+    "dashboard": "Panel",
+    "admin": "Admin",
+    "signout": "Salir",
+    "authenticated": "Autenticado",
+    "logged_in_as": "Sesión iniciada como"
+  },
+  "Hero": {
+    "badge": "Mejores destinos en el sur de la India",
+    "title": "Viaja, disfruta y vive una vida nueva y plena",
+    "subtitle": "Desde traslados rápidos al aeropuerto y alquiler de coches premium hasta extensos tours por el sur de la India. Experimente confort, seguridad y la máxima fiabilidad con Zytravo Trvls.",
+    "cta_rentals": "Descubrir más",
+    "cta_demo": "Ver Demo"
+  },
+  "Landing": {
+    "Services": {
+      "badge": "Categoría",
+      "title": "Ofrecemos los mejores servicios",
+      "rentals": {
+        "title": "Alquiler de coches",
+        "description": "Hatchbacks, sedanes y SUVs con chófer para necesidades por hora o diarias.",
+        "cta": "Explorar flota"
+      },
+      "tours": {
+        "title": "Paquetes turísticos",
+        "description": "Viajes seleccionados por el sur de la India desde Pondicherry hasta Munnar.",
+        "cta": "Ver paquetes"
+      },
+      "transfers": {
+        "title": "Traslados al aeropuerto",
+        "description": "Recogida y entrega puntual en Chennai, Bangalore y aeropuertos locales.",
+        "cta": "Reservar traslado"
+      },
+      "hire": {
+        "title": "Contratar conductor",
+        "description": "Conductores profesionales verificados disponibles para su propio vehículo.",
+        "cta": "Buscar conductores"
+      }
+    },
+    "Destinations": {
+      "badge": "Más vendidos",
+      "title": "Destinos populares",
+      "drive": "Aprox. {hours}h de viaje",
+      "trip": "Viaje de {days} días"
+    },
+    "WhyUs": {
+      "badge": "¿Por qué nosotros?",
+      "title": "Experimente el más alto estándar de viaje",
+      "subtitle": "No solo proporcionamos un vehículo; ofrecemos una experiencia de viaje premium y sin estrés por el sur de la India.",
+      "safety": {
+        "title": "Seguridad primero, siempre",
+        "description": "Cada vehículo de nuestra flota se somete a rigurosos controles de mantenimiento antes de cada viaje."
+      },
+      "chauffeurs": {
+        "title": "Chóferes de élite",
+        "description": "Nuestros conductores son profesionales contratados permanentemente con años de experiencia."
+      },
+      "reliability": {
+        "title": "Fiabilidad 24/7",
+        "description": "¿Vuelo retrasado a las 3 AM? Estaremos allí. Nuestro equipo opera las 24 horas del día."
+      },
+      "stats": {
+        "rating": "Calificación",
+        "trusted": "Confiado por más de 10k clientes felices."
+      }
+    },
+    "CTA": {
+      "title": "¿Listo para comenzar su viaje?",
+      "subtitle": "Reserve su viaje fiable hoy y experimente lo mejor en confort y seguridad.",
+      "button": "Reserve su viaje ahora"
+    }
+  },
+  "Auth": {
+    "login": {
+      "title": "Bienvenido de nuevo",
+      "subtitle": "Inicie sesión para gestionar sus reservas y flota",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "submit": "Ingresar",
+      "loading": "Iniciando sesión...",
+      "no_account": "¿No tiene una cuenta?",
+      "signup": "Registrarse",
+      "error": {
+        "required": "Por favor, introduzca su correo y contraseña.",
+        "invalid": "Credenciales inválidas"
+      },
+      "quick": "Acceso rápido (Modo Dev)",
+      "admin_role": "Rol de Administrador",
+      "user_role": "Rol de Usuario"
+    },
+    "register": {
+      "title": "Crear cuenta",
+      "subtitle": "Únase a Zytravo Trvls para una experiencia de viaje premium",
+      "name": "Nombre completo",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "phone": "Número de teléfono",
+      "submit": "Crear cuenta",
+      "loading": "Creando cuenta...",
+      "has_account": "¿Ya tiene una cuenta?",
+      "login": "Iniciar sesión",
+      "operator": "¿Es usted un operador de vehículos?",
+      "operator_link": "Registrarse como operador"
+    },
+    "forgot": {
+      "back": "Volver al inicio de sesión",
+      "title": "¿Olvidó su <span>contraseña?</span>",
+      "subtitle": "Ingrese el correo electrónico asociado con su cuenta y le enviaremos un enlace de recuperación.",
+      "email": "Correo electrónico",
+      "submit": "Enviar instrucciones de restablecimiento",
+      "remember": "¿Recuerda su contraseña?",
+      "login": "Iniciar sesión",
+      "success_title": "Revise su correo",
+      "success_msg": "Hemos enviado instrucciones de restablecimiento de contraseña a:",
+      "spam_notice": "¿No recibió el correo? Revise su carpeta de spam o espere unos minutos antes de intentar nuevamente.",
+      "try_again": "Probar otro correo",
+      "powered": "Desarrollado por Zytravo Trvls"
+    }
+  },
+  "Rentals": {
+    "title": "Alquiler de coches premium",
+    "subtitle": "Explore nuestra amplia gama de hatchbacks, sedanes y SUVs bien mantenidos.",
+    "filters": {
+      "model": "Seleccionar modelo...",
+      "category": "Seleccionar categoría...",
+      "seats": "Capacidad de asientos",
+      "fuel": "Preferencia de combustible",
+      "transmission": "Transmisión",
+      "clear": "Borrar todo",
+      "more": "Más filtros",
+      "hide": "Ocultar opciones",
+      "any_seats": "Cualquier asiento",
+      "any_fuel": "Cualquier combustible",
+      "any_trans": "Cualquier transmisión",
+      "seats_count": "{count} Asientos",
+      "vehicles_count": "{count} Vehículos"
+    },
+    "car": {
+      "available": "Disponible",
+      "book": "Reservar {name}",
+      "booked": "Reservado actualmente",
+      "maintenance": "En mantenimiento",
+      "seats": "{count} Asientos",
+      "per_trip": "/ viaje"
+    },
+    "empty": {
+      "title": "No se encontraron coches que coincidan con sus filtros",
+      "subtitle": "Intente ajustar su selección o restablezca todos los filtros para explorar nuestra flota completa.",
+      "reset": "Restablecer todos los filtros"
+    },
+    "features": {
+      "title": "¿Por qué alquilar con Zytravo Trvls?",
+      "safe": {
+        "title": "Completamente desinfectado",
+        "description": "Cada vehículo se somete a una limpieza profunda y desinfección antes de la entrega."
+      },
+      "price": {
+        "title": "Precios transparentes",
+        "description": "Sin costos ocultos. Pague exactamente lo que ve, incluidos el IVA y los peajes base."
+      },
+      "support": {
+        "title": "Asistencia en carretera 24/7",
+        "description": "Seguimiento habilitado por GPS y soporte completo las 24 horas del día durante su viaje."
+      }
+    }
+  },
+  "Tours": {
+    "title": "Paquetes turísticos seleccionados",
+    "subtitle": "Explore la rica herencia y la belleza natural del sur de la India con nuestros itinerarios cuidadosamente elaborados.",
+    "securing": "Asegurando su sesión...",
+    "preparing": "Preparando sus paquetes turísticos",
+    "duration": "Duración",
+    "destinations": "Destinos",
+    "includes": "Incluye",
+    "starting": "Desde",
+    "view": "Ver itinerario"
+  },
+  "Transfers": {
+    "title": "Traslados al aeropuerto sin complicaciones",
+    "subtitle": "Recogidas y entregas puntuales en los principales aeropuertos. Rastreamos su vuelo en tiempo real.",
+    "securing": "Asegurando su sesión...",
+    "preparing": "Preparando opciones de traslado...",
+    "form": {
+      "title": "Reservar traslado",
+      "drop": "Entrega al aeropuerto",
+      "pickup": "Recogida del aeropuerto",
+      "select": "Seleccionar aeropuerto",
+      "date": "Fecha de viaje",
+      "time": "Hora de recogida",
+      "flight": "Número de vuelo (opcional)",
+      "vehicle": "Preferencia de vehículo",
+      "placeholder": "Elija un aeropuerto...",
+      "date_placeholder": "Seleccionar fecha",
+      "time_placeholder": "Seleccionar hora",
+      "vehicle_placeholder": "Seleccionar tipo de vehículo...",
+      "submit": "Proceder a la reserva"
+    },
+    "pricing": {
+      "title": "Precios transparentes",
+      "subtitle": "Tarifas fijas. Sin aumentos de precios. Sin cargos ocultos.",
+      "route": "Ruta",
+      "vehicle": "Vehículo",
+      "oneway": "Solo ida",
+      "round": "Ida y vuelta"
+    },
+    "delay": {
+      "title": "¿Vuelo retrasado? No hay problema.",
+      "description": "Para las recogidas en el aeropuerto, los primeros 60 minutos de espera después de la hora de aterrizaje programada son completamente gratuitos."
+    }
+  },
+  "DriverHire": {
+    "title": "Conductores profesionales para contratar",
+    "subtitle": "¿Tiene su propio coche pero necesita un conductor fiable? Contrate a nuestros chóferes verificados.",
+    "securing": "Asegurando su sesión...",
+    "preparing": "Preparando paquetes de conductores...",
+    "duration": "Duración",
+    "coverage": "Cobertura",
+    "starting": "Desde",
+    "hire": "Contratar ahora",
+    "standard": {
+      "title": "El estándar de Zytravo",
+      "subtitle": "No solo proporcionamos conductores; ofrecemos tranquilidad. Cada chófer se somete a una verificación estricta.",
+      "license": "Licencia comercial válida",
+      "exp": "5+ años de experiencia",
+      "verified": "Antecedentes verificados",
+      "trained": "Capacitación en conducción defensiva",
+      "safe": {
+        "title": "100% seguro y asegurado",
+        "description": "El seguro de tránsito diario opcional cubre su vehículo durante su viaje."
+      }
+    }
+  },
+  "About": {
+    "title": "Sobre Zytravo Trvls",
+    "subtitle": "Su socio de confianza en Puducherry, brindando experiencias de viaje seguras, fiables y cómodas.",
+    "vision": {
+      "title": "Nuestra visión",
+      "description": "Ser el socio de viaje más confiable y preferido en Puducherry y en todo el sur de la India."
+    },
+    "mission": {
+      "title": "Nuestra misión",
+      "list": [
+        "Proporcionar soluciones de viaje seguras y cómodas para cada trayecto.",
+        "Mantener una flota de vehículos modernos y bien mantenidos.",
+        "Ofrecer precios transparentes sin cargos ocultos.",
+        "Brindar un servicio al cliente excepcional en cada punto de contacto."
+      ]
+    },
+    "values": {
+      "title": "Nuestros valores fundamentales",
+      "safety": "Seguridad",
+      "safety_desc": "La seguridad de los usuarios es nuestra máxima prioridad en todo momento",
+      "reliability": "Fiabilidad",
+      "reliability_desc": "Recogida y entrega a tiempo — siempre cumplimos nuestras promesas",
+      "transparency": "Transparencia",
+      "transparency_desc": "Precios claros, sin costos ocultos ni sorpresas de último minuto",
+      "comfort": "Confort",
+      "comfort_desc": "Vehículos limpios, con aire acondicionado y bien mantenidos",
+      "customer": "El cliente es lo primero",
+      "customer_desc": "Cada decisión se toma pensando en el cliente"
+    },
+    "fleet": {
+      "title": "Nuestra flota moderna",
+      "hatchback": "Hatchbacks y sedanes",
+      "hatchback_desc": "Swift, i10, Dzire, Xcent (4 personas)",
+      "suv": "SUVs de confort",
+      "suv_desc": "Innova, Ertiga, Scorpio (6-7 personas)",
+      "group": "Viajes en grupo",
+      "group_desc": "Tempo Traveller (12-15 personas) y minibús"
+    },
+    "contact": "Contáctenos hoy"
+  },
+  "Contact": {
+    "title": "Contactar Soporte",
+    "subtitle": "¿Tiene preguntas o necesita ayuda con su reserva? Estamos aquí para ayudar las 24 horas.",
+    "getintouch": "Póngase en contacto",
+    "call": "Llámenos",
+    "email": "Envíenos un correo",
+    "office": "Oficina",
+    "available": "Disponible 24/7",
+    "response": "Tiempo de respuesta de 2 a 4 horas",
+    "address": "No. 12, Heritage Town, Puducherry - 605001",
+    "form": {
+      "name": "Nombre completo",
+      "email": "Correo electrónico",
+      "message": "Mensaje",
+      "submit": "Enviar mensaje",
+      "placeholder_name": "Juan Pérez",
+      "placeholder_email": "juan@example.com",
+      "placeholder_message": "¿Cómo podemos ayudarle?"
+    },
+    "back": "Volver al inicio"
+  },
+  "NotFound": {
+    "title": "Página no <span>encontrada</span>",
+    "subtitle": "La página que busca puede haber sido movida, eliminada o nunca existió. Vamos a encaminarlo de nuevo.",
+    "home": "Ir al inicio",
+    "back": "Volver",
+    "help": "¿Necesita ayuda?",
+    "contact": "Contactar soporte →"
+  },
+  "CustomerDashboard": {
+    "title": "Mis reservas",
+    "subtitle": "Rastree sus viajes y gestione su historial de viajes.",
+    "upcoming": "Próximos viajes",
+    "past": "Pasados y cancelados",
+    "empty_title": "No hay viajes {tab}.",
+    "empty_subtitle": "Cuando reserve un viaje, la información de su ruta y boleto aparecerá aquí.",
+    "explore": "Explorar viajes",
+    "total_fare": "Tarifa total",
+    "cancel": "Cancelar",
+    "track": "Rastrear viaje",
+    "download": "Descargar factura",
+    "nav": {
+      "new_booking": "Nueva reserva",
+      "my_bookings": "Mis reservas",
+      "settings": "Configuración"
+    }
+  },
+  "Settings": {
+    "title": "Configuración de <span>cuenta</span>",
+    "subtitle": "Administre su información personal y seguridad",
+    "back": "Volver al panel",
+    "general": "General",
+    "tabs": {
+      "personal": "Información personal",
+      "security": "Seguridad",
+      "notifications": "Notificaciones",
+      "payments": "Pagos"
+    },
+    "personal": {
+      "success": "¡Perfil actualizado exitosamente!",
+      "update": "Actualizar",
+      "premium": "Miembro Premium",
+      "full_name": "Nombre completo",
+      "email": "Correo electrónico",
+      "phone": "Número de teléfono",
+      "location": "Ubicación actual",
+      "save": "Aplicar cambios",
+      "danger_title": "Eliminación permanente",
+      "danger_desc": "Una vez confirmado, todas sus reservas activas y datos se eliminarán. Proceda con extrema precaución.",
+      "danger_button": "Eliminar para siempre"
+    },
+    "security": {
+      "success": "¡Configuración de seguridad actualizada!",
+      "change_pw": "Cambiar contraseña",
+      "change_pw_desc": "Actualice su contraseña para mantener su cuenta segura",
+      "current_pw": "Contraseña actual",
+      "new_pw": "Nueva contraseña",
+      "confirm_pw": "Confirmar contraseña",
+      "pw_strength": "Fortaleza de la contraseña",
+      "pw_hint": "Buena — Agregue caracteres especiales para mayor seguridad",
+      "update_pw": "Actualizar contraseña",
+      "twofa_title": "Autenticación de dos factores",
+      "twofa_desc": "Agregue una capa adicional de seguridad a su cuenta",
+      "auth_app": "Aplicación de autenticación",
+      "auth_app_desc": "Use Google Authenticator o Authy",
+      "login_alerts": "Alertas de inicio de sesión",
+      "login_alerts_desc": "Reciba notificaciones de inicios de sesión no reconocidos",
+      "sessions": "Sesiones activas",
+      "this_device": "Este dispositivo",
+      "revoke": "Revocar"
+    },
+    "notifications": {
+      "title": "Preferencias de notificación",
+      "subtitle": "Elija qué actualizaciones desea recibir",
+      "categories": "Categorías",
+      "booking_updates": "Actualizaciones de reservas",
+      "booking_updates_desc": "Confirmaciones, cancelaciones y cambios de estado",
+      "promotions": "Promociones y ofertas",
+      "promotions_desc": "Descuentos de temporada y ofertas exclusivas",
+      "trip_reminders": "Recordatorios de viaje",
+      "trip_reminders_desc": "Alertas de hora de recogida y notificaciones previas al viaje",
+      "channels": "Canales de entrega",
+      "email": "Correo electrónico",
+      "sms": "SMS",
+      "push": "Push",
+      "browser": "Notificaciones del navegador",
+      "quiet_title": "Horas de silencio",
+      "quiet_desc": "Silenciar todas las notificaciones no críticas durante horas específicas",
+      "to": "a"
+    },
+    "payments": {
+      "title": "Historial de facturación",
+      "subtitle": "Sus transacciones e facturas recientes",
+      "showing": "Mostrando",
+      "to": "a",
+      "of": "de",
+      "entries": "entradas"
+    }
+  },
+  "AdminBookings": {
+    "title": "Reservas",
+    "subtitle": "Administre y rastree todas las reservas de su flota.",
+    "export": "Exportar datos",
+    "total": "Total de reservas",
+    "confirmed": "Confirmadas",
+    "in_progress": "En progreso",
+    "completed": "Completadas",
+    "round_trip": "Ida y vuelta",
+    "one_way": "Solo ida",
+    "status": {
+      "confirmed": "Confirmadas",
+      "in_progress": "En progreso",
+      "completed": "Completadas",
+      "cancelled": "Canceladas"
+    },
+    "headers": {
+      "booking": "Reserva",
+      "route": "Ruta",
+      "customer": "Cliente",
+      "date": "Fecha",
+      "amount": "Monto",
+      "status": "Estado",
+      "schedule": "Horario",
+      "fare": "Tarifa"
+    },
+    "empty_title": "No se encontraron reservas",
+    "empty_subtitle": "Intente seleccionar un filtro diferente.",
+    "to": "a"
+  },
+  "FleetManagement": {
+    "title": "Gestión de flota",
+    "available_of": "{available} de {total} vehículos disponibles actualmente para reservas.",
+    "add_vehicle": "+ Agregar nuevo vehículo",
+    "active": "Activos",
+    "total": "Total",
+    "seats": "Asientos",
+    "fuel": "Combustible",
+    "trips": "Viajes",
+    "per_day": "por día",
+    "book_now": "Reservar ahora",
+    "unavailable": "No disponible",
+    "status": {
+      "available": "Disponible",
+      "booked": "Reservado",
+      "maintenance": "En mantenimiento"
+    }
+  },
+  "Dashboard": {
+    "nav": {
+      "bookings": "Reservas",
+      "fleet": "Flota",
+      "theme": "Tema",
+      "signout": "Cerrar sesión"
+    },
+    "roles": {
+      "manager": "Gerente de flota",
+      "staff": "Personal administrativo",
+      "operator": "Operador",
+      "customer": "Cuenta de cliente"
+    },
+    "auth": {
+      "securing": "Asegurando su sesión...",
+      "preparing": "Preparando sus opciones..."
+    }
+  },
+  "Footer": {
+    "about": "Sobre nosotros",
+    "partner": "Asociarse",
+    "terms": "Términos y condiciones",
+    "privacy": "Política de privacidad",
+    "support": "Soporte",
+    "rights": "Todos los derechos reservados."
+  }
+}
