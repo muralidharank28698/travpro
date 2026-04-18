@@ -470,5 +470,13 @@
     "privacy": "Política de privacidad",
     "support": "Soporte",
     "rights": "Todos los derechos reservados."
+  },
+  "Chat": {
+    "title": "Asistente Zytravo",
+    "status": "En línea",
+    "placeholder": "Escribe tu mensaje...",
+    "welcome": "¡Hola! ¿Cómo puedo ayudarte hoy?",
+    "error": "Error al enviar el mensaje.",
+    "typing": "La IA está pensando..."
   }
 }

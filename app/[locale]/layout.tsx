@@ -8,6 +8,8 @@ import { getMessages, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/navigation';
 import "../globals.css";
+import ChatWidget from "@/components/ChatWidget";
+
 
 const inter = Inter({
   variable: "--font-inter",
@@ -59,6 +61,7 @@ export default async function RootLayout({
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
             <StoreProvider>
               {children}
+              <ChatWidget />
             </StoreProvider>
           </ThemeProvider>
         </NextIntlClientProvider>
