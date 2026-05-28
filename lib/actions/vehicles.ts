@@ -14,7 +14,7 @@ export async function addVehicle(formData: FormData) {
     
     // Admin action: insert new vehicle
     const { error } = await supabase
-      .from("vehicles")
+      .from("t_vehicles")
       .insert({
         name,
         type,
@@ -40,7 +40,7 @@ export async function toggleVehicleStatus(vehicleId: string, currentStatus: bool
     
     // Admin action: update vehicle availability
     const { error } = await supabase
-      .from("vehicles")
+      .from("t_vehicles")
       .update({ is_available: !currentStatus })
       .eq("id", vehicleId);
 

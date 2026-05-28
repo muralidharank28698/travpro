@@ -24,10 +24,12 @@ export default function CustomerDashboardLayout({
   }, []);
 
   const handleSignOut = async () => {
+    setUser(null);
+    router.push("/");
+    
     const supabase = createClient();
     await supabase.auth.signOut();
     router.refresh();
-    router.push("/");
   };
 
   const tc = useTranslations('CustomerDashboard.nav');
@@ -174,7 +176,7 @@ export default function CustomerDashboardLayout({
 
         {/* Main */}
         <main className="flex-1 overflow-y-auto custom-scrollbar bg-background">
-          <div className="max-w-[1000px] mx-auto p-4 sm:p-6 lg:p-8 animate-fade-in-up">
+          <div className="max-w-[900px] mx-auto p-4 sm:p-6 lg:p-8 animate-fade-in-up">
             {children}
           </div>
         </main>

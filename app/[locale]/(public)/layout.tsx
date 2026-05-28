@@ -56,11 +56,13 @@ export default function PublicLayout({
   }, []);
 
   const handleSignOut = async () => {
+    setIsUserMenuOpen(false);
+    setUser(null);
+    router.push("/");
+    
     const supabase = createClient();
     await supabase.auth.signOut();
     router.refresh(); // Refresh to update server-side state if any
-    router.push("/");
-    setIsUserMenuOpen(false);
   };
 
   const navItems = [

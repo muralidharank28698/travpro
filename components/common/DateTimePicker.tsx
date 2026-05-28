@@ -145,14 +145,14 @@ export default function DateTimePicker({
     <div className="relative" ref={ref}>
       {name && <input type="hidden" name={name} value={value} />}
       {label && (
-        <label className="block text-[13px] font-bold text-slate-700 uppercase tracking-wider mb-2">
+        <label className="block text-[13px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2">
           {label}
         </label>
       )}
       <button
         type="button"
         onClick={() => { setIsOpen(!isOpen); setTab("date"); }}
-        className={`w-full flex items-center justify-between gap-3 px-4 py-3 rounded-xl border bg-white text-left transition-all duration-200 cursor-pointer ${
+        className={`w-full flex items-center justify-between gap-3 px-4 py-3 rounded-xl border bg-[var(--surface)] text-left transition-all duration-200 cursor-pointer ${
           isOpen
             ? "border-[var(--color-primary)] ring-4 ring-[var(--color-primary)]/10 shadow-sm"
             : "border-[var(--card-border)] hover:border-[var(--color-primary)] shadow-sm"
@@ -174,23 +174,23 @@ export default function DateTimePicker({
       </button>
 
       {isOpen && (
-        <div className="absolute left-0 right-0 mt-2 bg-white rounded-2xl shadow-2xl border border-slate-100 z-50 animate-fade-in-up overflow-hidden"
+        <div className="absolute left-0 right-0 mt-2 bg-card rounded-2xl shadow-2xl border border-[var(--card-border)] z-50 animate-fade-in-up overflow-hidden"
           style={{ minWidth: 300 }}>
           {/* Tabs */}
-          <div className="flex bg-slate-50 border-b border-slate-100">
+          <div className="flex bg-slate-50 dark:bg-slate-800/50 border-b border-[var(--card-border)]">
             <button type="button" onClick={() => setTab("date")}
               className={`flex-1 py-3 text-xs font-bold uppercase tracking-widest transition-all ${
                 tab === "date"
-                  ? "text-[var(--color-primary)] border-b-2 border-[var(--color-primary)] bg-white"
-                  : "text-slate-400 hover:text-slate-600"
+                  ? "text-[var(--color-primary)] border-b-2 border-[var(--color-primary)] bg-card"
+                  : "text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
               }`}>
               📅 Date
             </button>
             <button type="button" onClick={() => setTab("time")}
               className={`flex-1 py-3 text-xs font-bold uppercase tracking-widest transition-all ${
                 tab === "time"
-                  ? "text-[var(--color-primary)] border-b-2 border-[var(--color-primary)] bg-white"
-                  : "text-slate-400 hover:text-slate-600"
+                  ? "text-[var(--color-primary)] border-b-2 border-[var(--color-primary)] bg-card"
+                  : "text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
               }`}>
               🕐 Time
             </button>
@@ -229,10 +229,10 @@ export default function DateTimePicker({
                   return (
                     <button type="button" key={`d-${cell.day}`} disabled={dis} onClick={() => selectDate(cell.day)}
                       className={`mx-auto w-9 h-9 flex items-center justify-center rounded-full text-sm font-medium transition-all duration-150 ${
-                        dis ? "text-slate-200 cursor-not-allowed"
+                        dis ? "text-slate-200 dark:text-slate-700 cursor-not-allowed"
                           : sel ? "bg-[var(--color-primary)] text-white font-bold shadow-md shadow-emerald-200"
                           : tod ? "text-[var(--color-primary)] font-bold ring-2 ring-[var(--color-primary)]/30"
-                          : "text-slate-700 hover:bg-emerald-50 hover:text-[var(--color-primary)] cursor-pointer"
+                          : "text-slate-700 dark:text-slate-300 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 hover:text-[var(--color-primary)] cursor-pointer"
                       }`}>
                       {cell.day}
                     </button>
@@ -260,7 +260,7 @@ export default function DateTimePicker({
                           className={`w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-150 ${
                             active
                               ? "bg-[var(--color-primary)] text-white font-bold shadow-sm"
-                              : "text-slate-600 hover:bg-emerald-50 hover:text-[var(--color-primary)]"
+                              : "text-slate-600 dark:text-slate-300 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 hover:text-[var(--color-primary)]"
                           }`}>
                           {formatSlot(h, m)}
                         </button>

@@ -2,35 +2,72 @@
 
 import { useParams, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import { useAppSelector } from "@/lib/store";
 import { createClient } from "@/lib/supabase/client";
 import BookingForm from "@/components/booking/BookingForm";
 import { Link } from "@/navigation";
+
+interface CarDetail {
+  id: string;
+  name: string;
+  type: string;
+  pricePerDay: number;
+  image: string;
+  seats: number;
+  transmission: string;
+  fuel: string;
+  description: string;
+  status: "Available" | "Booked" | "Maintenance";
+  rating: number;
+  trips: number;
+}
 
 export default function CarDetailPage() {
   const params = useParams();
   const router = useRouter();
   const carId = params.carId as string;
-  const MOCK_CARS = useAppSelector((state) => state.cars.items);
-  const car = MOCK_CARS.find((c) => c.id === carId);
 
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState<any>(null);
+  const [car, setCar] = useState<CarDetail | null>(null);
 
   useEffect(() => {
-    async function checkUser() {
+    async function initPage() {
       const supabase = createClient();
-      const { data } = await supabase.auth.getUser();
       
-      if (!data.user) {
-        // Not logged in: Redirect to login with memory
+      // Check auth
+      const { data: authData } = await supabase.auth.getUser();
+      if (!authData.user) {
         router.push(`/login?redirectTo=/rentals/${carId}`);
-      } else {
-        setUser(data.user);
-        setLoading(false);
+        return;
       }
+      setUser(authData.user);
+
+      // Fetch vehicle from Supabase
+      const { data: vehicle, error } = await supabase
+        .from('t_vehicles')
+        .select('*')
+        .eq('id', carId)
+        .single();
+
+      if (vehicle) {
+        setCar({
+          id: vehicle.id,
+          name: vehicle.name,
+          type: vehicle.type,
+          pricePerDay: vehicle.price_per_day || 2500,
+          image: vehicle.images && vehicle.images.length > 0 ? vehicle.images[0] : "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&q=80",
+          seats: vehicle.capacity || 5,
+          transmission: "Automatic",
+          fuel: "Diesel",
+          description: vehicle.description || "A comfortable and reliable vehicle.",
+          status: vehicle.is_available ? "Available" : "Booked",
+          rating: vehicle.rating || 4.5,
+          trips: vehicle.total_trips || 0,
+        });
+      }
+      setLoading(false);
     }
-    checkUser();
+    initPage();
   }, [carId, router]);
 
   if (loading) {

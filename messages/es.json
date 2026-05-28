@@ -319,6 +319,8 @@
     "cancel": "Cancelar",
     "track": "Rastrear viaje",
     "download": "Descargar factura",
+    "pickupLocation": "Punto de recogida",
+    "dropoffLocation": "Punto de entrega",
     "nav": {
       "new_booking": "Nueva reserva",
       "my_bookings": "Mis reservas",

@@ -319,6 +319,8 @@
     "cancel": "Annuler",
     "track": "Suivre le trajet",
     "download": "Télécharger la facture",
+    "pickupLocation": "Lieu de prise en charge",
+    "dropoffLocation": "Lieu de dépose",
     "nav": {
       "new_booking": "Nouvelle réservation",
       "my_bookings": "Mes réservations",

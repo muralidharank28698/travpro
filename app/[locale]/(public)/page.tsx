@@ -8,11 +8,11 @@ export default function LandingPage() {
   const tHero = useTranslations('Hero');
   const tLanding = useTranslations('Landing');
   const [showVideo, setShowVideo] = useState(false);
-  
+
   return (
     <>
       {/* Hero Section */}
-      <section className="relative px-4 lg:px-20 pt-6 pb-10 lg:pt-12 lg:pb-24 w-full max-w-[1400px] mx-auto overflow-hidden grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <section className="relative px-4 lg:px-20 pt-6 pb-8 lg:pt-12 lg:pb-12 w-full max-w-[1400px] mx-auto overflow-hidden grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
         {/* Background decorative blob */}
         <div className="absolute top-0 right-0 w-full h-full pointer-events-none -z-10">
           <div className="absolute top-[-10%] right-[-10%] w-[600px] h-[600px] bg-emerald-50 rounded-full blur-3xl opacity-60" />
@@ -25,7 +25,7 @@ export default function LandingPage() {
           </span>
           <h1 className="text-4xl sm:text-5xl lg:text-[72px] font-extrabold tracking-tight text-[var(--foreground)] leading-[1.15] lg:leading-[1.12]">
             {tHero.rich('title', {
-              br: () => <br className="hidden lg:block"/>
+              br: () => <br className="hidden lg:block" />
             })}
           </h1>
           <p className="text-[17px] text-[var(--muted)] max-w-[450px] leading-relaxed font-medium">
@@ -36,13 +36,13 @@ export default function LandingPage() {
             <Link href="/rentals" className="text-[16px] py-[16px] px-8 rounded-xl shadow-[0px_20px_35px_rgba(5,150,105,0.2)] hover:-translate-y-1 transition-transform text-white w-full sm:w-auto text-center font-bold bg-[var(--color-primary)]">
               {tHero('cta_rentals')}
             </Link>
-            <button 
+            <button
               onClick={() => setShowVideo(true)}
               className="flex items-center gap-4 text-[var(--muted)] font-semibold text-[17px] hover:text-[var(--foreground)] transition-colors w-full sm:w-auto justify-center sm:justify-start group"
             >
               <div className="w-[52px] h-[52px] rounded-full shadow-[0px_15px_30px_rgba(217,119,6,0.3)] flex items-center justify-center text-white transition-transform group-hover:scale-105 bg-[var(--color-accent)]">
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M13.5 6.13397C14.1667 6.51887 14.1667 7.48113 13.5 7.86603L2.25 14.3615C1.58333 14.7464 0.750001 14.2653 0.750001 13.4955L0.750001 0.504494C0.750001 -0.265305 1.58333 -0.746431 2.25 -0.361531L13.5 6.13397Z" fill="currentColor"/>
+                  <path d="M13.5 6.13397C14.1667 6.51887 14.1667 7.48113 13.5 7.86603L2.25 14.3615C1.58333 14.7464 0.750001 14.2653 0.750001 13.4955L0.750001 0.504494C0.750001 -0.265305 1.58333 -0.746431 2.25 -0.361531L13.5 6.13397Z" fill="currentColor" />
                 </svg>
               </div>
               {tHero('cta_demo')}
@@ -54,23 +54,23 @@ export default function LandingPage() {
         <div className="relative w-full h-[350px] lg:h-[550px] animate-fade-in-up flex items-center justify-center mt-12 lg:mt-0" style={{ animationDelay: "200ms" }}>
           <div className="absolute right-[5%] top-1/2 -translate-y-1/2 w-[85%] h-[85%] bg-amber-100 rounded-[4rem] -rotate-6 z-0" />
           <div className="absolute right-[2%] top-1/2 -translate-y-1/2 w-[85%] h-[85%] bg-emerald-50 rounded-[4rem] rotate-3 z-0" />
-          
+
           <div className="relative z-10 w-[90%] h-[90%] flex items-center justify-center">
             {showVideo ? (
-              <iframe 
-                width="100%" 
-                height="100%" 
-                src="https://www.youtube.com/embed/Sen_tMhmPv8?autoplay=1" 
-                title="Zytravo Trvls Demo Video" 
-                frameBorder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowFullScreen 
+              <iframe
+                width="100%"
+                height="100%"
+                src="https://www.youtube.com/embed/Sen_tMhmPv8?autoplay=1"
+                title="Zytravo Trvls Demo Video"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
                 className="w-full h-full object-cover rounded-[3rem] shadow-2xl z-10 bg-black"
               />
             ) : (
-              <img 
-                src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?q=80&w=800" 
-                alt="Happy travelers enjoying a road trip" 
+              <img
+                src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?q=80&w=800"
+                alt="Happy travelers enjoying a road trip"
                 className="w-full h-full object-cover rounded-[3rem] shadow-2xl z-10"
               />
             )}
@@ -86,7 +86,7 @@ export default function LandingPage() {
       </section>
 
       {/* Services Grid */}
-      <section className="py-8 lg:py-24 bg-background relative z-10 px-4 sm:px-12">
+      <section className="py-8 pt-4 lg:pt-8 lg:pb-24 bg-background relative z-10 px-4 sm:px-12">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-10 md:mb-16 animate-fade-in-up">
             <span className="inline-block text-[var(--color-accent)] font-bold text-[14px] tracking-[0.15em] uppercase mb-2">
@@ -97,13 +97,13 @@ export default function LandingPage() {
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Card 1: Rentals */}
-            <Link href="/rentals" className="bg-card rounded-[2rem] p-4 shadow-[0_15px_40px_rgba(0,0,0,0.04)] hover:shadow-[0_25px_50px_rgba(5,150,105,0.12)] hover:-translate-y-3 transition-all duration-300 group block decoration-none text-left flex flex-col h-full animate-fade-in-up" style={{ animationDelay: "100ms" }}>
+            <Link href="/rentals" className="bg-card rounded-[2rem] shadow-[0_15px_40px_rgba(0,0,0,0.04)] hover:shadow-[0_25px_50px_rgba(5,150,105,0.12)] hover:-translate-y-3 transition-all duration-300 group block decoration-none text-left flex flex-col h-full animate-fade-in-up" style={{ animationDelay: "100ms" }}>
               <div className="relative h-56 w-full overflow-hidden rounded-[1.5rem] mb-6">
-                <img 
-                  src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?q=80&w=800" 
-                  alt={tLanding('Services.rentals.title')} 
+                <img
+                  src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?q=80&w=800"
+                  alt={tLanding('Services.rentals.title')}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
               </div>
@@ -121,11 +121,11 @@ export default function LandingPage() {
             </Link>
 
             {/* Card 2: Tours */}
-            <Link href="/tours" className="bg-card rounded-[2rem] p-4 shadow-[0_15px_40px_rgba(0,0,0,0.04)] hover:shadow-[0_25px_50px_rgba(217,119,6,0.12)] hover:-translate-y-3 transition-all duration-300 group block decoration-none text-left flex flex-col h-full animate-fade-in-up" style={{ animationDelay: "200ms" }}>
+            <Link href="/tours" className="bg-card rounded-[2rem] shadow-[0_15px_40px_rgba(0,0,0,0.04)] hover:shadow-[0_25px_50px_rgba(217,119,6,0.12)] hover:-translate-y-3 transition-all duration-300 group block decoration-none text-left flex flex-col h-full animate-fade-in-up" style={{ animationDelay: "200ms" }}>
               <div className="relative h-56 w-full overflow-hidden rounded-[1.5rem] mb-6">
-                <img 
-                  src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=800" 
-                  alt={tLanding('Services.tours.title')} 
+                <img
+                  src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=800"
+                  alt={tLanding('Services.tours.title')}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
               </div>
@@ -143,11 +143,11 @@ export default function LandingPage() {
             </Link>
 
             {/* Card 3: Transfers */}
-            <Link href="/airport-transfers" className="bg-card rounded-[2rem] p-4 shadow-[0_15px_40px_rgba(0,0,0,0.04)] hover:shadow-[0_25px_50px_rgba(5,150,105,0.12)] hover:-translate-y-3 transition-all duration-300 group block decoration-none text-left flex flex-col h-full animate-fade-in-up" style={{ animationDelay: "300ms" }}>
+            <Link href="/airport-transfers" className="bg-card rounded-[2rem] shadow-[0_15px_40px_rgba(0,0,0,0.04)] hover:shadow-[0_25px_50px_rgba(5,150,105,0.12)] hover:-translate-y-3 transition-all duration-300 group block decoration-none text-left flex flex-col h-full animate-fade-in-up" style={{ animationDelay: "300ms" }}>
               <div className="relative h-56 w-full overflow-hidden rounded-[1.5rem] mb-6">
-                <img 
-                  src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=800" 
-                  alt={tLanding('Services.transfers.title')} 
+                <img
+                  src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=800"
+                  alt={tLanding('Services.transfers.title')}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
               </div>
@@ -165,11 +165,11 @@ export default function LandingPage() {
             </Link>
 
             {/* Card 4: Hire */}
-            <Link href="/driver-hire" className="bg-card rounded-[2rem] p-4 shadow-[0_15px_40px_rgba(0,0,0,0.04)] hover:shadow-[0_25px_50px_rgba(5,150,105,0.12)] hover:-translate-y-3 transition-all duration-300 group block decoration-none text-left flex flex-col h-full animate-fade-in-up" style={{ animationDelay: "400ms" }}>
+            <Link href="/driver-hire" className="bg-card rounded-[2rem] shadow-[0_15px_40px_rgba(0,0,0,0.04)] hover:shadow-[0_25px_50px_rgba(5,150,105,0.12)] hover:-translate-y-3 transition-all duration-300 group block decoration-none text-left flex flex-col h-full animate-fade-in-up" style={{ animationDelay: "400ms" }}>
               <div className="relative h-56 w-full overflow-hidden rounded-[1.5rem] mb-6">
-                <img 
-                  src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=800" 
-                  alt={tLanding('Services.hire.title')} 
+                <img
+                  src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=800"
+                  alt={tLanding('Services.hire.title')}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
               </div>
@@ -190,7 +190,7 @@ export default function LandingPage() {
       </section>
 
       {/* Top Destinations Section */}
-      <section className="py-8 lg:py-24 bg-card relative z-10 px-4 sm:px-12">
+      <section className="py-8 pt-4 lg:pt-12 lg:pb-24 bg-card relative z-10 px-4 sm:px-12">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-10 md:mb-16 animate-fade-in-up">
             <span className="inline-block text-[var(--color-accent)] font-bold text-[14px] tracking-[0.15em] uppercase mb-2">
@@ -205,10 +205,10 @@ export default function LandingPage() {
             {/* Dest 1: Munnar */}
             <div className="group relative rounded-[2rem] overflow-hidden shadow-[0_15px_40px_rgba(0,0,0,0.06)] hover:shadow-[0_25px_50px_rgba(0,0,0,0.12)] hover:-translate-y-2 transition-all duration-300">
               <div className="h-[400px] w-full relative">
-                <img 
-                  src="https://images.unsplash.com/photo-1593693397690-362cb9666fc2?q=80&w=800" 
-                  alt="Munnar Tea Gardens" 
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                <img
+                  src="https://images.unsplash.com/photo-1593693397690-362cb9666fc2?q=80&w=800"
+                  alt="Munnar Tea Gardens"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
               </div>
               <div className="absolute bottom-0 left-0 right-0 bg-card/90 backdrop-blur-md p-6 m-4 rounded-[1.5rem]">
@@ -227,10 +227,10 @@ export default function LandingPage() {
             {/* Dest 2: Ooty */}
             <div className="group relative rounded-[2rem] overflow-hidden shadow-[0_15px_40px_rgba(0,0,0,0.06)] hover:shadow-[0_25px_50px_rgba(0,0,0,0.12)] hover:-translate-y-2 transition-all duration-300">
               <div className="h-[400px] w-full relative">
-                <img 
-                  src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=800" 
-                  alt="Ooty Nilgiris" 
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                <img
+                  src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=800"
+                  alt="Ooty Nilgiris"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
               </div>
               <div className="absolute bottom-0 left-0 right-0 bg-card/90 backdrop-blur-md p-6 m-4 rounded-[1.5rem]">
@@ -249,10 +249,10 @@ export default function LandingPage() {
             {/* Dest 3: Pondicherry */}
             <div className="group relative rounded-[2rem] overflow-hidden shadow-[0_15px_40px_rgba(0,0,0,0.06)] hover:shadow-[0_25px_50px_rgba(0,0,0,0.12)] hover:-translate-y-2 transition-all duration-300">
               <div className="h-[400px] w-full relative">
-                <img 
-                  src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800" 
-                  alt="Pondicherry French Quarter" 
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                <img
+                  src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800"
+                  alt="Pondicherry French Quarter"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
               </div>
               <div className="absolute bottom-0 left-0 right-0 bg-card/90 backdrop-blur-md p-6 m-4 rounded-[1.5rem]">
@@ -347,7 +347,7 @@ export default function LandingPage() {
         <div className="max-w-5xl mx-auto bg-card rounded-[2rem] sm:rounded-[3rem] p-8 sm:p-12 lg:p-20 text-center relative overflow-hidden border border-border shadow-sm">
           <div className="absolute -top-24 -right-24 w-64 h-64 bg-amber-200 rounded-full blur-3xl opacity-30" />
           <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-emerald-300 rounded-full blur-3xl opacity-30" />
-          
+
           <div className="relative z-10 max-w-2xl mx-auto space-y-6 lg:space-y-8">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-foreground tracking-tight">
               {tLanding('CTA.title')}

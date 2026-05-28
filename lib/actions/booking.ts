@@ -38,7 +38,7 @@ export async function createBooking(prevState: any, formData: FormData) {
 
     // Verify the vehicle exists and is available
     const { data: vehicle, error: vehicleError } = await supabase
-      .from("vehicles")
+      .from("t_vehicles")
       .select("price_per_day, is_available")
       .eq("id", carId)
       .single();
@@ -53,7 +53,7 @@ export async function createBooking(prevState: any, formData: FormData) {
     const days = Math.ceil((endTime.getTime() - startTime.getTime()) / (1000 * 60 * 60 * 24));
     const totalAmount = days * pricePerDay * 1.05;
 
-    const { error: insertError } = await supabase.from("bookings").insert({
+    const { error: insertError } = await supabase.from("t_bookings").insert({
       vehicle_id: carId,
       user_id: user?.id || null, // NULL if Guest
       guest_name: isGuest ? userName : null,
@@ -94,7 +94,7 @@ export async function cancelBooking(bookingId: string) {
     // and process refund logic here.
 
     const { error } = await supabase
-      .from("bookings")
+      .from("t_bookings")
       .update({ status: 'Cancelled' })
       .eq("id", bookingId);
 
@@ -119,7 +119,7 @@ export async function confirmBooking(bookingId: string) {
     
     // Admin action: transition Pending -> Confirmed
     const { error } = await supabase
-      .from("bookings")
+      .from("t_bookings")
       .update({ status: 'Confirmed' })
       .eq("id", bookingId);
 

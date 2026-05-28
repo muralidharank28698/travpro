@@ -1,45 +1,78 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Link } from "@/navigation";
-import { Car } from "@/lib/mock-data";
-import { useAppSelector } from "@/lib/store";
 import CustomSelect from "@/components/common/CustomSelect";
 import { useTranslations } from 'next-intl';
+import { createClient } from "@/lib/supabase/client";
+
+export interface Car {
+  id: string;
+  name: string;
+  type: string;
+  pricePerDay: number;
+  image: string;
+  seats: number;
+  transmission: string;
+  fuel: string;
+  description: string;
+  status: "Available" | "Booked" | "Maintenance";
+  rating: number;
+  trips: number;
+}
 
 export default function RentalsPage() {
   const t = useTranslations('Rentals');
-  const MOCK_CARS = useAppSelector((state) => state.cars.items);
-  
+  const [MOCK_CARS, setCars] = useState<Car[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [fetchError, setFetchError] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function fetchCars() {
+      const supabase = createClient();
+      const { data, error } = await supabase.from('t_vehicles').select('*');
+      
+      if (error) {
+        setFetchError(error.message);
+      } else if (data) {
+        if (data.length === 0) setFetchError("Table is empty! No vehicles found in database.");
+        const mappedCars = data.map((v: any) => ({
+          id: v.id,
+          name: v.name,
+          type: v.type,
+          pricePerDay: v.price_per_day || 2500,
+          image: v.images && v.images.length > 0 ? v.images[0] : "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&q=80",
+          seats: v.capacity || 5,
+          transmission: "Automatic", // Hardcoded for now
+          fuel: "Diesel", // Hardcoded for now
+          description: v.description || "A comfortable and reliable vehicle.",
+          status: v.is_available ? "Available" : "Booked",
+          rating: v.rating || 4.5,
+          trips: v.total_trips || 0
+        }));
+        setCars(mappedCars);
+      }
+      setLoading(false);
+    }
+    fetchCars();
+  }, []);
+
   const [selectedModel, setSelectedModel] = useState("All");
-  const [selectedType, setSelectedType] = useState("All");
   const [selectedSeats, setSelectedSeats] = useState("All");
   const [selectedFuel, setSelectedFuel] = useState("All");
-  const [selectedTransmission, setSelectedTransmission] = useState("All");
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
 
   // Calculate active filters count
   const activeFilterCount = [
     selectedModel !== "All",
-    selectedType !== "All",
     selectedSeats !== "All",
     selectedFuel !== "All",
-    selectedTransmission !== "All"
   ].filter(Boolean).length;
-
-  const carTypeOptions = [
-    { value: "All", label: t('filters.category') },
-    ...Array.from(new Set(MOCK_CARS.map(c => c.type))).map(type => ({
-      value: type,
-      label: type,
-      description: t('filters.vehicles_count', { count: MOCK_CARS.filter(c => c.type === type).length })
-    }))
-  ];
 
   const carModelOptions = [
     { value: "All", label: t('filters.model') },
-    ...MOCK_CARS.map(c => ({ 
-      value: c.name, 
+    ...MOCK_CARS.map(c => ({
+      value: c.name,
       label: c.name,
       description: `${c.type} • ${t('filters.seats_count', { count: c.seats })}`
     }))
@@ -60,30 +93,20 @@ export default function RentalsPage() {
     { value: "CNG", label: "CNG" },
   ];
 
-  const transmissionOptions = [
-    { value: "All", label: t('filters.any_trans') },
-    { value: "Automatic", label: "Automatic" },
-    { value: "Manual", label: "Manual" },
-  ];
-
   const filteredCars = useMemo(() => {
     return MOCK_CARS.filter((car) => {
       const matchesModel = selectedModel === "All" || car.name === selectedModel;
-      const matchesType = selectedType === "All" || car.type === selectedType;
       const matchesSeats = selectedSeats === "All" || car.seats.toString() === selectedSeats;
       const matchesFuel = selectedFuel === "All" || car.fuel === selectedFuel;
-      const matchesTransmission = selectedTransmission === "All" || car.transmission === selectedTransmission;
-      
-      return matchesModel && matchesType && matchesSeats && matchesFuel && matchesTransmission && car.type !== 'Tempo Traveller';
+
+      return matchesModel && matchesSeats && matchesFuel;
     });
-  }, [selectedModel, selectedType, selectedSeats, selectedFuel, selectedTransmission, MOCK_CARS]);
+  }, [selectedModel, selectedSeats, selectedFuel, MOCK_CARS]);
 
   const clearFilters = () => {
     setSelectedModel("All");
-    setSelectedType("All");
     setSelectedSeats("All");
     setSelectedFuel("All");
-    setSelectedTransmission("All");
   };
 
   return (
@@ -98,176 +121,169 @@ export default function RentalsPage() {
         </p>
       </div>
 
-      {/* Filter Toolbar */}
-      <div className="card mb-12 bg-card/80 backdrop-blur-md relative z-40 shadow-xl border-none ring-1 ring-slate-100 transition-all duration-500">
-        <div className="p-4 sm:p-5">
-          <div className="flex flex-col lg:flex-row items-center gap-4 lg:gap-8">
-            <div className="flex-1 w-full lg:w-auto">
-              <CustomSelect
-                options={carModelOptions}
-                value={selectedModel}
-                onChange={setSelectedModel}
-                placeholder={t('filters.model')}
-              />
-            </div>
-            
-            <div className="flex-1 w-full lg:w-64">
-              <CustomSelect
-                options={carTypeOptions}
-                value={selectedType}
-                onChange={setSelectedType}
-                placeholder={t('filters.category')}
-              />
-            </div>
+      {loading ? (
+        <div className="py-24 text-center animate-fade-in-up">
+          <div className="w-16 h-16 border-4 border-[var(--color-primary)] border-t-transparent rounded-full animate-spin mx-auto mb-6"></div>
+          <h2 className="text-xl font-bold text-[var(--foreground)]">Loading vehicles...</h2>
+        </div>
+      ) : fetchError ? (
+        <div className="py-24 text-center animate-fade-in-up card border-red-500 border-2 bg-red-50">
+          <h2 className="text-xl font-bold text-red-600 tracking-tight">Database Error</h2>
+          <p className="text-red-500 mt-2">{fetchError}</p>
+        </div>
+      ) : (
+        <>
 
-            <div className="flex items-center justify-between lg:justify-start gap-4 w-full lg:w-auto shrink-0">
-              <button
-                onClick={clearFilters}
-                disabled={activeFilterCount === 0}
-                className={`flex items-center gap-2 px-0 sm:px-4 py-2.5 rounded-xl text-[11px] uppercase tracking-wider font-bold transition-all duration-300 justify-center border border-transparent ${
-                  activeFilterCount > 0 
-                    ? "text-rose-500 hover:bg-rose-50 hover:border-rose-100 cursor-pointer" 
-                    : "text-foreground cursor-not-allowed opacity-50"
-                }`}
-              >
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                </svg>
-                {t('filters.clear')}
-              </button>
+      {/* Top Bar with Filter Toggle */}
+      <div className="flex justify-end items-center mb-6 gap-4">
+        <p className="text-slate-400 dark:text-slate-500 text-xs font-medium tracking-wide">
+          Showing <span className="text-slate-600 dark:text-slate-300 font-bold">{filteredCars.length}</span> vehicles
+        </p>
+        <button
+          onClick={() => setIsFiltersOpen(!isFiltersOpen)}
+          className={`relative p-1.5 rounded-full border transition-all duration-300 flex items-center justify-center ${
+            isFiltersOpen || activeFilterCount > 0
+              ? "bg-[var(--color-primary)] text-white border-transparent"
+              : "bg-transparent text-slate-500 border-slate-200 hover:bg-slate-50 dark:text-slate-400 dark:border-slate-700 dark:hover:bg-slate-800/50"
+          }`}
+          title="Toggle Filters"
+        >
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+          </svg>
+          {activeFilterCount > 0 && (
+            <span className="absolute -top-1 -right-1 w-3.5 h-3.5 flex items-center justify-center bg-rose-500 text-white rounded-full text-[9px] font-bold shadow-sm">
+              {activeFilterCount}
+            </span>
+          )}
+        </button>
+      </div>
 
-              <button
-                onClick={() => setIsFiltersOpen(!isFiltersOpen)}
-                className={`flex items-center gap-2.5 px-5 sm:px-6 py-2.5 rounded-xl text-xs font-bold transition-all duration-300 w-auto lg:w-auto justify-center whitespace-nowrap shadow-sm ${
-                  isFiltersOpen || activeFilterCount > 0
-                    ? "bg-surface text-[var(--color-primary)] ring-1 ring-border"
-                    : "bg-slate-900 dark:bg-card dark:text-foreground dark:border dark:border-border text-white hover:bg-slate-800"
-                }`}
-              >
-                <svg className={`w-3.5 h-3.5 transition-transform duration-300 ${isFiltersOpen ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d={isFiltersOpen ? "M5 15l7-7 7 7" : "M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"} />
-                </svg>
-                {isFiltersOpen ? t('filters.hide') : t('filters.more')}
-                {activeFilterCount > 0 && !isFiltersOpen && (
-                  <span className="ml-1 w-5 h-5 flex items-center justify-center bg-[var(--color-primary)] text-white rounded-full text-[9px]">
-                    {activeFilterCount}
-                  </span>
-                )}
-              </button>
+      <div className="flex flex-col lg:flex-row gap-8 items-start relative">
+        {/* Main Content Area (Cars) */}
+        <div className={`flex-1 w-full transition-all duration-500 order-2 lg:order-1 ${isFiltersOpen ? 'lg:w-[75%]' : 'lg:w-full'}`}>
+          {filteredCars.length > 0 ? (
+            <div className={`grid gap-8 transition-all duration-500 ${isFiltersOpen ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'}`}>
+              {filteredCars.map((car) => (
+                <div key={car.id} className="card overflow-hidden group hover:translate-y-[-4px] transition-all duration-300 animate-fade-in-up">
+                  <div className="relative h-48 overflow-hidden">
+                    <img
+                      src={car.image}
+                      alt={car.name}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute top-4 left-4">
+                      <span className="badge badge-info bg-card/90 backdrop-blur-sm text-[var(--color-primary)]">
+                        {car.type}
+                      </span>
+                    </div>
+                    <div className="absolute top-4 right-4 animate-fade-in">
+                      <span className={`badge bg-card/90 backdrop-blur-sm shadow-sm flex items-center gap-1.5 ${car.status === "Available" ? "text-emerald-600" : car.status === "Booked" ? "text-rose-600" : "text-amber-600"
+                        }`}>
+                        <span className={`w-1.5 h-1.5 rounded-full ${car.status === "Available" ? "bg-emerald-600" : car.status === "Booked" ? "bg-rose-600" : "bg-amber-600"
+                          }`} />
+                        {car.status === "Available" ? t('car.available' as any) || 'Available' : car.status === "Booked" ? t('car.booked') : t('car.maintenance')}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="p-6">
+                    <div className="flex justify-between items-start mb-4">
+                      <div>
+                        <h3 className="text-xl font-bold text-[var(--foreground)]">{car.name}</h3>
+                        <div className="flex items-center gap-3 text-sm text-[var(--muted)] mt-1">
+                          <span>{t('car.seats', { count: car.seats })}</span>
+                          <span>•</span>
+                          <span>{car.fuel}</span>
+                          <span>•</span>
+                          <span className="font-medium text-[var(--foreground)]">{car.transmission}</span>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-1 bg-yellow-50 text-yellow-700 px-2 py-1 rounded text-sm font-semibold">
+                        ⭐ {car.rating}
+                      </div>
+                    </div>
+
+                    <div className="space-y-4 mb-6">
+                      <div className="p-3 bg-[var(--surface)] rounded-xl">
+                        <p className="text-xs text-[var(--muted-light)] font-medium mb-1 uppercase tracking-wider">8 Hrs / 80 Km</p>
+                        <p className="font-semibold text-[var(--foreground)]">₹{(car.pricePerDay * 0.6).toLocaleString()} <span className="text-sm font-normal text-[var(--muted)]">{t('car.per_trip')}</span></p>
+                      </div>
+                      <div className="p-3 bg-[var(--surface)] rounded-xl">
+                        <p className="text-xs text-[var(--muted-light)] font-medium mb-1 uppercase tracking-wider">12 Hrs / 120 Km</p>
+                        <p className="font-semibold text-[var(--foreground)]">₹{car.pricePerDay.toLocaleString()} <span className="text-sm font-normal text-[var(--muted)]">{t('car.per_trip')}</span></p>
+                      </div>
+                    </div>
+
+                    {car.status === "Available" ? (
+                      <Link href={`/rentals/${car.id}`} className="premium-button w-full shadow-sm text-center">
+                        {t('car.book', { name: car.name })}
+                      </Link>
+                    ) : (
+                      <button
+                        disabled
+                        className="w-full py-3.5 rounded-xl font-bold bg-surface text-[var(--muted)] cursor-not-allowed border-2 border-dashed border-border transition-all text-sm"
+                      >
+                        {car.status === "Booked" ? t('car.booked') : t('car.maintenance')}
+                      </button>
+                    )}
+                  </div>
+                </div>
+              ))}
             </div>
-          </div>
-
-          {isFiltersOpen && (
-            <div className="mt-6 pt-6 border-t border-border animate-fade-in-up">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 items-end">
-                <CustomSelect
-                  label={t('filters.seats')}
-                  options={seatOptions}
-                  value={selectedSeats}
-                  onChange={setSelectedSeats}
-                />
-                <CustomSelect
-                  label={t('filters.fuel')}
-                  options={fuelOptions}
-                  value={selectedFuel}
-                  onChange={setSelectedFuel}
-                />
-                <CustomSelect
-                  label={t('filters.transmission')}
-                  options={transmissionOptions}
-                  value={selectedTransmission}
-                  onChange={setSelectedTransmission}
-                />
+          ) : (
+            <div className="py-24 text-center animate-fade-in-up card border-dashed border-2 bg-surface/50">
+              <div className="w-16 h-16 bg-card rounded-full flex items-center justify-center mx-auto mb-4 text-2xl shadow-sm">
+                🚗
               </div>
+              <h2 className="text-xl font-bold text-[var(--foreground)] tracking-tight">{t('empty.title')}</h2>
+              <p className="text-[var(--muted)] mt-2 mb-8">{t('empty.subtitle')}</p>
+              <button onClick={clearFilters} className="premium-button">
+                {t('empty.reset')}
+              </button>
             </div>
           )}
         </div>
-      </div>
 
-      {filteredCars.length > 0 ? (
-        <div className="grid lg:grid-cols-3 gap-8">
-          {filteredCars.map((car) => (
-            <div key={car.id} className="card overflow-hidden group hover:translate-y-[-4px] transition-all duration-300 animate-fade-in-up">
-              <div className="relative h-48 overflow-hidden">
-                <img 
-                  src={car.image} 
-                  alt={car.name} 
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute top-4 left-4">
-                  <span className="badge badge-info bg-card/90 backdrop-blur-sm text-[var(--color-primary)]">
-                    {car.type}
-                  </span>
-                </div>
-                <div className="absolute top-4 right-4 animate-fade-in">
-                  <span className={`badge bg-card/90 backdrop-blur-sm shadow-sm flex items-center gap-1.5 ${
-                    car.status === "Available" ? "text-emerald-600" : car.status === "Booked" ? "text-rose-600" : "text-amber-600"
-                  }`}>
-                    <span className={`w-1.5 h-1.5 rounded-full ${
-                      car.status === "Available" ? "bg-emerald-600" : car.status === "Booked" ? "bg-rose-600" : "bg-amber-600"
-                    }`} />
-                    {car.status === "Available" ? t('car.available' as any) || 'Available' : car.status === "Booked" ? t('car.booked') : t('car.maintenance')}
-                  </span>
-                </div>
+        {/* Sidebar Filter Panel */}
+        {isFiltersOpen && (
+          <div className="w-full lg:w-[25%] lg:sticky lg:top-24 order-1 lg:order-2 z-40 animate-fade-in-up">
+            <div className="card border-none ring-1 ring-slate-100 shadow-xl bg-card/95 backdrop-blur-md !overflow-visible">
+              <div className="flex justify-between items-center p-6 pb-4 border-b border-border shrink-0">
+                <h3 className="font-bold text-lg flex items-center gap-2">
+                  <svg className="w-5 h-5 text-[var(--color-primary)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+                  </svg>
+                  Filters
+                </h3>
+                <button 
+                  onClick={clearFilters} 
+                  disabled={activeFilterCount === 0} 
+                  className={`text-xs font-bold uppercase tracking-wider transition-colors ${activeFilterCount > 0 ? 'text-rose-500 hover:text-rose-600' : 'text-slate-300 cursor-not-allowed'}`}
+                >
+                  Clear All
+                </button>
               </div>
               
-              <div className="p-6">
-                <div className="flex justify-between items-start mb-4">
-                  <div>
-                    <h3 className="text-xl font-bold text-[var(--foreground)]">{car.name}</h3>
-                    <div className="flex items-center gap-3 text-sm text-[var(--muted)] mt-1">
-                      <span>{t('car.seats', { count: car.seats })}</span>
-                      <span>•</span>
-                      <span>{car.fuel}</span>
-                      <span>•</span>
-                      <span className="font-medium text-[var(--foreground)]">{car.transmission}</span>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-1 bg-yellow-50 text-yellow-700 px-2 py-1 rounded text-sm font-semibold">
-                    ⭐ {car.rating}
-                  </div>
+              <div className="p-6 space-y-6">
+                <div>
+                  <p className="text-xs font-bold text-[var(--muted-light)] uppercase tracking-widest mb-3">Car Details</p>
+                  <CustomSelect options={carModelOptions} value={selectedModel} onChange={setSelectedModel} placeholder={t('filters.model')} />
                 </div>
-
-                <div className="space-y-4 mb-6">
-                  <div className="p-3 bg-[var(--surface)] rounded-xl">
-                    <p className="text-xs text-[var(--muted-light)] font-medium mb-1 uppercase tracking-wider">8 Hrs / 80 Km</p>
-                    <p className="font-semibold text-[var(--foreground)]">₹{(car.pricePerDay * 0.6).toLocaleString()} <span className="text-sm font-normal text-[var(--muted)]">{t('car.per_trip')}</span></p>
-                  </div>
-                  <div className="p-3 bg-[var(--surface)] rounded-xl">
-                    <p className="text-xs text-[var(--muted-light)] font-medium mb-1 uppercase tracking-wider">12 Hrs / 120 Km</p>
-                    <p className="font-semibold text-[var(--foreground)]">₹{car.pricePerDay.toLocaleString()} <span className="text-sm font-normal text-[var(--muted)]">{t('car.per_trip')}</span></p>
-                  </div>
+                
+                <div className="pt-4 border-t border-border/50">
+                  <p className="text-xs font-bold text-[var(--muted-light)] uppercase tracking-widest mb-3">Specifications</p>
+                  <CustomSelect label={t('filters.seats')} options={seatOptions} value={selectedSeats} onChange={setSelectedSeats} />
                 </div>
-
-                {car.status === "Available" ? (
-                  <Link href={`/rentals/${car.id}`} className="premium-button w-full shadow-sm text-center">
-                    {t('car.book', { name: car.name })}
-                  </Link>
-                ) : (
-                  <button 
-                    disabled 
-                    className="w-full py-3.5 rounded-xl font-bold bg-surface text-[var(--muted)] cursor-not-allowed border-2 border-dashed border-border transition-all text-sm"
-                  >
-                    {car.status === "Booked" ? t('car.booked') : t('car.maintenance')}
-                  </button>
-                )}
+                <div>
+                  <CustomSelect label={t('filters.fuel')} options={fuelOptions} value={selectedFuel} onChange={setSelectedFuel} />
+                </div>
               </div>
             </div>
-          ))}
-        </div>
-      ) : (
-        <div className="py-24 text-center animate-fade-in-up card border-dashed border-2 bg-surface/50">
-          <div className="w-16 h-16 bg-card rounded-full flex items-center justify-center mx-auto mb-4 text-2xl shadow-sm">
-            🚗
           </div>
-          <h2 className="text-xl font-bold text-[var(--foreground)] tracking-tight">{t('empty.title')}</h2>
-          <p className="text-[var(--muted)] mt-2 mb-8">{t('empty.subtitle')}</p>
-          <button onClick={clearFilters} className="premium-button">
-            {t('empty.reset')}
-          </button>
-        </div>
-      )}
-      
+        )}
+      </div>
+
       {/* Features Section */}
       <div className="mt-20 border-t border-[var(--card-border)] pt-16">
         <h2 className="text-2xl font-bold text-center mb-10">{t('features.title')}</h2>
@@ -289,6 +305,8 @@ export default function RentalsPage() {
           </div>
         </div>
       </div>
+        </>
+      )}
     </div>
   );
 }

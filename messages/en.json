@@ -319,6 +319,8 @@
     "cancel": "Cancel",
     "track": "Track Ride",
     "download": "Download Invoice",
+    "pickupLocation": "Pickup Location",
+    "dropoffLocation": "Dropoff Location",
     "nav": {
       "new_booking": "New Booking",
       "my_bookings": "My Bookings",
