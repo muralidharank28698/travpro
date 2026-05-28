@@ -2,10 +2,30 @@
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 -- 1. Custom Types / ENUMs
-CREATE TYPE user_role AS ENUM ('customer', 'driver', 'admin');
-CREATE TYPE vehicle_type AS ENUM ('Hatchback', 'Sedan', 'SUV', 'Tempo Traveller', 'Luxury Car', 'Bus');
-CREATE TYPE booking_status AS ENUM ('Pending', 'Confirmed', 'Completed', 'Cancelled');
-CREATE TYPE service_type AS ENUM ('Car Rental', 'Tour Package', 'Airport Transfer', 'Driver Hire');
+DO $$ BEGIN
+  CREATE TYPE user_role AS ENUM ('customer', 'driver', 'admin');
+EXCEPTION
+  WHEN duplicate_object THEN null;
+END $$;
+
+DO $$ BEGIN
+  CREATE TYPE vehicle_type AS ENUM ('Hatchback', 'Sedan', 'SUV', 'Tempo Traveller', 'Luxury Car', 'Bus');
+EXCEPTION
+  WHEN duplicate_object THEN null;
+END $$;
+
+DO $$ BEGIN
+  CREATE TYPE booking_status AS ENUM ('Pending', 'Confirmed', 'Completed', 'Cancelled');
+EXCEPTION
+  WHEN duplicate_object THEN null;
+END $$;
+
+DO $$ BEGIN
+  CREATE TYPE service_type AS ENUM ('Car Rental', 'Tour Package', 'Airport Transfer', 'Driver Hire');
+EXCEPTION
+  WHEN duplicate_object THEN null;
+END $$;
+
 
 -- 2. Users Table (Public Profile synced with auth.users)
 CREATE TABLE IF NOT EXISTS public.users (
@@ -61,48 +81,59 @@ ALTER TABLE public.vehicles ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.bookings ENABLE ROW LEVEL SECURITY;
 
 -- Users Policies
+DROP POLICY IF EXISTS "Users can view their own profile" ON public.users;
 CREATE POLICY "Users can view their own profile" 
   ON public.users FOR SELECT 
   USING (auth.uid() = id);
 
+DROP POLICY IF EXISTS "Users can update their own profile" ON public.users;
 CREATE POLICY "Users can update their own profile" 
   ON public.users FOR UPDATE 
   USING (auth.uid() = id);
 
+DROP POLICY IF EXISTS "Admins can view all profiles" ON public.users;
 CREATE POLICY "Admins can view all profiles" 
   ON public.users FOR SELECT 
   USING (EXISTS (SELECT 1 FROM public.users WHERE id = auth.uid() AND role = 'admin'));
 
 -- Vehicles Policies
+DROP POLICY IF EXISTS "Anyone can view vehicles" ON public.vehicles;
 CREATE POLICY "Anyone can view vehicles" 
   ON public.vehicles FOR SELECT 
   USING (true);
 
+DROP POLICY IF EXISTS "Admins can insert vehicles" ON public.vehicles;
 CREATE POLICY "Admins can insert vehicles" 
   ON public.vehicles FOR INSERT 
   WITH CHECK (EXISTS (SELECT 1 FROM public.users WHERE id = auth.uid() AND role = 'admin'));
 
+DROP POLICY IF EXISTS "Admins can update vehicles" ON public.vehicles;
 CREATE POLICY "Admins can update vehicles" 
   ON public.vehicles FOR UPDATE 
   USING (EXISTS (SELECT 1 FROM public.users WHERE id = auth.uid() AND role = 'admin'));
 
+DROP POLICY IF EXISTS "Admins can delete vehicles" ON public.vehicles;
 CREATE POLICY "Admins can delete vehicles" 
   ON public.vehicles FOR DELETE 
   USING (EXISTS (SELECT 1 FROM public.users WHERE id = auth.uid() AND role = 'admin'));
 
 -- Bookings Policies
+DROP POLICY IF EXISTS "Users can view their own bookings" ON public.bookings;
 CREATE POLICY "Users can view their own bookings" 
   ON public.bookings FOR SELECT 
   USING (auth.uid() = user_id);
 
+DROP POLICY IF EXISTS "Users can create their own bookings" ON public.bookings;
 CREATE POLICY "Users can create their own bookings" 
   ON public.bookings FOR INSERT 
   WITH CHECK (auth.uid() = user_id);
 
+DROP POLICY IF EXISTS "Admins can view all bookings" ON public.bookings;
 CREATE POLICY "Admins can view all bookings" 
   ON public.bookings FOR SELECT 
   USING (EXISTS (SELECT 1 FROM public.users WHERE id = auth.uid() AND role = 'admin'));
 
+DROP POLICY IF EXISTS "Admins can update all bookings" ON public.bookings;
 CREATE POLICY "Admins can update all bookings" 
   ON public.bookings FOR UPDATE 
   USING (EXISTS (SELECT 1 FROM public.users WHERE id = auth.uid() AND role = 'admin'));
