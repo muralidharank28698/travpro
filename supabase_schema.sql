@@ -38,7 +38,8 @@ CREATE TABLE IF NOT EXISTS public.users (
 );
 
 -- 3. Vehicles Table
-CREATE TABLE IF NOT EXISTS public.vehicles (
+DROP TABLE IF EXISTS public.t_vehicles CASCADE;
+CREATE TABLE public.t_vehicles (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   name VARCHAR(100) NOT NULL,
   type vehicle_type NOT NULL,
@@ -54,13 +55,14 @@ CREATE TABLE IF NOT EXISTS public.vehicles (
 );
 
 -- 4. Bookings Table
-CREATE TABLE IF NOT EXISTS public.bookings (
+DROP TABLE IF EXISTS public.t_bookings CASCADE;
+CREATE TABLE public.t_bookings (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   user_id UUID REFERENCES public.users(id) ON DELETE CASCADE, -- Optional for Guest Bookings
   guest_name TEXT, -- Used if user_id is null
   guest_email TEXT, -- Used if user_id is null
   guest_phone TEXT, -- Used if user_id is null
-  vehicle_id UUID REFERENCES public.vehicles(id) ON DELETE SET NULL, -- Nullable for 'Driver Hire' where vehicle isn't needed
+  vehicle_id UUID REFERENCES public.t_vehicles(id) ON DELETE SET NULL, -- Nullable for 'Driver Hire' where vehicle isn't needed
   service_type service_type DEFAULT 'Car Rental',
   start_date TIMESTAMPTZ NOT NULL,
   end_date TIMESTAMPTZ NOT NULL,
@@ -77,8 +79,8 @@ CREATE TABLE IF NOT EXISTS public.bookings (
 
 -- Enable RLS
 ALTER TABLE public.users ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.vehicles ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.bookings ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.t_vehicles ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.t_bookings ENABLE ROW LEVEL SECURITY;
 
 -- Users Policies
 DROP POLICY IF EXISTS "Users can view their own profile" ON public.users;
@@ -97,45 +99,45 @@ CREATE POLICY "Admins can view all profiles"
   USING (EXISTS (SELECT 1 FROM public.users WHERE id = auth.uid() AND role = 'admin'));
 
 -- Vehicles Policies
-DROP POLICY IF EXISTS "Anyone can view vehicles" ON public.vehicles;
+DROP POLICY IF EXISTS "Anyone can view vehicles" ON public.t_vehicles;
 CREATE POLICY "Anyone can view vehicles" 
-  ON public.vehicles FOR SELECT 
+  ON public.t_vehicles FOR SELECT 
   USING (true);
 
-DROP POLICY IF EXISTS "Admins can insert vehicles" ON public.vehicles;
+DROP POLICY IF EXISTS "Admins can insert vehicles" ON public.t_vehicles;
 CREATE POLICY "Admins can insert vehicles" 
-  ON public.vehicles FOR INSERT 
+  ON public.t_vehicles FOR INSERT 
   WITH CHECK (EXISTS (SELECT 1 FROM public.users WHERE id = auth.uid() AND role = 'admin'));
 
-DROP POLICY IF EXISTS "Admins can update vehicles" ON public.vehicles;
+DROP POLICY IF EXISTS "Admins can update vehicles" ON public.t_vehicles;
 CREATE POLICY "Admins can update vehicles" 
-  ON public.vehicles FOR UPDATE 
+  ON public.t_vehicles FOR UPDATE 
   USING (EXISTS (SELECT 1 FROM public.users WHERE id = auth.uid() AND role = 'admin'));
 
-DROP POLICY IF EXISTS "Admins can delete vehicles" ON public.vehicles;
+DROP POLICY IF EXISTS "Admins can delete vehicles" ON public.t_vehicles;
 CREATE POLICY "Admins can delete vehicles" 
-  ON public.vehicles FOR DELETE 
+  ON public.t_vehicles FOR DELETE 
   USING (EXISTS (SELECT 1 FROM public.users WHERE id = auth.uid() AND role = 'admin'));
 
 -- Bookings Policies
-DROP POLICY IF EXISTS "Users can view their own bookings" ON public.bookings;
+DROP POLICY IF EXISTS "Users can view their own bookings" ON public.t_bookings;
 CREATE POLICY "Users can view their own bookings" 
-  ON public.bookings FOR SELECT 
+  ON public.t_bookings FOR SELECT 
   USING (auth.uid() = user_id);
 
-DROP POLICY IF EXISTS "Users can create their own bookings" ON public.bookings;
+DROP POLICY IF EXISTS "Users can create their own bookings" ON public.t_bookings;
 CREATE POLICY "Users can create their own bookings" 
-  ON public.bookings FOR INSERT 
+  ON public.t_bookings FOR INSERT 
   WITH CHECK (auth.uid() = user_id);
 
-DROP POLICY IF EXISTS "Admins can view all bookings" ON public.bookings;
+DROP POLICY IF EXISTS "Admins can view all bookings" ON public.t_bookings;
 CREATE POLICY "Admins can view all bookings" 
-  ON public.bookings FOR SELECT 
+  ON public.t_bookings FOR SELECT 
   USING (EXISTS (SELECT 1 FROM public.users WHERE id = auth.uid() AND role = 'admin'));
 
-DROP POLICY IF EXISTS "Admins can update all bookings" ON public.bookings;
+DROP POLICY IF EXISTS "Admins can update all bookings" ON public.t_bookings;
 CREATE POLICY "Admins can update all bookings" 
-  ON public.bookings FOR UPDATE 
+  ON public.t_bookings FOR UPDATE 
   USING (EXISTS (SELECT 1 FROM public.users WHERE id = auth.uid() AND role = 'admin'));
 
 -- 6. Trigger to automatically create a public.users profile when a new auth.users signs up
@@ -161,7 +163,7 @@ CREATE TRIGGER on_auth_user_created
   FOR EACH ROW EXECUTE FUNCTION public.handle_new_user();
 
 -- 7. Mock Data Seeding for Vehicles
-INSERT INTO public.vehicles (name, type, capacity, price_per_day, location, is_available, images, description, rating, total_trips) VALUES 
+INSERT INTO public.t_vehicles (name, type, capacity, price_per_day, location, is_available, images, description, rating, total_trips) VALUES 
 ('Toyota Fortuner', 'SUV', 7, 8500, 'Puducherry', true, ARRAY['https://images.unsplash.com/photo-1627814881267-0c7f1a30fbf0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'], 'Premium SUV perfect for outstation family trips in comfort.', 4.9, 142),
 ('Honda City', 'Sedan', 5, 4500, 'Puducherry', false, ARRAY['https://images.unsplash.com/photo-1590362891991-f776e747a588?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'], 'Comfortable sedan for corporate and family city travels.', 4.8, 321),
 ('Suzuki Innova Crysta', 'SUV', 7, 6500, 'Puducherry', true, ARRAY['https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'], 'The ultimate reliable people carrier for long distance tours.', 4.9, 532),
