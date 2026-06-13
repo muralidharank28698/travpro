@@ -123,7 +123,7 @@ export default function TourDetailsPage() {
               </div>
             </div>
 
-            <h1 className="text-4xl font-extrabold text-[var(--foreground)] tracking-tight">
+            <h1 className="text-2xl sm:text-3xl font-black text-[var(--foreground)] tracking-tight">
               {tour.name}
             </h1>
 
@@ -144,7 +144,7 @@ export default function TourDetailsPage() {
 
             {tour.itinerary && (
               <div className="space-y-6 pt-8">
-                <h2 className="text-2xl font-bold text-[var(--foreground)]">Itinerary</h2>
+                <h2 className="text-xl font-bold text-[var(--foreground)]">Itinerary</h2>
                 <div className="space-y-4 border-l-2 border-emerald-100 ml-4 pl-8 pt-2">
                   {tour.itinerary.map((item, idx) => (
                     <div key={idx} className="relative">
@@ -188,7 +188,7 @@ export default function TourDetailsPage() {
         <div className="lg:h-fit lg:sticky lg:top-24">
           <div className="card p-8 shadow-2xl border-emerald-50">
             <div className="flex items-end gap-1 mb-8">
-              <span className="text-3xl font-black text-[var(--foreground)]">₹{tour.price.toLocaleString()}</span>
+              <span className="text-2xl font-black text-[var(--foreground)]">₹{tour.price.toLocaleString()}</span>
               <span className="text-[var(--muted)] text-sm mb-1.5">/ total package</span>
             </div>
 
@@ -228,7 +228,7 @@ export default function TourDetailsPage() {
                   <span>₹{(tour.price * 0.05).toLocaleString()}</span>
                 </div>
                 <div className="h-px bg-border/50 my-4"></div>
-                <div className="flex justify-between items-center font-black text-xl">
+                <div className="flex justify-between items-center font-black text-lg">
                   <span>Total</span>
                   <span className="text-emerald-600">₹{(tour.price * 1.05).toLocaleString()}</span>
                 </div>

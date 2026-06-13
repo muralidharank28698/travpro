@@ -64,12 +64,12 @@ export default function DriverHirePage() {
   return (
     <div className="py-12 px-6 sm:px-12 max-w-7xl mx-auto w-full animate-fade-in-up">
       <div className="mb-12 text-center">
-        <h1 className="text-4xl font-bold tracking-tight text-[var(--foreground)] mb-4">
+        <h1 className="text-2xl sm:text-3xl font-black tracking-tighter text-[var(--foreground)] mb-4">
           {t.rich('title', {
             span: (chunks) => <span className="text-[var(--color-primary)]">{chunks}</span>
           })}
         </h1>
-        <p className="text-lg text-[var(--muted)] max-w-2xl mx-auto">
+        <p className="text-sm text-[var(--muted)] max-w-2xl mx-auto font-medium">
           {t('subtitle')}
         </p>
       </div>
@@ -81,7 +81,7 @@ export default function DriverHirePage() {
               <div className="w-14 h-14 bg-surface rounded-2xl flex items-center justify-center text-3xl shadow-sm border border-border group-hover:scale-110 transition-transform duration-300">
                 {pkg.icon}
               </div>
-              <h3 className="text-2xl font-black text-[var(--foreground)] tracking-tight">{pkg.name}</h3>
+              <h3 className="text-xl font-black text-[var(--foreground)] tracking-tight">{pkg.name}</h3>
               <div className="flex flex-col gap-3 w-full mt-4">
                 <div className="flex justify-between items-center text-sm py-2 border-b border-border/50">
                   <span className="text-[var(--muted)] font-medium">{t('duration')}</span>
@@ -117,8 +117,8 @@ export default function DriverHirePage() {
       <div className="bg-surface border border-border rounded-[2rem] p-8 sm:p-12 mt-20 relative overflow-hidden">
         <div className="relative z-10 flex flex-col lg:flex-row gap-12 items-center">
           <div className="flex-1 space-y-6">
-            <h2 className="text-3xl font-black tracking-tight text-foreground mb-6">{t('standard.title')}</h2>
-            <p className="text-muted leading-relaxed text-lg">
+            <h2 className="text-2xl font-black tracking-tight text-foreground mb-6">{t('standard.title')}</h2>
+            <p className="text-sm text-muted leading-relaxed font-medium">
               {t('standard.subtitle')}
             </p>
             <ul className="grid sm:grid-cols-2 gap-y-4 gap-x-8 text-sm font-bold">

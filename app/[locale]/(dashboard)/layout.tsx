@@ -85,9 +85,9 @@ export default function DashboardLayout({
               <Link
                 key={item.href}
                 href={item.href}
-                className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
+                className={`nav-link flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ${
                   isActive
-                    ? "bg-primary/10 text-primary font-bold shadow-sm"
+                    ? "nav-link-active bg-primary/10 shadow-sm"
                     : "text-[var(--muted)] hover:bg-surface hover:text-foreground"
                 }`}
               >
@@ -104,7 +104,7 @@ export default function DashboardLayout({
         {/* User Profile */}
         <div style={{ padding: "16px", borderTop: "1px solid var(--card-border)" }}>
           <div className="flex justify-between items-center mb-4 px-2">
-            <span className="text-sm font-semibold text-[var(--muted)]">{t('nav.theme')}</span>
+            <span className="nav-link text-[var(--muted)]">{t('nav.theme')}</span>
             <ThemeToggle />
           </div>
           <div className="card bg-surface/30 p-4 border border-border/40 transition-all hover:bg-surface/50 group/profile">
@@ -124,7 +124,7 @@ export default function DashboardLayout({
 
             <button
               onClick={handleSignOut}
-              className="w-full py-2.5 rounded-xl text-[13px] font-semibold text-red-500/80 hover:text-red-500 bg-red-500/5 hover:bg-red-500/10 border border-red-500/10 hover:border-red-500/20 active:scale-95 transition-all duration-300 cursor-pointer text-center"
+              className="w-full py-2.5 rounded-xl text-[0.8125rem] font-medium text-red-500/80 hover:text-red-500 bg-red-500/5 hover:bg-red-500/10 border border-red-500/10 hover:border-red-500/20 active:scale-95 transition-all duration-300 cursor-pointer text-center"
             >
               {t('nav.signout')}
             </button>
@@ -167,8 +167,8 @@ export default function DashboardLayout({
               <Link
                 key={item.href}
                 href={item.href}
-                className={`flex items-center gap-2 px-4 py-3 text-sm font-semibold whitespace-nowrap border-b-2 transition-all duration-200 ${isActive
-                    ? "text-[var(--color-primary)] border-[var(--color-primary)]"
+                className={`nav-link flex items-center gap-2 px-4 py-3 whitespace-nowrap border-b-2 transition-all duration-200 ${isActive
+                    ? "nav-link-active border-[var(--color-primary)]"
                     : "text-[var(--muted)] border-transparent"
                   }`}
               >

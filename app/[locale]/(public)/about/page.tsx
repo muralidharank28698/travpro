@@ -18,25 +18,25 @@ export default function AboutPage() {
   return (
     <div className="py-20 px-6 sm:px-12 max-w-5xl mx-auto w-full animate-fade-in-up">
       <div className="text-center mb-16">
-        <h1 className="text-4xl font-extrabold tracking-tight text-[var(--foreground)] mb-4">
+        <h1 className="text-2xl sm:text-3xl font-black tracking-tighter text-[var(--foreground)] mb-4">
           {t.rich('title', {
             span: (chunks) => <span className="text-[var(--color-primary)]">{chunks}</span>
           })}
         </h1>
-        <p className="text-lg text-[var(--muted)] max-w-2xl mx-auto">
+        <p className="text-sm text-[var(--muted)] max-w-2xl mx-auto font-medium">
           {t('subtitle')}
         </p>
       </div>
 
       <div className="grid md:grid-cols-2 gap-12 mb-16">
         <div className="card p-8 space-y-6">
-          <h2 className="text-2xl font-bold text-[var(--foreground)]">{t('vision.title')}</h2>
+          <h2 className="text-xl font-bold text-[var(--foreground)] tracking-tight">{t('vision.title')}</h2>
           <p className="text-[var(--muted)] leading-relaxed">
             {t('vision.description')}
           </p>
         </div>
         <div className="card p-8 space-y-6">
-          <h2 className="text-2xl font-bold text-[var(--foreground)]">{t('mission.title')}</h2>
+          <h2 className="text-xl font-bold text-[var(--foreground)] tracking-tight">{t('mission.title')}</h2>
           <ul className="space-y-3 text-[var(--muted)]">
             {(t.raw('mission.list') as string[]).map((item, idx) => (
               <li key={idx} className="flex items-start gap-3">
@@ -49,7 +49,7 @@ export default function AboutPage() {
       </div>
 
       <div className="mb-16">
-        <h2 className="text-3xl font-bold text-center text-[var(--foreground)] mb-12">{t('values.title')}</h2>
+        <h2 className="text-2xl font-bold text-center text-[var(--foreground)] tracking-tight mb-12">{t('values.title')}</h2>
         <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
           {coreValues.map((value, idx) => (
             <div key={idx} className="card p-6 flex flex-col items-center text-center hover:-translate-y-1 transition-transform">
@@ -64,7 +64,7 @@ export default function AboutPage() {
       </div>
 
       <div className="card p-8 md:p-12 mb-12">
-        <h2 className="text-3xl font-bold text-[var(--foreground)] mb-8 text-center">{t('fleet.title')}</h2>
+        <h2 className="text-2xl font-bold text-[var(--foreground)] mb-8 text-center tracking-tight">{t('fleet.title')}</h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
           <div>
             <h3 className="font-bold text-lg mb-2">{t('fleet.hatchback')}</h3>

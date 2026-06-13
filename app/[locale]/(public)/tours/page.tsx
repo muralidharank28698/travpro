@@ -82,14 +82,14 @@ export default function ToursPage() {
       <div className="mb-8 text-center space-y-3">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/5 border border-emerald-500/10 mb-1">
           <Compass className="w-3.5 h-3.5 text-primary" />
-          <span className="text-[9px] font-black uppercase tracking-[0.2em] text-primary">Discover the Extraordinary</span>
+          <span className="text-[8px] font-black uppercase tracking-[0.2em] text-primary">Discover the Extraordinary</span>
         </div>
-        <h1 className="text-3xl sm:text-5xl font-black tracking-tighter text-[var(--foreground)] leading-[1.1]">
+        <h1 className="text-2xl sm:text-3xl font-black tracking-tighter text-[var(--foreground)] leading-[1.15]">
           {t.rich('title', {
             span: (chunks) => <span className="text-[var(--color-primary)]">{chunks}</span>
           })}
         </h1>
-        <p className="text-base text-[var(--muted)] max-w-2xl mx-auto font-medium">
+        <p className="text-sm text-[var(--muted)] max-w-2xl mx-auto font-medium">
           {t('subtitle')}
         </p>
       </div>
@@ -150,7 +150,7 @@ export default function ToursPage() {
             <Search className="w-8 h-8 text-muted opacity-20" />
           </div>
           <div className="space-y-2">
-            <h3 className="text-2xl font-black text-foreground tracking-tight">No experiences found</h3>
+            <h3 className="text-lg font-black text-foreground tracking-tight">No experiences found</h3>
             <p className="text-muted text-sm font-medium">Try adjusting your filters or search terms.</p>
           </div>
           <button

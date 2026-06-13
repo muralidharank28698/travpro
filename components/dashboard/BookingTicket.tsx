@@ -58,7 +58,7 @@ export default function BookingTicket({ booking, car, isActive = true }: Booking
                 <div className="w-1.5 h-1.5 rounded-full bg-primary" />
               </div>
               <div className="space-y-0.5">
-                <p className="text-[9px] font-black uppercase tracking-widest text-[var(--muted-light)] leading-none mb-1">{t('pickupLocation') || 'Pickup'}</p>
+                <p className="text-[9px] font-black capitalize tracking-widest text-[var(--muted-light)] leading-none mb-1">{t('pickupLocation') || 'Pickup'}</p>
                 <h4 className="text-base font-black tracking-tight text-foreground leading-tight">{booking.pickupLocation}</h4>
                 <div className="flex items-center gap-1.5 text-[var(--muted)]">
                   <Clock className="w-3.5 h-3.5" />
@@ -73,7 +73,7 @@ export default function BookingTicket({ booking, car, isActive = true }: Booking
                 <MapPin className="w-3.5 h-3.5 text-slate-400" />
               </div>
               <div className="space-y-0.5">
-                <p className="text-[9px] font-black uppercase tracking-widest text-[var(--muted-light)] leading-none mb-1">{t('dropoffLocation') || 'Destination'}</p>
+                <p className="text-[9px] font-black capitalize tracking-widest text-[var(--muted-light)] leading-none mb-1">{t('dropoffLocation') || 'Destination'}</p>
                 <h4 className="text-base font-black tracking-tight text-foreground leading-tight">{booking.dropoffLocation}</h4>
                 <div className="flex items-center gap-1.5 text-[var(--muted)]">
                   <Clock className="w-3.5 h-3.5" />
@@ -84,8 +84,8 @@ export default function BookingTicket({ booking, car, isActive = true }: Booking
           </div>
         </div>
 
-        {/* Right Section: Compact Vehicle & Fare */}
-        <div className="w-full lg:w-56 flex flex-col gap-4 border-t lg:border-t-0 lg:border-l border-border/40 pt-4 lg:pt-0 lg:pl-5">
+        {/* Right Section: Vehicle & Fare */}
+        <div className="w-full lg:w-64 xl:w-72 flex flex-col gap-5 border-t lg:border-t-0 lg:border-l border-border/40 pt-5 lg:pt-0 lg:pl-6 xl:pl-8">
           <div className="space-y-3">
              {car?.image ? (
                <div className="aspect-[3/2] w-full rounded-2xl overflow-hidden bg-surface/30 p-1.5 border border-border/30">
@@ -101,13 +101,13 @@ export default function BookingTicket({ booking, car, isActive = true }: Booking
                </div>
              )}
             
-            <div className="flex items-end justify-between px-1">
-              <div className="min-w-0">
-                <p className="text-[10px] font-bold text-[var(--muted-light)] uppercase tracking-widest leading-none mb-1">Vehicle</p>
+            <div className="flex items-end justify-between px-1 mt-1">
+              <div className="min-w-0 pr-2">
+                <p className="text-[10px] font-bold text-[var(--muted-light)] uppercase tracking-widest leading-none mb-1.5">Vehicle</p>
                 <h3 className="text-sm font-black tracking-tight text-foreground truncate">{booking.carName}</h3>
               </div>
-              <div className="text-right">
-                <p className="text-[10px] font-bold text-[var(--muted-light)] uppercase tracking-widest leading-none mb-1">{t('total_fare')}</p>
+              <div className="text-right shrink-0">
+                <p className="text-[10px] font-bold text-[var(--muted-light)] uppercase tracking-widest leading-none mb-1.5">{t('total_fare')}</p>
                 <span className="text-base font-black text-foreground">₹{booking.amount.toLocaleString()}</span>
               </div>
             </div>
@@ -116,18 +116,18 @@ export default function BookingTicket({ booking, car, isActive = true }: Booking
           <div className="flex flex-col gap-1.5 pt-1">
             {isActive ? (
               <>
-                <button className="premium-button py-2 px-4 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-primary/20 flex items-center justify-center gap-2 group/btn active:scale-95">
-                  <Map className="w-3.5 h-3.5" />
+                <button className="premium-button w-full py-1.5 px-3 rounded-lg text-[9px] font-black uppercase tracking-widest shadow-md flex items-center justify-center gap-1.5 group/btn active:scale-95">
+                  <Map className="w-3 h-3" />
                   {t('track')}
                 </button>
-                <button className="flex items-center justify-center gap-1.5 py-1.5 px-4 rounded-xl text-[9px] font-bold text-rose-500 hover:bg-rose-500/10 transition-all active:scale-95">
-                  <XCircle className="w-3.5 h-3.5" />
+                <button className="flex items-center justify-center gap-1.5 w-full py-1.5 px-3 rounded-lg text-[9px] font-black uppercase tracking-widest text-rose-500 hover:bg-rose-500/10 border border-transparent hover:border-rose-500/20 transition-all active:scale-95">
+                  <XCircle className="w-3 h-3" />
                   {t('cancel')}
                 </button>
               </>
             ) : (
-              <button className="secondary-button py-2 px-4 rounded-xl text-[10px] font-bold flex items-center justify-center gap-1.5 w-full active:scale-95 bg-surface/50 border-border/60">
-                <Download className="w-3.5 h-3.5" />
+              <button className="secondary-button w-full py-1.5 px-3 rounded-lg text-[9px] font-black uppercase tracking-widest flex items-center justify-center gap-1.5 active:scale-95 bg-surface/50 border-border/60">
+                <Download className="w-3 h-3" />
                 {t('download')}
               </button>
             )}

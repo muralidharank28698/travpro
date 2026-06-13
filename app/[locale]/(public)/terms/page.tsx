@@ -8,7 +8,7 @@ export default function TermsPage() {
   return (
     <div className="py-20 px-6 sm:px-12 max-w-4xl mx-auto w-full animate-fade-in-up">
       <div className="mb-12">
-        <h1 className="text-4xl font-extrabold tracking-tight text-[var(--foreground)] mb-3">
+        <h1 className="text-2xl sm:text-3xl font-black tracking-tighter text-[var(--foreground)] mb-3">
           Terms & <span className="text-[var(--color-primary)]">Conditions</span>
         </h1>
         <p className="text-sm text-[var(--muted-light)] uppercase tracking-widest font-bold">

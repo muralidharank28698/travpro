@@ -113,10 +113,10 @@ export default function RentalsPage() {
     <div className="py-12 px-6 sm:px-12 max-w-7xl mx-auto w-full animate-fade-in-up">
       {/* Hero Section */}
       <div className="mb-10 text-center">
-        <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-[var(--foreground)] mb-3">
+        <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-[var(--foreground)] mb-3">
           {t('title')}
         </h1>
-        <p className="text-base text-[var(--muted)] max-w-2xl mx-auto">
+        <p className="text-sm text-[var(--muted)] max-w-2xl mx-auto font-medium">
           {t('subtitle')}
         </p>
       </div>
@@ -236,7 +236,7 @@ export default function RentalsPage() {
               <div className="w-16 h-16 bg-card rounded-full flex items-center justify-center mx-auto mb-4 text-2xl shadow-sm">
                 🚗
               </div>
-              <h2 className="text-xl font-bold text-[var(--foreground)] tracking-tight">{t('empty.title')}</h2>
+              <h3 className="text-lg font-bold text-[var(--foreground)] tracking-tight">{t('empty.title')}</h3>
               <p className="text-[var(--muted)] mt-2 mb-8">{t('empty.subtitle')}</p>
               <button onClick={clearFilters} className="premium-button">
                 {t('empty.reset')}
@@ -286,7 +286,7 @@ export default function RentalsPage() {
 
       {/* Features Section */}
       <div className="mt-20 border-t border-[var(--card-border)] pt-16">
-        <h2 className="text-2xl font-bold text-center mb-10">{t('features.title')}</h2>
+        <h2 className="text-xl font-bold text-center mb-10 tracking-tight">{t('features.title')}</h2>
         <div className="grid md:grid-cols-3 gap-8 text-center text-[var(--muted)]">
           <div>
             <div className="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4 text-xl">🛡️</div>

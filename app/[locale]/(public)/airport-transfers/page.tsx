@@ -94,12 +94,12 @@ export default function AirportTransfersPage() {
     <div className="py-4 sm:py-16 px-3 sm:px-12 max-w-7xl mx-auto w-full animate-fade-in-up">
       {/* Page Header */}
       <div className="mb-6 md:mb-16 text-center space-y-2 md:space-y-4">
-        <h1 className="text-xl sm:text-3xl md:text-5xl font-black tracking-tight text-[var(--foreground)]">
+        <h1 className="text-2xl sm:text-3xl font-black tracking-tighter text-[var(--foreground)] leading-[1.15]">
           {t.rich('title', {
             span: (chunks) => <span className="text-[var(--color-primary)]">{chunks}</span>
           })}
         </h1>
-        <p className="text-xs sm:text-base md:text-lg text-[var(--muted)] max-w-2xl mx-auto px-4 font-medium leading-relaxed">
+        <p className="text-sm text-[var(--muted)] max-w-2xl mx-auto px-4 font-medium leading-relaxed">
           {t('subtitle')}
         </p>
       </div>
@@ -111,7 +111,7 @@ export default function AirportTransfersPage() {
             <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl bg-primary/10 text-primary flex items-center justify-center border border-primary/20">
               <span className="text-xl md:text-2xl">🚗</span>
             </div>
-            <h2 className="text-xl md:text-2xl font-black tracking-tight">{t('form.title')}</h2>
+            <h2 className="text-lg md:text-xl font-black tracking-tight">{t('form.title')}</h2>
           </div>
           
           <div className="flex flex-col sm:flex-row bg-[var(--surface)] p-1.5 rounded-2xl mb-5 md:mb-8 gap-1.5 shadow-inner">
@@ -206,7 +206,7 @@ export default function AirportTransfersPage() {
             <div className="p-5 sm:p-8 bg-surface/80 border-b border-border/60 backdrop-blur-md">
               <div className="flex items-center gap-3 mb-2">
                 <span className="text-xl">📊</span>
-                <h2 className="text-xl font-black tracking-tight text-foregroundcaps">{t('pricing.title')}</h2>
+                <h2 className="text-lg font-black tracking-tight text-foreground">{t('pricing.title')}</h2>
               </div>
               <p className="text-[10px] sm:text-sm text-[var(--muted)] font-medium">{t('pricing.subtitle')}</p>
             </div>
@@ -265,7 +265,7 @@ export default function AirportTransfersPage() {
                 <span className="text-2xl">💡</span>
               </div>
               <div>
-                <h4 className="text-xl font-black mb-3 tracking-tight text-foreground">{t('delay.title')}</h4>
+                <h3 className="text-lg font-black mb-3 tracking-tight text-foreground">{t('delay.title')}</h3>
                 <p className="text-sm sm:text-base text-[var(--muted)] leading-relaxed font-medium">
                   {t('delay.description')}
                 </p>

@@ -83,7 +83,7 @@ export default function CarDetailPage() {
   if (!car) {
     return (
       <div className="py-24 px-6 text-center animate-fade-in-up">
-        <h1 className="text-3xl font-bold mb-4">Vehicle Not Found</h1>
+        <h1 className="text-2xl font-bold mb-4">Vehicle Not Found</h1>
         <p className="text-[var(--muted)] mb-8">The car you're looking for doesn't exist.</p>
         <Link href="/rentals" className="premium-button inline-flex items-center gap-2">
           ← Back to Rentals
@@ -130,12 +130,12 @@ export default function CarDetailPage() {
           <div className="card p-8 space-y-6">
             <div>
               <div className="flex justify-between items-center mb-2">
-                <h1 className="text-3xl font-black tracking-tight text-[var(--foreground)]">{car.name}</h1>
+                <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-[var(--foreground)]">{car.name}</h1>
                 <div className="flex items-center gap-1.5 bg-card border-border text-foreground">
                   ⭐ {car.rating}
                 </div>
               </div>
-              <p className="text-[17px] text-[var(--muted)] leading-relaxed">
+              <p className="text-sm text-[var(--muted)] leading-relaxed font-medium">
                 {car.description}
               </p>
             </div>
@@ -159,7 +159,7 @@ export default function CarDetailPage() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-[var(--muted-light)] font-bold uppercase tracking-widest">Starting from</p>
-                  <p className="text-2xl font-black text-[var(--color-primary)]">
+                  <p className="text-xl font-black text-[var(--color-primary)]">
                     ₹{car.pricePerDay.toLocaleString()} <span className="text-sm font-normal text-[var(--muted)] italic">per day</span>
                   </p>
                 </div>

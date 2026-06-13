@@ -90,15 +90,14 @@ export default function PublicLayout({
           </div>
         </Link>
 
-        <nav className="hidden md:flex gap-1 lg:gap-4 font-medium text-[13px] lg:text-sm text-[var(--muted)] self-stretch items-center mx-2 lg:mx-0">
+        <nav className="hidden md:flex gap-1 lg:gap-3 self-stretch items-center mx-2 lg:mx-0">
           {navItems.map((item) => {
             const isActive = pathname === item.href;
             return (
               <Link
                 key={item.name}
                 href={item.href as any}
-                className={`relative flex items-center px-2 h-full transition-all duration-300 ${isActive ? "text-[var(--color-primary)]" : "text-[var(--muted)] hover:text-[var(--color-primary)]"
-                  }`}
+                className={`nav-link relative flex items-center px-2.5 h-full ${isActive ? "nav-link-active" : "text-[var(--muted)] hover:text-[var(--color-primary)]"}`}
               >
                 {item.name}
                 {isActive && (
@@ -145,7 +144,7 @@ export default function PublicLayout({
                       <Link
                         href="/bookings"
                         onClick={() => setIsUserMenuOpen(false)}
-                        className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-muted hover:text-primary hover:bg-surface transition-all"
+                        className="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-muted hover:text-primary hover:bg-surface transition-all"
                       >
                         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
@@ -156,7 +155,7 @@ export default function PublicLayout({
                       <Link
                         href="/dashboard"
                         onClick={() => setIsUserMenuOpen(false)}
-                        className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-muted hover:text-primary hover:bg-surface transition-all"
+                        className="nav-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-muted hover:text-primary hover:bg-surface transition-all"
                       >
                         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -167,7 +166,7 @@ export default function PublicLayout({
 
                     <button
                       onClick={handleSignOut}
-                      className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-red-600 hover:bg-red-50 transition-all"
+                      className="nav-link w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-red-600 hover:bg-red-50 transition-all"
                     >
                       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
@@ -180,8 +179,8 @@ export default function PublicLayout({
             </div>
           ) : (
             <div className="flex gap-4 items-center">
-              <Link href="/login" className="secondary-button text-sm py-2 px-5">{t('login')}</Link>
-              <Link href="/register" className="premium-button text-sm py-2 px-5 shadow-md">{t('signup')}</Link>
+              <Link href="/login" className="secondary-button text-[0.8125rem] py-2 px-5">{t('login')}</Link>
+              <Link href="/register" className="premium-button text-[0.8125rem] py-2 px-5 shadow-md">{t('signup')}</Link>
             </div>
           )}
         </div>
@@ -216,7 +215,7 @@ export default function PublicLayout({
                   key={item.name}
                   href={item.href as any}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className={`text-lg font-bold transition ${isActive ? "text-[var(--color-primary)]" : "text-[var(--muted)] hover:text-[var(--color-primary)]"}`}
+                  className={`text-base font-semibold transition ${isActive ? "text-[var(--color-primary)]" : "text-[var(--muted)] hover:text-[var(--color-primary)]"}`}
                 >
                   {item.name}
                 </Link>
@@ -272,12 +271,12 @@ export default function PublicLayout({
               <span className="text-[8px] font-bold tracking-[0.4em] text-[var(--muted-light)] uppercase ml-0.5">TRVLS</span>
             </div>
           </Link>
-          <div className="flex flex-wrap gap-x-6 gap-y-3 text-sm font-medium">
-            <Link href="/about" className="hover:text-[var(--color-primary)] transition-colors">{tf('about')}</Link>
-            <Link href="/operator-register" className="hover:text-[var(--color-primary)] transition-colors">{tf('partner')}</Link>
-            <Link href="/terms" className="hover:text-[var(--color-primary)] transition-colors">{tf('terms')}</Link>
-            <Link href="/privacy" className="hover:text-[var(--color-primary)] transition-colors">{tf('privacy')}</Link>
-            <Link href="/contact" className="hover:text-[var(--color-primary)] transition-colors">{tf('support')}</Link>
+          <div className="flex flex-wrap gap-x-6 gap-y-3">
+            <Link href="/about" className="footer-link hover:text-[var(--color-primary)]">{tf('about')}</Link>
+            <Link href="/operator-register" className="footer-link hover:text-[var(--color-primary)]">{tf('partner')}</Link>
+            <Link href="/terms" className="footer-link hover:text-[var(--color-primary)]">{tf('terms')}</Link>
+            <Link href="/privacy" className="footer-link hover:text-[var(--color-primary)]">{tf('privacy')}</Link>
+            <Link href="/contact" className="footer-link hover:text-[var(--color-primary)]">{tf('support')}</Link>
           </div>
           <div className="text-[11px] font-bold uppercase tracking-widest opacity-60">
             © {new Date().getFullYear()} Zytravo Trvls. {tf('rights')}
